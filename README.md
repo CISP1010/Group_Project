@@ -2,4 +2,5 @@
 # CISP1010_Project
 
 Javadoc
-https://tannerln7.github.io/CISP1010_Project/Javadoc/package-summary.html
+
+https://cisp1010.github.io/Group_Project/Javadoc/package-summary.html
