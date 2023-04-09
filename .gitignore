@@ -9,6 +9,8 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+.github/
+/.github/main.yml/
 
 # Package Files #
 *.jar
