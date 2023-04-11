@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import static java.lang.System.out;
-import java.lang.Iterable;
 import java.util.Scanner;
 
 /**
@@ -18,7 +17,7 @@ public class EmployeeData {
     /**
      * An arraylist to store the Schedule options.
      */
-    private static ArrayList<String> scheduleOptions = new ArrayList<String>();
+    private static ArrayList<String> scheduleOptions = new ArrayList<>();
 
     /**
      *
@@ -48,18 +47,17 @@ public class EmployeeData {
     }
 
     /**
+     * Adds a schedule to the scheduleOptions Arraylist
      * 
-     * 
-     * @param newSchedule
+     * @param newSchedule The String text of the schedule to be added.
      */
     public void addScheduleOptions(String newSchedule){
         int i = 0;
         while (iter.hasNext()) {
             ++i;
         }
-        int lastindex = i;
-        scheduleOptions.add(lastindex, newSchedule);
-        out.println("Added schedule: " + lastindex + " : " + scheduleOptions.get(lastindex));
+        scheduleOptions.add(i, newSchedule);
+        out.println("Added schedule: " + i + " : " + scheduleOptions.get(i));
     }
 
     /**
@@ -76,8 +74,8 @@ public class EmployeeData {
         employeeData.put(name, employee);
         sb.append(name).append(" | ").append("\n").append(employee.getPosition()).append(" | ").append("\n").append(employee.getSection()).append(" | ")
         .append(scheduleOptions.get(employee.getSchedule())).append("\n");
-        System.out.println(sb.toString());
-        out.println("Succesfully added.");
+        System.out.println(sb);
+        out.println("Successfully added.");
     }
 
     /**
@@ -87,12 +85,12 @@ public class EmployeeData {
      * @param newName     the new first and last name for the employee
      * @param newPosition the new position for the employee
      * @param newSchedule the new numerical representation of the schedule for the employee
-     * @param newSection  the new section of tables the employee is resplonsible for
+     * @param newSection  the new section of tables the employee is responsible for
      */
     public void editEmployee(String name, String newName, String newPosition, int newSchedule, int newSection) {
-        boolean restart;
+        boolean restart = false;
         StringBuilder sb = new StringBuilder();
-        while(restart = false){
+        while(!restart){
          if (employeeData.containsKey(name)) {
                 Employee employee = employeeData.get(name);
                 if (!newName.equals("")){
@@ -109,10 +107,10 @@ public class EmployeeData {
                 }
                 sb.append(newName).append(" | ").append("\n").append(employee.getPosition()).append(" | ").append("\n").append(employee.getSection()).append(" | ")
                 .append(employee.getSchedule()).append("\n");
-                out.println("New info: " + sb.toString());
+                out.println("New info: " + sb);
                 out.println("Enter Yes to confirm or No to re-enter data");
                 String answer = input.nextLine();
-                if (answer == "True" || answer == "true"){
+                if (answer.equals("Yes") || answer.equals("yes")){
                     employeeData.remove(name);
                     employeeData.put(newName, employee);
                     System.out.println("Employee updated.");
@@ -151,35 +149,33 @@ public class EmployeeData {
      */
     public String listEmployee(int criteria) {
         StringBuilder sb = new StringBuilder();
-        switch (criteria){
-            //Return only name
-            case -> 1 {
+        switch (criteria) {
+            // Return only name
+            case 1 -> {
                 for (String name : employeeData.keySet()) {
                     sb.append(name).append("\n");
-                return sb.toString();
                 }
             }
-            //Return Name | Position | Section
-            case -> 2 {
+            // Return Name | Position | Section
+            case 2 -> {
                 for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
                     String name = entry.getKey();
                     Employee employee = entry.getValue();
                     sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append(employee.getSection()).append("\n");
-                return sb.toString();
                 }
             }
-            //Return Name | Position | Section | Schedule
-            case - > 3 {
+            // Return Name | Position | Section | Schedule
+            case 3 -> {
                 for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
                     String name = entry.getKey();
                     Employee employee = entry.getValue();
                     sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append(employee.getSection()).append(" | ")
-                    .append(scheduleOptions.get(employee.getSchedule())).append("\n");
-                return sb.toString();
+                            .append(scheduleOptions.get(employee.getSchedule())).append("\n");
                 }
-            default -> out.println("Invalid choice.");     
             }
+            default -> throw new IllegalStateException("Unexpected value: " + criteria);
         }
+        return sb.toString();
     }
 
     public String listSection(){
@@ -187,7 +183,7 @@ public class EmployeeData {
         for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
             String name = entry.getKey();
             Employee employee = entry.getValue();
-            sb.append(name).append(" | ").append(String.valueOf(employee.getSection())).append("\n");
+            sb.append(name).append(" | ").append(employee.getSection()).append("\n");
         return sb.toString();
         }
         return null;

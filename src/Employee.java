@@ -78,9 +78,8 @@ public class Employee {
     }
 
     /**
-     * Gets the schedule of the employee to the specified value.
+     * Gets the section the employee is responsible for.
      *
-     * @param section of tables the employee is responsible for
      */
     public int getSection() {
         return section;
