@@ -4,7 +4,8 @@
 public class Employee {
     private String name;
     private String position;
-    private String schedule;
+    private int schedule;
+    private int section;
 
     /**
      * Constructs a new Employee object with the specified name, position,
@@ -13,11 +14,13 @@ public class Employee {
      * @param name     the first and last name of the employee
      * @param position the position of the employee
      * @param schedule Numerical value representing the schedule of the employee
+     * @param section the section of tables that the employee is responsible for
      */
-    public Employee(String name, String position, String schedule) {
+    public Employee(String name, String position, int schedule, int section) {
         this.name = name;
         this.position = position;
         this.schedule = schedule;
+        this.section = section;
     }
 
     /**
@@ -61,7 +64,7 @@ public class Employee {
      *
      * @return 1, 2, or 3 representing the schedule of the employee.
      */
-    public String getSchedule() {
+    public int getSchedule() {
         return schedule;
     }
 
@@ -70,8 +73,25 @@ public class Employee {
      *
      * @param schedule the numerical value entered by the user that represents the new schedule of the employee
      */
-    public void setSchedule(String schedule) {
+    public void setSchedule(int schedule) {
         this.schedule = schedule;
+    }
+
+    /**
+     * Gets the section the employee is responsible for.
+     *
+     */
+    public int getSection() {
+        return section;
+    }
+
+    /**
+     * Gets the schedule of the employee to the specified value.
+     *
+     * @param section of tables the employee is responsible for
+     */
+    public void setSection(int section) {
+        this.section = section;
     }
 
     /**
@@ -82,6 +102,6 @@ public class Employee {
      */
     @Override
     public String toString() {
-        return "Name: " + name + ", Position: " + position + ", Schedule: " + schedule;
+        return "Name: " + name + ", Position: " + position + ", Schedule: " + schedule + ", Section:" + section;
     }
 }
