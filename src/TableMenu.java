@@ -3,7 +3,17 @@ import java.util.Scanner;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
+/**
+ * This class provides a command-line interface for managing restaurant tables.
+ * Users can view all tables' status, view specific tables' status, or manually edit tables' data.
+ */
 public class TableMenu {
+
+    /**
+     * The main method for running the program.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Scanner input = new Scanner(in);
         TableData tableData = new TableData();
@@ -23,9 +33,7 @@ public class TableMenu {
             input.nextLine();
             // Check which task the user chose
             switch (choice) {
-                case 1 -> {
-                    out.println(tableData.listTables());
-                }
+                case 1 -> out.println(tableData.listTables());
                 case 2 -> {
                     boolean restart;
                     do {

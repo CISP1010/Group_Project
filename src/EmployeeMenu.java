@@ -3,7 +3,8 @@ import java.util.Scanner;
 import static java.lang.System.*;
 
 /**
- * The EmployeeMenu class contains the main method for the Restaurant Employee management system.
+ * This class provides a command-line interface for managing the  Restaurant Employee management system.
+ * Users can View, Add, and Edit all employee data.
  */
 public class EmployeeMenu {
     public static void main(String[] args) {
@@ -156,16 +157,31 @@ public class EmployeeMenu {
     }
 }
 
-
+/**
+ * A class with a static method to clear the console screen
+ */
 class Cls {
+    /**
+     * Clears the console screen
+     */
     public static void cls() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 }
+
+/**
+ * A class with a static method to check if a given string is "Yes" or "Y"
+ */
 class YesNo {
+    /**
+     * Checks if a given string is "Yes" or "Y" (case-insensitive)
+     * @param yn the string to be checked
+     * @return true if the string is "Yes" or "Y", false otherwise
+     */
     public static boolean yesNo(String yn) {
         return yn.equalsIgnoreCase("Y") || yn.equalsIgnoreCase("Yes");
     }
 }
+
 

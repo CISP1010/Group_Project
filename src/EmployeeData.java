@@ -1,65 +1,74 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import static java.lang.System.out;
 
+
 /**
- * The EmployeeData class represents a collection of employees' data, including their first and last names, positions, section assignments, and schedules.
+ * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
+ * section assignments, and schedules.
  */
 public class EmployeeData {
+
     /**
-     * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the Employee class as the value.
+     * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the
+     * Employee class as the value.
      */
     private static HashMap<String, Employee> employeeData = new HashMap<>();
 
     /**
-     * An arraylist to store the Schedule options.
+     * An ArrayList to store the Schedule options.
      */
     private static ArrayList<String> scheduleOptions = new ArrayList<>();
 
     /**
-     *An arraylist to store the sections.
+     * An ArrayList to store the sections.
      */
     private static ArrayList<String> sections = new ArrayList<>();
-    /**
-     * The default constructor for the EmployeeData class that initializes the employeeData HashMap and scheduleOptions HashMap.
-     */
 
+    /**
+     * The default constructor for the EmployeeData class that initializes the employeeData HashMap, scheduleOptions
+     * ArrayList, and sections ArrayList with default data.
+     */
     public EmployeeData() {
-        
-        //Adding default schedule options since data is not stored between program runs. 
+
+        // Adding default schedule options since data is not stored between program runs.
         scheduleOptions.add("Monday-Friday, 9am-5pm");
         scheduleOptions.add("Tuesday-Saturday, 10am-6pm");
         scheduleOptions.add("Wednesday-Sunday, 11am-7pm");
-        //Adding default section data since data is not stored between program runs.
+
+        // Adding default section data since data is not stored between program runs.
         sections.add("Tables 1-5");
         sections.add("Tables 6-10");
         sections.add("Tables 11-15");
         sections.add("Tables 16-20");
-        //Initialize Table objects
-
-
-
-    }
-
-    public void editScheduleOptions(int schedule, String newSchedule){
-        scheduleOptions.add(newSchedule);
-    }
-
-    public void remScheduleOptions(int schedule){
-        scheduleOptions.remove(schedule);
     }
 
     /**
-     * Adds a schedule to the scheduleOptions Arraylist
-     * 
+     * Adds a schedule to the scheduleOptions ArrayList.
+     *
      * @param newSchedule The String text of the schedule to be added.
      */
-    public void addScheduleOptions(String newSchedule){
+    public void addScheduleOptions(String newSchedule) {
         scheduleOptions.add(newSchedule);
         out.println("Added schedule | Number: " + (scheduleOptions.size() - 1) + " | Schedule:  " + newSchedule);
     }
 
+    /**
+     * Removes a schedule from the scheduleOptions ArrayList.
+     *
+     * @param schedule The numerical representation of the schedule to be removed.
+     */
+    public void remScheduleOptions(int schedule) {
+        scheduleOptions.remove(schedule);
+    }
+
+    /**
+     * Returns a formatted String of all schedule options stored in the scheduleOptions ArrayList.
+     *
+     * @return A formatted String of all schedule options stored in the scheduleOptions ArrayList.
+     */
     public String getScheduleOptions() {
         StringBuilder sb = new StringBuilder();
         for (String index : scheduleOptions) {
@@ -71,10 +80,10 @@ public class EmployeeData {
     /**
      * Adds an employee's data to the employeeData HashMap.
      *
-     * @param name     the employee's first and last name
-     * @param position the employee's position
-     * @param schedule the employee's numerical representation of their schedule
-     * @param section  the section of tables the employee is responsible for
+     * @param name     The employee's first and last name.
+     * @param position The employee's position.
+     * @param schedule The numerical representation of the employee's schedule.
+     * @param section  The section of tables the employee is responsible for.
      */
     public void addEmployee(String name, String position, int schedule, int section) {
         StringBuilder sb = new StringBuilder();
@@ -82,11 +91,17 @@ public class EmployeeData {
         employeeData.put(name, employee);
         sb.append(name).append("\n").append(employee.getPosition()).append("\n").append("Section: ")
                 .append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n")
+                .append("Schedule: #").append(employee.getSchedule()).append(" | ")
                 .append("Schedule: #").append(employee.getSchedule()).append(" | ").append(scheduleOptions.get(schedule)).append("\n");
         System.out.println(sb);
         out.println("Successfully added.");
     }
-    public void remEmployee(String name){
+
+    /**
+     * Removes an employee from the employeeData HashMap.
+     * @param name  The employee's first and last name
+     */
+    public void remEmployee(String name) {
         employeeData.remove(name);
     }
 
@@ -119,7 +134,7 @@ public class EmployeeData {
             }
             employeeData.remove(name);
             employeeData.put(newName, employee);
-        }else System.out.println("Employee not found.");
+        } else System.out.println("Employee not found.");
     }
 
     /**
@@ -141,6 +156,13 @@ public class EmployeeData {
             return "Employee not found.";
         }
     }
+    /**
+     * Restores an employee's name from a backup and updates the employeeData map accordingly.
+     *
+     * @param backupName the name of the backup for the employee to be restored
+     * @param oldName the old name of the employee before the backup was made
+     * @param newName the new name of the employee after the backup was made
+     */
     public void employeeRestore(String backupName, String oldName, String newName) {
         if (employeeData.containsKey(backupName)) {
             Employee restore = employeeData.get(backupName);
@@ -150,15 +172,25 @@ public class EmployeeData {
             employeeData.remove(backupName);
         }
     }
-    public boolean isEmployee(String name){
+    /**
+     * Checks whether an employee with the specified name exists in the employeeData map.
+     *
+     * @param name the name of the employee to check
+     * @return true if the employeeData map contains an entry with the specified name, false otherwise
+     */
+    public boolean isEmployee(String name) {
         return employeeData.containsKey(name);
     }
 
     /**
-     * Returns a formatted string listing all employees stored in the employeeData hashmap.
+     * This method returns a formatted String containing the employee information based on the given criteria.
      *
-     * @param criteria an integer indicating which dataset should be listed.
-     * @return a formatted string listing the indicated criteria from the employeeData hashmap
+     * @param criteria An integer indicating the format of the employee information to be returned.
+     *                 1 - Returns only the name of each employee.
+     *                 2 - Returns the name, position, and section of each employee.
+     *                 3 - Returns the name, position, section, and schedule of each employee.
+     * @return A String containing the formatted employee information based on the given criteria.
+     * @throws IllegalStateException if the given criteria is not 1, 2, or 3.
      */
     public String listEmployee(int criteria) {
         StringBuilder sb = new StringBuilder();
@@ -191,13 +223,17 @@ public class EmployeeData {
         return sb.toString();
     }
 
-    public String listSection(){
-    StringBuilder sb = new StringBuilder();
+    /**
+     * This method returns a formatted String containing the section information.
+     *
+     * @return A String containing the formatted section information.
+     */
+    public String listSection() {
+        StringBuilder sb = new StringBuilder();
         for (String index : sections) {
             sb.append("Section: ").append(sections.indexOf(index)).append(" | ").append(index).append("\n");
         }
         return sb.toString();
     }
-
 }
 

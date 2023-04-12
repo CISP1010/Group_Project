@@ -4,19 +4,17 @@
 public class Employee implements Cloneable {
     // other fields and methods...
 
-
     private String name;
     private String position;
     private int schedule;
     private int section;
 
     /**
-     * Constructs a new Employee object with the specified name, position,
-     * and schedule.
+     * Constructs a new Employee object with the specified name, position, schedule, and section.
      *
      * @param name     the first and last name of the employee
      * @param position the position of the employee
-     * @param schedule Numerical value representing the schedule of the employee
+     * @param schedule numerical value representing the schedule of the employee
      * @param section  the section of tables that the employee is responsible for
      */
     public Employee(String name, String position, int schedule, int section) {
@@ -36,7 +34,7 @@ public class Employee implements Cloneable {
     }
 
     /**
-     * Sets the first and last name of the employee to the specified value.
+     * Sets the first and last name of the employee.
      *
      * @param name the new name of the employee
      */
@@ -54,7 +52,7 @@ public class Employee implements Cloneable {
     }
 
     /**
-     * Sets the position of the employee to the specified value.
+     * Sets the position of the employee.
      *
      * @param position the new position of the employee
      */
@@ -63,34 +61,36 @@ public class Employee implements Cloneable {
     }
 
     /**
-     * Returns the numerical value that was input when the employee was added.
+     * Returns the schedule of the employee.
      *
-     * @return 1, 2, or 3 representing the schedule of the employee.
+     * @return the schedule of the employee as a numerical value (1, 2, or 3)
      */
     public int getSchedule() {
         return schedule;
     }
 
     /**
-     * Sets the schedule of the employee to the specified value.
+     * Sets the schedule of the employee.
      *
-     * @param schedule the numerical value entered by the user that represents the new schedule of the employee
+     * @param schedule the new schedule of the employee as a numerical value (1, 2, or 3)
      */
     public void setSchedule(int schedule) {
         this.schedule = schedule;
     }
 
     /**
-     * Gets the section the employee is responsible for.
+     * Returns the section of tables that the employee is responsible for.
+     *
+     * @return the section of tables the employee is responsible for
      */
     public int getSection() {
         return section;
     }
 
     /**
-     * Gets the schedule of the employee to the specified value.
+     * Sets the section of tables that the employee is responsible for.
      *
-     * @param section of tables the employee is responsible for
+     * @param section the new section of tables the employee is responsible for
      */
     public void setSection(int section) {
         this.section = section;
@@ -98,15 +98,20 @@ public class Employee implements Cloneable {
 
     /**
      * Returns a string representation of the employee in the format:
-     * "Name: [first and last name] | Position: [position] | Schedule: [schedule]"
+     * "Name: [first and last name] | Position: [position] | Schedule: [schedule] | Section: [section]"
      *
      * @return a string representation of the employee
      */
     @Override
     public String toString() {
-        return "Name: " + name + ", Position: " + position + ", Schedule: " + schedule + ", Section:" + section;
+        return "Name: " + name + " | Position: " + position + " | Schedule: " + schedule + " | Section: " + section;
     }
 
+    /**
+     * Returns a clone of the employee.
+     *
+     * @return a clone of the employee
+     */
     public Object clone() {
         try {
             return super.clone();
