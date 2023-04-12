@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import static java.lang.System.out;
-import java.util.Scanner;
 
 /**
  * The EmployeeData class represents a collection of employees' data, including their first and last names, positions, section assignments, and schedules.
@@ -12,7 +10,7 @@ public class EmployeeData {
     /**
      * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the Employee class as the value.
      */
-    private static HashMap<String, Employee> employeeData;
+    private static HashMap<String, Employee> employeeData = new HashMap<>();
 
     /**
      * An arraylist to store the Schedule options.
@@ -20,22 +18,28 @@ public class EmployeeData {
     private static ArrayList<String> scheduleOptions = new ArrayList<>();
 
     /**
-     *
+     *An arraylist to store the sections.
      */
-    private static Iterator<String> iter = scheduleOptions.iterator();
-
+    private static ArrayList<String> sections = new ArrayList<>();
     /**
      * The default constructor for the EmployeeData class that initializes the employeeData HashMap and scheduleOptions HashMap.
      */
 
-     Scanner input = new Scanner(System.in);
     public EmployeeData() {
-        employeeData = new HashMap<>();
         
         //Adding default schedule options since data is not stored between program runs. 
         scheduleOptions.add("Monday-Friday, 9am-5pm");
         scheduleOptions.add("Tuesday-Saturday, 10am-6pm");
         scheduleOptions.add("Wednesday-Sunday, 11am-7pm");
+        //Adding default section data since data is not stored between program runs.
+        sections.add("Tables 1-5");
+        sections.add("Tables 6-10");
+        sections.add("Tables 11-15");
+        sections.add("Tables 16-20");
+        //Initialize Table objects
+
+
+
     }
 
     public void editScheduleOptions(int schedule, String newSchedule){
@@ -52,12 +56,16 @@ public class EmployeeData {
      * @param newSchedule The String text of the schedule to be added.
      */
     public void addScheduleOptions(String newSchedule){
-        int i = 0;
-        while (iter.hasNext()) {
-            ++i;
+        scheduleOptions.add(newSchedule);
+        out.println("Added schedule | Number: " + (scheduleOptions.size() - 1) + " | Schedule:  " + newSchedule);
+    }
+
+    public String getScheduleOptions() {
+        StringBuilder sb = new StringBuilder();
+        for (String index : scheduleOptions) {
+            sb.append("Schedule: ").append(scheduleOptions.indexOf(index)).append(" | ").append(index).append("\n");
         }
-        scheduleOptions.add(i, newSchedule);
-        out.println("Added schedule: " + i + " : " + scheduleOptions.get(i));
+        return sb.toString();
     }
 
     /**
@@ -72,10 +80,14 @@ public class EmployeeData {
         StringBuilder sb = new StringBuilder();
         Employee employee = new Employee(name, position, schedule, section);
         employeeData.put(name, employee);
-        sb.append(name).append(" | ").append("\n").append(employee.getPosition()).append(" | ").append("\n").append(employee.getSection()).append(" | ")
-        .append(scheduleOptions.get(employee.getSchedule())).append("\n");
+        sb.append(name).append("\n").append(employee.getPosition()).append("\n").append("Section: ")
+                .append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n")
+                .append("Schedule: #").append(employee.getSchedule()).append(" | ").append(scheduleOptions.get(schedule)).append("\n");
         System.out.println(sb);
         out.println("Successfully added.");
+    }
+    public void remEmployee(String name){
+        employeeData.remove(name);
     }
 
     /**
@@ -88,39 +100,26 @@ public class EmployeeData {
      * @param newSection  the new section of tables the employee is responsible for
      */
     public void editEmployee(String name, String newName, String newPosition, int newSchedule, int newSection) {
-        boolean restart = false;
-        StringBuilder sb = new StringBuilder();
-        while(!restart){
-         if (employeeData.containsKey(name)) {
-                Employee employee = employeeData.get(name);
-                if (!newName.equals("")){
-                    employee.setName(newName);
-                }else newName = name;
-                if (!newPosition.equals("")){
-                    employee.setPosition(newPosition);
-                }
-                if (newSchedule != 0) {
-                    employee.setSchedule(newSchedule);
-                }
-                if (newSection != 0) {
-                    employee.setSection(newSection);
-                }
-                sb.append(newName).append(" | ").append("\n").append(employee.getPosition()).append(" | ").append("\n").append(employee.getSection()).append(" | ")
-                .append(employee.getSchedule()).append("\n");
-                out.println("New info: " + sb);
-                out.println("Enter Yes to confirm or No to re-enter data");
-                String answer = input.nextLine();
-                if (answer.equals("Yes") || answer.equals("yes")){
-                    employeeData.remove(name);
-                    employeeData.put(newName, employee);
-                    System.out.println("Employee updated.");
-                }else {
-                    restart = true;
-                }
-            } else {
-                System.out.println("Employee not found.");
+        if (employeeData.containsKey(name)) {
+            Employee employee = employeeData.get(name);
+            Employee backupEmployee = (Employee) employee.clone();
+            employeeData.put(name + "BACKUP", backupEmployee);
+
+            if (!newName.equals("")) {
+                employee.setName(newName);
+            } else newName = String.valueOf(name);
+            if (!newPosition.equals("")) {
+                employee.setPosition(newPosition);
             }
-        }
+            if (newSchedule != 0) {
+                employee.setSchedule(newSchedule);
+            }
+            if (newSection != 0) {
+                employee.setSection(newSection);
+            }
+            employeeData.remove(name);
+            employeeData.put(newName, employee);
+        }else System.out.println("Employee not found.");
     }
 
     /**
@@ -133,12 +132,26 @@ public class EmployeeData {
         if (employeeData.containsKey(name)) {
             StringBuilder sb = new StringBuilder();
             Employee employee = employeeData.get(name);
-            sb.append(name).append(" | ").append("\n").append(employee.getPosition()).append(" | ").append("\n").append(employee.getSection()).append(" | ")
-                    .append(scheduleOptions.get(employee.getSchedule())).append("\n");
+            sb.append("Name: ").append(name).append("\n")
+                    .append("Position: ").append(employee.getPosition()).append("\n")
+                    .append("Section: ").append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n")
+                    .append("Schedule: #").append(employee.getSchedule()).append(" ").append(scheduleOptions.get(employee.getSchedule())).append("\n");
             return sb.toString();
         } else {
             return "Employee not found.";
         }
+    }
+    public void employeeRestore(String backupName, String oldName, String newName) {
+        if (employeeData.containsKey(backupName)) {
+            Employee restore = employeeData.get(backupName);
+            restore.setName(oldName);
+            employeeData.remove(newName);
+            employeeData.put(oldName, restore);
+            employeeData.remove(backupName);
+        }
+    }
+    public boolean isEmployee(String name){
+        return employeeData.containsKey(name);
     }
 
     /**
@@ -161,7 +174,7 @@ public class EmployeeData {
                 for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
                     String name = entry.getKey();
                     Employee employee = entry.getValue();
-                    sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append(employee.getSection()).append("\n");
+                    sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append("Section: ").append(employee.getSection()).append("\n");
                 }
             }
             // Return Name | Position | Section | Schedule
@@ -169,8 +182,8 @@ public class EmployeeData {
                 for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
                     String name = entry.getKey();
                     Employee employee = entry.getValue();
-                    sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append(employee.getSection()).append(" | ")
-                            .append(scheduleOptions.get(employee.getSchedule())).append("\n");
+                    sb.append(name).append(" | ").append(employee.getPosition()).append(" | ").append("Section: ").append(employee.getSection()).append(" | ")
+                            .append("Schedule: #").append(employee.getSchedule()).append(" ").append(scheduleOptions.get(employee.getSchedule())).append("\n");
                 }
             }
             default -> throw new IllegalStateException("Unexpected value: " + criteria);
@@ -180,30 +193,11 @@ public class EmployeeData {
 
     public String listSection(){
     StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, Employee> entry : employeeData.entrySet()) {
-            String name = entry.getKey();
-            Employee employee = entry.getValue();
-            sb.append(name).append(" | ").append(employee.getSection()).append("\n");
+        for (String index : sections) {
+            sb.append("Section: ").append(sections.indexOf(index)).append(" | ").append(index).append("\n");
+        }
         return sb.toString();
-        }
-        return null;
     }
 
-    public void editSection(String name, int newSection){
-        if (employeeData.containsKey(name)) {
-            Employee employee = employeeData.get(name);
-            employee.setSection(newSection);
-            employeeData.remove(name);
-            employeeData.put(name, employee);
-            out.println(name + ": " + "Section updated to: "+ newSection);
-            
-        }else {
-            out.println("Employee not found.");
-        }
-    }
-
-    public ArrayList<String> getScheduleOptions() {
-        return scheduleOptions;
-    }
 }
 

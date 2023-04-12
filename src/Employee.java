@@ -1,7 +1,10 @@
 /**
  * The Employee class represents an individual employee and contains the Employee constructor used to add employees to the employeeData hashMap.
  */
-public class Employee {
+public class Employee implements Cloneable {
+    // other fields and methods...
+
+
     private String name;
     private String position;
     private int schedule;
@@ -14,7 +17,7 @@ public class Employee {
      * @param name     the first and last name of the employee
      * @param position the position of the employee
      * @param schedule Numerical value representing the schedule of the employee
-     * @param section the section of tables that the employee is responsible for
+     * @param section  the section of tables that the employee is responsible for
      */
     public Employee(String name, String position, int schedule, int section) {
         this.name = name;
@@ -79,7 +82,6 @@ public class Employee {
 
     /**
      * Gets the section the employee is responsible for.
-     *
      */
     public int getSection() {
         return section;
@@ -103,5 +105,13 @@ public class Employee {
     @Override
     public String toString() {
         return "Name: " + name + ", Position: " + position + ", Schedule: " + schedule + ", Section:" + section;
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
