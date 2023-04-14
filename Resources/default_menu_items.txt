@@ -1,0 +1,31 @@
+#Entrees:
+Grilled Chicken Sandwich, 8.99, Entrees, true
+Classic Caesar Salad, 7.99, Entrees, true
+Bacon Cheeseburger, 10.99, Entrees, true
+Veggie Pizza (medium), 12.99, Entrees, true
+Fish and Chips, 11.99, Entrees, true
+Chicken Alfredo, 13.99, Entrees, true
+Beef Stir-Fry with Rice, 14.99, Entrees, true
+Greek Salad with Grilled Chicken, 9.99, Entrees, true
+Spaghetti Bolognese, 12.99, Entrees, true
+Shrimp Tacos, 9.99, Entrees, true
+#Appetizers:
+Fried Calamari, 7.99, Appetizers, true
+Spinach Artichoke Dip, 8.99, Appetizers, true
+Chicken Wings (10 pieces), 9.99, Appetizers, true
+Bruschetta, 6.99, Appetizers, true
+Chips and Guacamole, 5.99, Appetizers, true
+#Sides:
+Garlic Mashed Potatoes, 3.99, Sides, true
+Seasoned Fries, 3.99, Sides, true
+Grilled Vegetables, 4.99, Sides, true
+Onion Rings, 4.99, Sides, true
+Sweet Potato Fries, 4.99, Sides, true
+Steamed Broccoli, 3.99, Sides, true
+#Desserts
+Chocolate Cake, 5.99, Desserts, true
+Cheesecake, 6.99, Desserts, true
+Ice Cream Sundae, 4.99, Desserts, true
+Fruit Salad, 3.99, Desserts, true
+Tiramisu, 7.99, Desserts, true
+Key Lime Pie, 5.99, Desserts, true

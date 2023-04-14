@@ -1,19 +1,19 @@
+package Employee;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import static java.lang.System.out;
 
 
 /**
- * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
+ * The Employee.EmployeeData class represents a collection of employees' data, including their first and last names, positions,
  * section assignments, and schedules.
  */
 public class EmployeeData {
 
     /**
      * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the
-     * Employee class as the value.
+     * Employee.Employee class as the value.
      */
     private static HashMap<String, Employee> employeeData = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class EmployeeData {
     private static ArrayList<String> sections = new ArrayList<>();
 
     /**
-     * The default constructor for the EmployeeData class that initializes the employeeData HashMap, scheduleOptions
+     * The default constructor for the Employee.EmployeeData class that initializes the employeeData HashMap, scheduleOptions
      * ArrayList, and sections ArrayList with default data.
      */
     public EmployeeData() {
@@ -134,7 +134,7 @@ public class EmployeeData {
             }
             employeeData.remove(name);
             employeeData.put(newName, employee);
-        } else System.out.println("Employee not found.");
+        } else System.out.println("Employee.Employee not found.");
     }
 
     /**
@@ -153,7 +153,7 @@ public class EmployeeData {
                     .append("Schedule: #").append(employee.getSchedule()).append(" ").append(scheduleOptions.get(employee.getSchedule())).append("\n");
             return sb.toString();
         } else {
-            return "Employee not found.";
+            return "Employee.Employee not found.";
         }
     }
     /**

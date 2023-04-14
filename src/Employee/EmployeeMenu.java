@@ -1,9 +1,12 @@
-import java.util.Scanner;
+package Employee;
 
+import Helpers.Cls;
+import Helpers.YesNo;
+import java.util.Scanner;
 import static java.lang.System.*;
 
 /**
- * This class provides a command-line interface for managing the  Restaurant Employee management system.
+ * This class provides a command-line interface for managing the  Restaurant Employee.Employee management system.
  * Users can View, Add, and Edit all employee data.
  */
 public class EmployeeMenu {
@@ -16,9 +19,9 @@ public class EmployeeMenu {
             Cls.cls();
             // Display the employee management options
             out.println("What would you like to do?");
-            out.println("1: Add an Employee");
-            out.println("2: Search for an Employee");
-            out.println("3: Edit an Employee");
+            out.println("1: Add an Employee.Employee");
+            out.println("2: Search for an Employee.Employee");
+            out.println("3: Edit an Employee.Employee");
             out.println("4: List data from all Employees");
             out.println("5: Exit");
             out.print("[1,2,3,4,5]: ");
@@ -70,7 +73,7 @@ public class EmployeeMenu {
                     do {
                         Cls.cls();
                         // Prompt the user to enter the name of the employee to search for
-                        out.println("Enter the Employee name.");
+                        out.println("Enter the Employee.Employee name.");
                         out.print("[name]: ");
                         String name = input.nextLine();
                         // Search for the employee in the database and display their information
@@ -86,11 +89,11 @@ public class EmployeeMenu {
                     do {
                         Cls.cls();
                         // Prompt the user to enter the name of the employee to edit and their new information
-                        out.println("Enter the Employee name. (Enter -L to list Employee names or -C to cancel.)");
+                        out.println("Enter the Employee.Employee name. (Enter -L to list Employee.Employee names or -C to cancel.)");
                         String name = input.nextLine();
                         if (employeeData.isEmployee(name)) {
                             String backupName = name + "BACKUP";
-                            out.println("Employee found! \n" + employeeData.searchEmployee(name));
+                            out.println("Employee.Employee found! \n" + employeeData.searchEmployee(name));
                             out.println("Enter the new name (Press enter to leave unchanged)");
                             String newName = input.nextLine();
                             out.println("Enter the new position (Press enter to leave unchanged)");
@@ -111,12 +114,12 @@ public class EmployeeMenu {
                             String yn = input.nextLine();
                             if (YesNo.yesNo(String.valueOf(yn))) {
                                 employeeData.remEmployee(backupName);
-                                out.println("Employee successfully updated!");
+                                out.println("Employee.Employee successfully updated!");
                                 out.println("Would you like to edit another employee?");
                                 out.print("[(Y)es/(N)o]: ");
                                 restart = YesNo.yesNo(String.valueOf(input.nextLine()));
                             } else {
-                                out.println("Employee data restored:");
+                                out.println("Employee.Employee data restored:");
                                 out.println(employeeData.searchEmployee(name));
                                 out.println("Please try again.");
                                 restart = true;
@@ -127,7 +130,7 @@ public class EmployeeMenu {
                         } else if (name.equalsIgnoreCase("-C")) {
                             break;
                         } else {
-                            out.println("Employee not found!");
+                            out.println("Employee.Employee not found!");
                             restart = true;
                         }
                     } while (restart);
@@ -154,33 +157,6 @@ public class EmployeeMenu {
 
 
         } while (choice != 7);
-    }
-}
-
-/**
- * A class with a static method to clear the console screen
- */
-class Cls {
-    /**
-     * Clears the console screen
-     */
-    public static void cls() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-}
-
-/**
- * A class with a static method to check if a given string is "Yes" or "Y"
- */
-class YesNo {
-    /**
-     * Checks if a given string is "Yes" or "Y" (case-insensitive)
-     * @param yn the string to be checked
-     * @return true if the string is "Yes" or "Y", false otherwise
-     */
-    public static boolean yesNo(String yn) {
-        return yn.equalsIgnoreCase("Y") || yn.equalsIgnoreCase("Yes");
     }
 }
 

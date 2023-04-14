@@ -1,5 +1,7 @@
+package Tables;
+import Helpers.Cls;
+import Helpers.YesNo;
 import java.util.Scanner;
-
 import static java.lang.System.in;
 import static java.lang.System.out;
 
@@ -60,7 +62,7 @@ public class TableMenu {
                         String nd = input.nextLine();
                         tableData.addDish(table, i, nd);
                     }
-                    out.println("New Table Data:");
+                    out.println("New Tables.Table Data:");
                     out.println(tableData.getTableData(table));
                 }
 
