@@ -1,9 +1,9 @@
-/**
- * This class represents a table in a restaurant with a number, seats filled, and dishes.
- */
+package Tables;
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * This class represents a table in a restaurant with a number, seats filled, and dishes
+ */
 public class Table {
     private int tableNumber;
     private int seatsFilled;
@@ -11,7 +11,7 @@ public class Table {
     boolean filled;
 
     /**
-     * Constructs a new Table object with the given table number and initializes the dishes HashMap with empty strings.
+     * Constructs a new Tables.Table object with the given table number and initializes the dishes HashMap with empty strings.
      *
      * @param tableNumber the table number
      */

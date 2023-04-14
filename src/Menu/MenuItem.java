@@ -1,21 +1,23 @@
+package Menu;
+
 /**
- * The Menu class represents the menu and contains the Menu constructor used to add items to the MenuData hashMap.
+ * The MenuItem.MenuItem class represents the menu and contains the MenuItem.MenuItem constructor used to add items to the MenuItem.MenuItem.MenuData hashMap.
  */
-public class Menu {
+public class MenuItem {
     
     private String item;
     private String type;
     private double price;
     private boolean availability; 
     /**
-     * Constructs a new Menu object with the specified item, type, price, and availability.
+     * Constructs a new MenuItem.MenuItem object with the specified item, type, price, and availability.
      *
      * @param item the item name
      * @param type the type of menu item
      * @param price the numerical value representing the cost of the item
      * @param availability the representation of if the item is available to order
      */   
-    public Menu(String item, String type, double price, boolean availability){
+    public MenuItem(String item, String type, double price, boolean availability){
         this.item = item;
         this.type = type;
         this.price = price;

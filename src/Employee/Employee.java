@@ -1,5 +1,7 @@
+package Employee;
+
 /**
- * The Employee class represents an individual employee and contains the Employee constructor used to add employees to the employeeData hashMap.
+ * The Employee.Employee class represents an individual employee and contains the Employee.Employee constructor used to add employees to the employeeData hashMap.
  */
 public class Employee implements Cloneable {
     // other fields and methods...
@@ -10,7 +12,7 @@ public class Employee implements Cloneable {
     private int section;
 
     /**
-     * Constructs a new Employee object with the specified name, position, schedule, and section.
+     * Constructs a new Employee.Employee object with the specified name, position, schedule, and section.
      *
      * @param name     the first and last name of the employee
      * @param position the position of the employee
