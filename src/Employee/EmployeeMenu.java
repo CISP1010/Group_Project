@@ -233,9 +233,8 @@ public class EmployeeMenu {
                 }
                 case 5 -> {
                     Cls.cls();
-                    out.println("Goodbye!");
                 }
-                default -> out.println("Invalid choice.");
+                default -> out.println("Invalid choice \"" + choice + "\" please enter a valid option.");
             }
         } while (choice < 5);
         input.close();
