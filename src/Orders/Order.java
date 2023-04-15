@@ -8,14 +8,15 @@ public class Order {
     private int seatNum;
     private String foodItem;
     private MenuItem menuItem;
-    public Order(double order, MenuItem menuItem, int tableNum, int seatNum){
+    public Order(double order, MenuItem menuItem, int tableNum, int seatNum) {
         this.order = order;
         this.tableNum = tableNum;
         this.seatNum = seatNum;
         this.menuItem = menuItem;
         //menuItem is the object created from MenuItem() in MenuItem.java file
+    }
 
-    public int getTableNum(double order){
+    public int getTableNum(){
         return tableNum;
     }
 
