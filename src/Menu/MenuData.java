@@ -1,16 +1,13 @@
+package Menu;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+
 /**
  * The MenuData class represents a collection of menu items and provides methods to load default menu items, add new menu items,
  * and print the menu in a formatted way. The class uses a HashMap to store MenuItem objects, with the name of the menu item
  * as the key and the MenuItem object as the value.
  */
-package Menu;
-
-import Employee.Employee;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-
 public class MenuData {
     private static HashMap<String, MenuItem> menuData = new HashMap<>();
     private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
@@ -65,7 +62,7 @@ public class MenuData {
     }
 
     /**
-     * Checks whether an employee with the specified name exists in the employeeData map.
+     * Checks whether an item with the specified name exists in the menuData map.
      *
      * @param item the name of the employee to check
      * @return true if the menuData map contains an entry with the specified item, false otherwise
@@ -117,6 +114,16 @@ public class MenuData {
     }
 
     /**
+     * Sets the item's availability.
+     *
+     * @param item the item to set the availability of.
+     */
+    public void setAvailability(String item, boolean availability) {
+        MenuItem menuItem = menuData.get(item);
+        menuItem.setAvailability(availability);
+    }
+
+    /**
      * Prints the menu items in a formatted way, grouped by type (appetizers, entrees, sides, and desserts).
      */
     public void printMenu() {
@@ -124,16 +131,31 @@ public class MenuData {
         List<MenuItem> menuSort = new ArrayList<>(menuData.values());
         menuSort.sort(Comparator.comparing(MenuItem::getType).thenComparing(MenuItem::getItem));
 
-        // Print the menu items grouped by type
+        // Determine the width of the price column based on the longest price
+        int priceWidth = 0;
+        for (MenuItem menuItem : menuSort) {
+            priceWidth = Math.max(priceWidth, String.format("%.2f", menuItem.getPrice()).length() + 1);
+        }
+
+        // Determine the width of the menu item column based on the longest menu item name
+        int menuItemWidth = 0;
+        for (MenuItem menuItem : menuSort) {
+            menuItemWidth = Math.max(menuItemWidth, menuItem.getItem().length() + 5);
+        }
+
+        // Print the menu items grouped by type and formatted in even columns
         for (String category : categories) {
             System.out.println(category + ":");
             for (MenuItem menuItem : menuSort) {
                 if (menuItem.getType().equals(category)) {
-                    System.out.printf("  %-20s $%.2f\n", menuItem.getItem(), menuItem.getPrice());
+                    String price = String.format("$%.2f", menuItem.getPrice());
+                    System.out.printf("  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price);
                 }
             }
         }
     }
+
+
     public String getTypes(){
         StringBuilder sb = new StringBuilder();
         sb.append("Types").append(categories.toString());
@@ -161,6 +183,8 @@ public class MenuData {
             System.out.println("Item not found");
         }
     }
+
+
 
     /**
      * Removes an item from the menuData HashMap.
