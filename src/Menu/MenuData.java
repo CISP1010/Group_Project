@@ -5,12 +5,15 @@
  */
 package Menu;
 
+import Employee.Employee;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
 public class MenuData {
     private static HashMap<String, MenuItem> menuData = new HashMap<>();
+    private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
 
     /**
      * Constructs a new MenuData object and loads the default menu items from the default_menu_items.txt file.
@@ -38,15 +41,14 @@ public class MenuData {
      */
     private void loadDefaultMenuItems() {
         File file = new File("Resources/default_menu_items.txt");
-        System.out.println("File path: " + file.getAbsolutePath()); // add this line
-        Scanner scanner = null;
+        Scanner input = null;
         try {
-            scanner = new Scanner(file);
+            input = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
+        while (input.hasNextLine()) {
+            String line = input.nextLine();
             if (!line.startsWith("#")) {
                 String[] itemDetails = line.split(",");
                 if (itemDetails.length == 4) {
@@ -59,7 +61,59 @@ public class MenuData {
                 }
             }
         }
-        scanner.close();
+        input.close();
+    }
+
+    /**
+     * Checks whether an employee with the specified name exists in the employeeData map.
+     *
+     * @param item the name of the employee to check
+     * @return true if the menuData map contains an entry with the specified item, false otherwise
+     */
+    public boolean isItem(String item) {
+        return menuData.containsKey(item);
+    }
+
+    /**
+     * Searches for an item's data in the menuData HashMap.
+     *
+     * @param item the item to search for
+     * @return the item's data if found, otherwise a message that the item was not found
+     */
+    public String searchItem(String item    ) {
+        if (menuData.containsKey(item)) {
+            StringBuilder sb = new StringBuilder();
+            MenuItem menuItem = menuData.get(item);
+            sb.append("Item: ").append(item).append("\n")
+                    .append("Type: ").append(menuItem.getType()).append("\n")
+                    .append("Price: $").append(menuItem.getPrice()).append("\n")
+                    .append("Availability: ").append(menuItem.getAvailability()).append("\n");
+            return sb.toString();
+        } else {
+            return "Item not found.";
+        }
+    }
+
+    /**
+     * Returns the item's price.
+     *
+     * @param item the item to get the price of.
+     * @return The item's price.
+     */
+    public double getPrice(String item) {
+        MenuItem menuItem = menuData.get(item);
+        return menuItem.getPrice();
+    }
+
+    /**
+     * Returns the item's availability.
+     *
+     * @param item the item to get the availability of.
+     * @return The item's availability.
+     */
+    public boolean getAvailability(String item) {
+        MenuItem menuItem = menuData.get(item);
+        return menuItem.getAvailability();
     }
 
     /**
@@ -71,7 +125,6 @@ public class MenuData {
         menuSort.sort(Comparator.comparing(MenuItem::getType).thenComparing(MenuItem::getItem));
 
         // Print the menu items grouped by type
-        List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
         for (String category : categories) {
             System.out.println(category + ":");
             for (MenuItem menuItem : menuSort) {
@@ -80,6 +133,51 @@ public class MenuData {
                 }
             }
         }
+    }
+    public String getTypes(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Types").append(categories.toString());
+        return sb.toString();
+    }
+    public void editItem(String item, String newItem, String type, double price, boolean availability) {
+        if (menuData.containsKey(item)) {
+            MenuItem menuItem = menuData.get(item);
+            MenuItem backup = (MenuItem) menuItem.clone();
+            menuData.put(item + "BACKUP", backup);
 
+            if (!newItem.equals("")) {
+                menuItem.setItem(newItem);
+            }
+            if (!type.equals("")) {
+                menuItem.setType(type);
+            }
+            if (price != 0) {
+                menuItem.setPrice(price);
+            }
+            menuItem.setAvailability(availability);
+            menuData.remove(item);
+            menuData.put(menuItem.getItem(), menuItem);
+        } else {
+            System.out.println("Item not found");
+        }
+    }
+
+    /**
+     * Removes an item from the menuData HashMap.
+     * @param item  The item to remove
+     */
+    public void remItem(String item) {
+        menuData.remove(item);
+    }
+
+    public void itemRestore(String backupItem, String oldItem, String newItem) {
+        if (menuData.containsKey(backupItem)) {
+            MenuItem restore = menuData.get(backupItem);
+            restore.setItem(oldItem);
+            menuData.remove(newItem);
+            menuData.put(oldItem, restore);
+            menuData.remove(backupItem);
+        }
     }
 }
+

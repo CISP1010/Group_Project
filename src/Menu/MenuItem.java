@@ -1,16 +1,16 @@
 package Menu;
 
 /**
- * The MenuItem.MenuItem class represents the menu and contains the MenuItem.MenuItem constructor used to add items to the MenuItem.MenuItem.MenuData hashMap.
+ * The MenuItem class represents the menu and contains the MenuItem constructor used to add items to the MenuData hashMap.
  */
-public class MenuItem {
+public class MenuItem implements Cloneable{
     
     private String item;
     private String type;
     private double price;
     private boolean availability; 
     /**
-     * Constructs a new MenuItem.MenuItem object with the specified item, type, price, and availability.
+     * Constructs a new MenuItem object with the specified item, type, price, and availability.
      *
      * @param item the item name
      * @param type the type of menu item
@@ -87,9 +87,23 @@ public class MenuItem {
      * Sets the availability of the menu item to the specified value.
      *
      */
-    public void setAvailability(){
-        this.availability = false;
+    public void setAvailability(boolean availability){
+        this.availability = availability;
     }
+
+    /**
+     * Returns a clone of the menuItem for backup.
+     *
+     * @return a backup clone of the menuItem
+     */
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
     /**
      * Returns a string representation of the menu in the format:
      * "item: [item] | type: [type] | price: [cost] | availability: [availability]"
