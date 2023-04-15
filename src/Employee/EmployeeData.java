@@ -6,14 +6,14 @@ import static java.lang.System.out;
 
 
 /**
- * The Employee.EmployeeData class represents a collection of employees' data, including their first and last names, positions,
+ * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
  * section assignments, and schedules.
  */
 public class EmployeeData {
 
     /**
      * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the
-     * Employee.Employee class as the value.
+     * Employee class as the value.
      */
     private static HashMap<String, Employee> employeeData = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class EmployeeData {
     private static ArrayList<String> sections = new ArrayList<>();
 
     /**
-     * The default constructor for the Employee.EmployeeData class that initializes the employeeData HashMap, scheduleOptions
+     * The default constructor for the EmployeeData class that initializes the employeeData HashMap, scheduleOptions
      * ArrayList, and sections ArrayList with default data.
      */
     public EmployeeData() {
@@ -134,7 +134,7 @@ public class EmployeeData {
             }
             employeeData.remove(name);
             employeeData.put(newName, employee);
-        } else System.out.println("Employee.Employee not found.");
+        } else System.out.println("Employee not found.");
     }
 
     /**
@@ -153,8 +153,29 @@ public class EmployeeData {
                     .append("Schedule: #").append(employee.getSchedule()).append(" ").append(scheduleOptions.get(employee.getSchedule())).append("\n");
             return sb.toString();
         } else {
-            return "Employee.Employee not found.";
+            return "Employee not found.";
         }
+    }
+
+    /**
+     * Returns an employee's schedule number form the HashMap.
+     *
+     * @param name the employee's first and last name to search for
+     * @return the employee's schedule number if found.
+     * @throws RuntimeException if the employee is not found in the HashMap data
+     */
+    public Integer getSchedule(String name){
+        if (employeeData.containsKey(name)){
+            Employee employee = employeeData.get(name);
+            return employee.getSchedule();
+        }else throw new RuntimeException("Employee not found.");
+    }
+
+    public Integer getSection(String name){
+        if (employeeData.containsKey(name)){
+            Employee employee = employeeData.get(name);
+            return employee.getSection();
+        }else throw new RuntimeException("Employeeee not found.");
     }
     /**
      * Restores an employee's name from a backup and updates the employeeData map accordingly.

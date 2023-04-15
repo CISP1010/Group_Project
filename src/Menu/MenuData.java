@@ -65,7 +65,7 @@ public class MenuData {
     /**
      * Prints the menu items in a formatted way, grouped by type (appetizers, entrees, sides, and desserts).
      */
-    public void printMenu() {
+    public String printMenu() {
         // Sort the menu items by type
         List<MenuItem> menuSort = new ArrayList<>(menuData.values());
         menuSort.sort(Comparator.comparing(MenuItem::getType).thenComparing(MenuItem::getItem));
@@ -81,5 +81,6 @@ public class MenuData {
             }
         }
 
+    return null;
     }
 }

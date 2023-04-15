@@ -1,7 +1,7 @@
 package Helpers;
 
 /**
- * A class with a static method to check if a given string is "Yes" or "Y"
+ * A class with a static method to check if a given string is "Yes" or "Y" (case-insensitive)
  */
 public class YesNo {
     /**

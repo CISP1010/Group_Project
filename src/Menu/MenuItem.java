@@ -1,7 +1,7 @@
 package Menu;
 
 /**
- * The MenuItem.MenuItem class represents the menu and contains the MenuItem.MenuItem constructor used to add items to the MenuItem.MenuItem.MenuData hashMap.
+ * The MenuItem class represents the menu and contains the MenuItem constructor used to add items to the MenuData hashMap.
  */
 public class MenuItem {
     
@@ -10,7 +10,7 @@ public class MenuItem {
     private double price;
     private boolean availability; 
     /**
-     * Constructs a new MenuItem.MenuItem object with the specified item, type, price, and availability.
+     * Constructs a new MenuItem object with the specified item, type, price, and availability.
      *
      * @param item the item name
      * @param type the type of menu item

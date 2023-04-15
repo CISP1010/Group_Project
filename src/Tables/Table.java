@@ -6,8 +6,7 @@ import java.util.Map;
  */
 public class Table {
     private int tableNumber;
-    private int seatsFilled;
-    private HashMap<Integer, String> dishes = new HashMap<>();
+    private HashMap<Integer, String> seatDishes = new HashMap<>();
     boolean filled;
 
     /**
@@ -18,7 +17,7 @@ public class Table {
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
         for (int i = 1; i <= 4; i++) {
-            dishes.put(i, "");
+            seatDishes.put(i, "");
         }
     }
 
@@ -50,23 +49,13 @@ public class Table {
     }
 
     /**
-     * Sets the number of seats filled at the table to the given value.
-     *
-     * @param seatsFilled the number of seats filled at the table
-     */
-    public void setSeatsFilled(int seatsFilled) {
-        this.seatsFilled = seatsFilled;
-    }
-
-    /**
      * Returns the number of seats taken at the table.
      *
      * @return the number of seats taken at the table
      */
     public int getSeatsTaken() {
         int count = 0;
-        for (Map.Entry<Integer, String> entry : dishes.entrySet()) {
-            Integer seat = entry.getKey();
+        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()) {
             String dish = entry.getValue();
             if(!dish.isEmpty()){
                 count++;
@@ -82,7 +71,7 @@ public class Table {
      * @param dish the name of the dish
      */
     public void addDish(int seat, String dish) {
-        dishes.put(seat, dish);
+        seatDishes.put(seat, dish);
     }
 
     /**
@@ -92,7 +81,7 @@ public class Table {
      */
     public String listDishes() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, String> entry : dishes.entrySet()) {
+        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()) {
             Integer seat = entry.getKey();
             String dish = entry.getValue();
             if (!dish.isEmpty()) {
