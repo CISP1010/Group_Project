@@ -146,10 +146,16 @@ public class EmployeeMenu {
                             out.println("Enter the new section (Press enter to leave unchanged)");
                             out.print("[section]: ");
                             int newSection;
-                            String inputString = 
-                            if(input.hasNextInt()){
-                                newSection =  input.nextInt();
-                            }else newSection = employeeData.getSection(name);
+                            String inputString = input.nextLine();
+                            if (inputString != null && !inputString.isEmpty()) {
+                                try {
+                                    newSection = Integer.parseInt(inputString.trim());
+                                } catch (NumberFormatException e) {
+                                    newSection = employeeData.getSection(name);
+                                }
+                            } else {
+                                newSection = employeeData.getSection(name);
+                            }
                             Cls.cls();
                             out.println("Employee found!");
                             out.println("---------------\n");
@@ -159,11 +165,18 @@ public class EmployeeMenu {
                             out.println(employeeData.getScheduleOptions());
                             out.println("Enter the new schedule option (Press enter to leave unchanged)");
                             out.print("[Schedule]: ");
-                            int newScheduleOption;
-                            if(input.hasNextInt()){
-                                newScheduleOption = input.nextInt();
-                            } else newScheduleOption = employeeData.getSchedule(name);
-                            employeeData.editEmployee(name, newName, newPosition, newScheduleOption, newSection);
+                            int newSchedule;
+                            String inputString2 = input.nextLine();
+                            if (inputString2 != null && !inputString2.isEmpty()) {
+                                try {
+                                    newSchedule = Integer.parseInt(inputString2.trim());
+                                } catch (NumberFormatException e) {
+                                    newSchedule = employeeData.getSchedule(name);
+                                }
+                            } else {
+                                newSchedule = employeeData.getSchedule(name);
+                            }
+                            employeeData.editEmployee(name, newName, newPosition, newSchedule, newSection);
                             Cls.cls();
                             if (!newName.isEmpty()) {
                                 out.println("New Information");
@@ -180,9 +193,11 @@ public class EmployeeMenu {
                                 out.print("[(Y)es/(N)o]: ");
                                 restart = YesNo.yesNo(String.valueOf(input.nextLine()));
                             } else {
+                                employeeData.employeeRestore(backupName, name, newName);
                                 out.println("Employee data restored:");
                                 out.println(employeeData.searchEmployee(name));
-                                out.println("Please try again.");
+                                out.println("Press enter to try again.");
+                                input.nextLine();
                                 restart = true;
                             }
                         } else if (name.equalsIgnoreCase("-L")) {
@@ -190,7 +205,7 @@ public class EmployeeMenu {
                             out.println("Employees");
                             out.println("---------\n");
                             out.println(employeeData.listEmployee(1));
-                            out.println("Press enter to continue.");
+                            out.println("| Press enter to continue |");
                             input.nextLine();
                             restart = true;
                         } else if (name.equalsIgnoreCase("-C")) {
@@ -213,7 +228,7 @@ public class EmployeeMenu {
                     input.nextLine();
                     // Display the list of employees based on the user's choice
                     out.println(employeeData.listEmployee(data));
-                    out.println("Press Enter to continue");
+                    out.println("| Press enter to continue |");
                     input.nextLine();
                 }
                 case 5 -> {
@@ -222,7 +237,7 @@ public class EmployeeMenu {
                 }
                 default -> out.println("Invalid choice.");
             }
-        } while (choice != 7);
+        } while (choice < 5);
         input.close();
     }
 }

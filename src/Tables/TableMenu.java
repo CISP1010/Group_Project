@@ -37,7 +37,7 @@ public class TableMenu {
                 case 1 -> {
                     Cls.cls();
                     out.println(tableData.listTables());
-                    System.out.println("Press Enter to continue.");
+                    out.println("Press Enter to continue.");
                     input.nextLine();
                 }
                 case 2 -> {
@@ -59,8 +59,8 @@ public class TableMenu {
                     boolean restart;
                     do{
                         Cls.cls();
-                        System.out.println("TABLE EDITOR");
-                        System.out.println("-------------");
+                        out.println("TABLE EDITOR");
+                        out.println("-------------");
                         out.println("Enter the table number.");
                         out.print("[1-20]: ");
                         int table = input.nextInt();
@@ -84,9 +84,13 @@ public class TableMenu {
                         restart = YesNo.yesNo(input.nextLine());
                     }while (restart);
                 }
+                case 4 -> {
+                    out.println("Goodbye.");
+                }
 
+                default -> out.println("Invalid Choice.");
             }
-        } while (choice < 5 && choice > 0);
+        } while (choice < 4 && choice > 0);
         input.close();
     }
 }

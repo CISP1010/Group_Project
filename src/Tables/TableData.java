@@ -11,7 +11,7 @@ public class TableData extends EmployeeData {
     private static HashMap<Integer, Table> tableData = new HashMap<>();
 
     /**
-     * Initiallizes 20 empty tables to the tableData hashmap.
+     * Initializes 20 empty tables to the tableData hashmap.
      */
     public TableData() {
         for (int i = 1; i <= 20; i++) {

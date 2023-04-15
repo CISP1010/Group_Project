@@ -3,7 +3,7 @@ package Menu;
 /**
  * The MenuItem class represents the menu and contains the MenuItem constructor used to add items to the MenuData hashMap.
  */
-public class MenuItem {
+public class MenuItem implements Cloneable{
     
     private String item;
     private String type;
@@ -87,9 +87,23 @@ public class MenuItem {
      * Sets the availability of the menu item to the specified value.
      *
      */
-    public void setAvailability(){
-        this.availability = false;
+    public void setAvailability(boolean availability){
+        this.availability = availability;
     }
+
+    /**
+     * Returns a clone of the menuItem for backup.
+     *
+     * @return a backup clone of the menuItem
+     */
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
     /**
      * Returns a string representation of the menu in the format:
      * "item: [item] | type: [type] | price: [cost] | availability: [availability]"
