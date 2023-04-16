@@ -37,24 +37,24 @@ public class MenuData {
      * The file is located in the Resources directory.
      */
     private void loadDefaultMenuItems() {
-        File file = new File("Resources/default_menu_items.txt");
-        Scanner input = null;
+        File file = new File("Resources/default_menu_items.txt"); //initialize .txt source
+        Scanner input = null; //initialize scanner outside of try-catch and while loop
         try {
-            input = new Scanner(file);
+            input = new Scanner(file); //initialize file-source scanner
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); //throw exception if file not found
         }
-        while (input.hasNextLine()) {
+        while (input.hasNextLine()) { //iterate through each line in file. loops until there are no more lines.
             String line = input.nextLine();
-            if (!line.startsWith("#")) {
-                String[] itemDetails = line.split(",");
-                if (itemDetails.length == 4) {
-                    String name = itemDetails[0].trim();
-                    double price = Double.parseDouble(itemDetails[1].trim());
-                    String type = itemDetails[2].trim();
-                    boolean available = Boolean.parseBoolean(itemDetails[3].trim());
-                    MenuItem menuItem = new MenuItem(name, type, price, available);
-                    menuData.put(name, menuItem);
+            if (!line.startsWith("#")) { //ignore comment lines
+                String[] itemDetails = line.split(","); //split line at commas and load into a String array
+                if (itemDetails.length == 4) { //check that the line is formatted correctly
+                    String name = itemDetails[0].trim(); //trim any hanging spaces and save name to String name
+                    double price = Double.parseDouble(itemDetails[1].trim()); //trim space and parse price to double
+                    String type = itemDetails[2].trim(); //timr spaces and save category to String type
+                    boolean available = Boolean.parseBoolean(itemDetails[3].trim()); //trim spaces and parse availability to boolean available
+                    MenuItem menuItem = new MenuItem(name, type, price, available); //create new menu item from extracted data
+                    menuData.put(name, menuItem); //add the new item to the menuData hashmap
                 }
             }
         }
@@ -77,7 +77,7 @@ public class MenuData {
      * @param item the item to search for
      * @return the item's data if found, otherwise a message that the item was not found
      */
-    public String searchItem(String item    ) {
+    public String searchItem(String item) {
         if (menuData.containsKey(item)) {
             StringBuilder sb = new StringBuilder();
             MenuItem menuItem = menuData.get(item);
@@ -155,12 +155,24 @@ public class MenuData {
         }
     }
 
-
+    /**
+     * returns a list of menu categories
+     * @return string containing menu categories
+     */
     public String getTypes(){
         StringBuilder sb = new StringBuilder();
         sb.append("Types").append(categories.toString());
         return sb.toString();
     }
+
+    /**
+     * Edits an item in the menuData hashmap
+     * @param item The item to edit
+     * @param newItem The new item name
+     * @param type the new item type
+     * @param price the new item price
+     * @param availability the new item availability
+     */
     public void editItem(String item, String newItem, String type, double price, boolean availability) {
         if (menuData.containsKey(item)) {
             MenuItem menuItem = menuData.get(item);
@@ -184,8 +196,6 @@ public class MenuData {
         }
     }
 
-
-
     /**
      * Removes an item from the menuData HashMap.
      * @param item  The item to remove
@@ -194,6 +204,12 @@ public class MenuData {
         menuData.remove(item);
     }
 
+    /**
+     * Restores an item from backup into the menuData HashMap.
+     * @param backupItem The item to restore
+     * @param oldItem The old item name
+     * @param newItem The edited item to remove
+     */
     public void itemRestore(String backupItem, String oldItem, String newItem) {
         if (menuData.containsKey(backupItem)) {
             MenuItem restore = menuData.get(backupItem);

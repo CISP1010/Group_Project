@@ -1,5 +1,4 @@
 package Tables;
-import Employee.EmployeeData;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +6,7 @@ import java.util.Map;
  * TableData class represents the data for restaurant tables, including table number,
  * number of seats, number of seats filled, and dishes ordered.
  */
-public class TableData extends EmployeeData {
+public class TableData {
     private static HashMap<Integer, Table> tableData = new HashMap<>();
 
     /**
@@ -67,7 +66,6 @@ public class TableData extends EmployeeData {
         
     }
 
-
     /**
      * Returns the number of empty seats at the specified table.
      *
@@ -122,5 +120,16 @@ public class TableData extends EmployeeData {
             table.addDish(seatNumber, dish);
             tableData.put(tableNumber, table);
         }else System.out.println("Table not found");
+    }
+
+    /**
+     * Returns the table bill from the tableData hashmap
+     *
+     * @param tableNumber the number of the table
+     * @return The total bill of the table from the tableData hashmap
+     */
+    public double getTotal(int tableNumber){
+        Table table = tableData.get(tableNumber);
+        return table.getTotal();
     }
 }

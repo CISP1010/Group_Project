@@ -1,4 +1,7 @@
 package Tables;
+
+import Menu.MenuData;
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -90,4 +93,19 @@ public class Table {
         }
         return sb.toString();
     }
+
+    /**
+     * Returns the total bill due for the table.
+     *
+     * @return the total bill for the table
+     */
+    public double getTotal(){
+        MenuData menuData = new MenuData();
+        double price = 0;
+        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()){
+            String dish = entry.getValue();
+            price = price + menuData.getPrice(dish);
+        }return price;
+    }
+
 }
