@@ -110,9 +110,9 @@ public class Employee implements Cloneable {
     }
 
     /**
-     * Returns a clone of the employee.
+     * Returns a clone of the employee for backup.
      *
-     * @return a clone of the employee
+     * @return a backup clone of the employee
      */
     public Object clone() {
         try {

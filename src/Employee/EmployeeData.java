@@ -6,14 +6,14 @@ import static java.lang.System.out;
 
 
 /**
- * The Employee.EmployeeData class represents a collection of employees' data, including their first and last names, positions,
+ * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
  * section assignments, and schedules.
  */
 public class EmployeeData {
 
     /**
      * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the
-     * Employee.Employee class as the value.
+     * Employee class as the value.
      */
     private static HashMap<String, Employee> employeeData = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class EmployeeData {
     private static ArrayList<String> sections = new ArrayList<>();
 
     /**
-     * The default constructor for the Employee.EmployeeData class that initializes the employeeData HashMap, scheduleOptions
+     * The default constructor for the EmployeeData class that initializes the employeeData HashMap, scheduleOptions
      * ArrayList, and sections ArrayList with default data.
      */
     public EmployeeData() {
@@ -83,15 +83,14 @@ public class EmployeeData {
      * @param name     The employee's first and last name.
      * @param position The employee's position.
      * @param schedule The numerical representation of the employee's schedule.
-     * @param section  The section of tables the employee is responsible for.
+     * @param section  The numerical representation of the section of tables the employee is responsible for.
      */
     public void addEmployee(String name, String position, int schedule, int section) {
         StringBuilder sb = new StringBuilder();
         Employee employee = new Employee(name, position, schedule, section);
         employeeData.put(name, employee);
-        sb.append(name).append("\n").append(employee.getPosition()).append("\n").append("Section: ")
-                .append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n")
-                .append("Schedule: #").append(employee.getSchedule()).append(" | ")
+        sb.append(name).append("\n").append(employee.getPosition()).append("\n")
+                .append("Section: ").append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n")
                 .append("Schedule: #").append(employee.getSchedule()).append(" | ").append(scheduleOptions.get(schedule)).append("\n");
         System.out.println(sb);
         out.println("Successfully added.");
@@ -134,14 +133,14 @@ public class EmployeeData {
             }
             employeeData.remove(name);
             employeeData.put(newName, employee);
-        } else System.out.println("Employee.Employee not found.");
+        } else System.out.println("Employee not found.");
     }
 
     /**
      * Searches for an employee's data in the employeeData HashMap.
      *
      * @param name the employee's first and last name to search for
-     * @return the employee's data if found, otherwise a message that the employee was not found
+     * @return the employee's data in a formatted string if found, otherwise a message that the employee was not found
      */
     public String searchEmployee(String name) {
         if (employeeData.containsKey(name)) {
@@ -153,9 +152,72 @@ public class EmployeeData {
                     .append("Schedule: #").append(employee.getSchedule()).append(" ").append(scheduleOptions.get(employee.getSchedule())).append("\n");
             return sb.toString();
         } else {
-            return "Employee.Employee not found.";
+            return "Employee not found.";
         }
     }
+
+    /**
+     * Returns an employee's schedule number from the HashMap.
+     *
+     * @param name the employee's first and last name to search for
+     * @return the employee's schedule number if found.
+     * @throws RuntimeException if the employee is not found in the HashMap data
+     */
+    public Integer getSchedule(String name){
+        if (employeeData.containsKey(name)){
+            Employee employee = employeeData.get(name);
+            return employee.getSchedule();
+        }else throw new RuntimeException("Employee not found.");
+    }
+
+    /**
+     * Returns an employee's section number from the HashMap.
+     *
+     * @param name the employee's first and last name to search for
+     * @return the employee's section number if found.
+     * @throws RuntimeException if the employee is not found in the HashMap data
+     */
+    public Integer getSection(String name){
+        if (employeeData.containsKey(name)){
+            Employee employee = employeeData.get(name);
+            return employee.getSection();
+        }else throw new RuntimeException("Employee not found.");
+    }
+
+    /**
+     * Returns an employee's section from the HashMap as a formatted string.
+     *
+     * @param name the employee's first and last name to search for
+     * @return the employee's section in a formatted string if found.
+     */
+    public String sectionString(String name) {
+        StringBuilder sb = new StringBuilder();
+        if (employeeData.containsKey(name)) {
+            Employee employee = employeeData.get(name);
+            sb.append("Section: ").append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n");
+        }return sb.toString();
+    }
+
+    /**
+     * Returns an employee's section from the HashMap as a Integer array containing table numbers.
+     *
+     * @param name the employee's first and last name to search for
+     * @return the employee's tables in an integer array.
+     */
+    public int[] sectionArray(String name){
+        if (employeeData.containsKey(name)) {
+            Employee employee = employeeData.get(name);
+            String str = sections.get(employee.getSection());
+            String numStr = str.replaceAll("\\D+", " "); //WOW i HATE regular expressions. This method took WAYYY too long
+            String[] numArr = numStr.trim().split("\\s+");
+            int[] numIntArr = new int[numArr.length];
+            for (int i = 0; i < numArr.length; i++) {
+                numIntArr[i] = Integer.parseInt(numArr[i]);
+            }
+            return numIntArr;
+        }else return null;
+    }
+
     /**
      * Restores an employee's name from a backup and updates the employeeData map accordingly.
      *
@@ -224,7 +286,7 @@ public class EmployeeData {
     }
 
     /**
-     * This method returns a formatted String containing the section information.
+     * This method returns a formatted String containing the sections.
      *
      * @return A String containing the formatted section information.
      */
