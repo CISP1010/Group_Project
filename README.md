@@ -3,4 +3,4 @@
 
 Javadoc
 
-https://cisp1010.github.io/Group_Project/Javadoc/allpackages-index.html
+https://cisp1010.github.io/Group_Project/Javadoc/index.html
