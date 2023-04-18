@@ -1,14 +1,15 @@
 package Orders;
 
+import java.util.ArrayList;
+
 //gp through and change orderItem and orderItems
 public class Order {
     private int orderNum = 0;
     private String custName;
-    private String orderItem;
+    private ArrayList<Integer> orderItem;
 
     private String orderType;
 
-    ArrayList
     ///add enum or array for delivery, pick up, dine in... dine in needs to trigger a table/seat assignment
    // then choice - 1 in the employee menu thing determines the entry and if 3 -> then enter a table and seat assignment else {}
 
@@ -22,7 +23,7 @@ public class Order {
     // overloaded constructor for order with params for number, customer name, items in order, dine-in/delivery
 
 
-    public Order(Int orderNum, String custName, Arraylist<String> orderItems, String orderType) {
+    public Order(int orderNum, String custName, ArrayList orderItems, String orderType) {
         this.orderNum = orderNum;;
         this.custName = custName;
         this.orderItem = orderItems;

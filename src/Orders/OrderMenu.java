@@ -1,9 +1,13 @@
 package Orders;
+import Menu.MenuData;
+import Menu.MenuItem;
 
 //check for when you've referenced 'orderData' (hashmap containing integer key and order object)
 // and 'orderItems'  Array list containing the food items user has entered in order...
 import Helpers.Cls;
 import Helpers.YesNo;
+import Menu.MenuItem;
+
 import java.util.*;
 
 import static java.lang.System.*;
@@ -14,6 +18,7 @@ public class OrderMenu {
         public static void main(String[] args){
             Scanner input = new Scanner(System.in);
             OrderData orderData = new OrderData();  //going to try to change my arraylist conception to match
+            MenuData menuData = new MenuData();    //this one
             int choice = 0;                         //the other hash stuff
             int orderNum = 1;
 
@@ -41,45 +46,47 @@ public class OrderMenu {
                         case 1 -> {
                             Cls.cls();
                             //starts the order enterin'
-                            boolean restart;
+                            boolean restart = false;
+                            String custName;
+                            String orderType;
+                            int orderChoice;
                             do {
+                                ArrayList<Integer> itemSel = new ArrayList<Integer>();
                                 Cls.cls();
                                 out.println("Enter the customer's last name.");
                                 out.println("[last name]: ");
-                                String custName = input.nextLine();
+                                custName = input.nextLine();
                                 Cls.cls();
                                 out.println("Is this order for (1) Dine-in, (2) Delivery, or (3) Pick up?");
                                 out.println("[order type]: ";
-                                String orderType;
                                // orderChoice takes the number to avoid confusion on my part...
-                                int orderChoice = input.nextInt();
+                                orderChoice = input.nextInt();
                                 if (orderChoice == 1) {
-                                    orderType = "Dine-in"}
+                                    orderType = "Dine-in";
+                                }
                                 else if (orderChoice == 2) {
-                                    orderType = "Delivery"}
+                                    orderType = "Delivery";
+                                }
                                 else {
                                     orderType = "Pick up"}  // could add a section here to assign table/seat if dine-in later
                                 Cls.cls();
-
-                                boolean restart;
-                                 do {
-                                  int i = 1
-
-
-                                    out.println("Please enter menu item.");
-                                    out.println("[menu item(" + i + ")]: ");
-                                    OrderData.addOrderItem(input.nextLine());
-                                    Cls.cls();
-                                    out.println("Would you like add another item?");
-                                    out.print("[(Y)es/(N)o]: ");
-                                    ///wait I got confused here...need to use function to pass all order items to orderItem list or hashmap
-                                    // then create object, then pass it to the hashmap
-                                    String orderList = OrderData.orderItems(); //telling me to make something static here
-                                     //this *should* add order object to the existing order hashmap
-                                     orderData.addOrder(Order); ////wtf??
-                                    i++; //augments the menu entry item that precedes [menu item(#)
-                                    orderNum++; //advances orderNum - this variable is outside the loop and should keep advancing
-                                    restart = YesNo.yesNo(input.nextLine());
+                                menuData.printMenu();
+                                out.println("Enter the number of the item you would like to add to the order.");
+                                out.println("[menu item(#): ");
+                                itemSel.add(input.nextInt());
+                                input.nextLine();
+                                out.println("Would you like add another item?");
+                                out.print("[(Y)es/(N)o]: ");
+                                restart = YesNo.yesNo(input.nextLine());
+                                orderData.addOrder(orderNum, custName, itemSel, orderType);
+                            }while (restart);
+                                ///wait I got confused here...need to use function to pass all order items to orderItem list or hashmap
+                                // then create object, then pass it to the hashmap
+                                String orderList = OrderData.orderItems(); //telling me to make something static here
+                                 //this *should* add order object to the existing order hashmap
+                                i++; //augments the menu entry item that precedes [menu item(#)
+                                orderNum++; //advances orderNum - this variable is outside the loop and should keep advancing
+                                restart = YesNo.yesNo(input.nextLine());
 
                                 } while (restart);
 
@@ -107,7 +114,6 @@ public class OrderMenu {
 
                             {
                         case 5 -> { // this one is return to main menu
-
                         }
                             }
                         }
@@ -118,7 +124,8 @@ public class OrderMenu {
 
 
                                 }
-                                }
+                        default -> throw new IllegalStateException("Unexpected value: " + choice);
+                    }
                                 }
                             }
                         }

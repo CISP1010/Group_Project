@@ -69,6 +69,18 @@ public class DailyOperation {
                     double total = tableData.getTotal(tableNumber);
                     out.println(tableData.getTableData(tableNumber)); //get table data
                     out.println("TOTAL: " + total);
+                    out.println("Ask the customer to enter a tip percentage.");
+                    out.print("[15%, 18%, 20%...]: ");
+                    String tipPercent = input.next().replaceAll("[^\\d.]", "");    //get tip percentage and remove all non-numeric characters
+                    double tip = Math.round(Double.parseDouble(tipPercent));
+                    double tipTotal = (total * (tip / 100)); //calculate tip total
+                    out.println();
+                    Cls.cls();
+                    out.println();
+                    out.println(tableData.getTableData(tableNumber)); //keeps table data visible after clear screen
+                    out.println();
+                    out.println("Tip: " + "($" + total * (tip / 100) + ") : " + tip + " of $" + total );
+                    out.println("TOTAL: " + tipTotal);
                     out.println("Would you like to split the bill?");
                     out.print("[(Y)es/(N)o]: ");
                     double splitTotal;

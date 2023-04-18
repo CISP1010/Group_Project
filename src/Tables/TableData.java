@@ -7,7 +7,7 @@ import java.util.Map;
  * number of seats, number of seats filled, and dishes ordered.
  */
 public class TableData {
-    private static HashMap<Integer, Table> tableData = new HashMap<>();
+    private static final HashMap<Integer, Table> tableData = new HashMap<>();
 
     /**
      * Initializes 20 empty tables to the tableData hashmap.

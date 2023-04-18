@@ -8,8 +8,8 @@ import java.util.Map;
  * This class represents a table in a restaurant with a number, seats filled, and dishes
  */
 public class Table {
-    private int tableNumber;
-    private HashMap<Integer, String> seatDishes = new HashMap<>();
+    private final int tableNumber;
+    private final HashMap<Integer, String> seatDishes = new HashMap<>();
     boolean filled;
 
     /**
