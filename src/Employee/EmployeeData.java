@@ -15,17 +15,17 @@ public class EmployeeData {
      * A HashMap to store the employee data, with the employee first and last name as the key and an instance of the
      * Employee class as the value.
      */
-    private static HashMap<String, Employee> employeeData = new HashMap<>();
+    private static final HashMap<String, Employee> employeeData = new HashMap<>();
 
     /**
      * An ArrayList to store the Schedule options.
      */
-    private static ArrayList<String> scheduleOptions = new ArrayList<>();
+    private static final ArrayList<String> scheduleOptions = new ArrayList<>();
 
     /**
      * An ArrayList to store the sections.
      */
-    private static ArrayList<String> sections = new ArrayList<>();
+    private static final ArrayList<String> sections = new ArrayList<>();
 
     /**
      * The default constructor for the EmployeeData class that initializes the employeeData HashMap, scheduleOptions

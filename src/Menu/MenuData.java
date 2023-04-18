@@ -9,8 +9,8 @@ import java.util.*;
  * as the key and the MenuItem object as the value.
  */
 public class MenuData {
-    private static HashMap<String, MenuItem> menuData = new HashMap<>();
-    private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
+    private static final HashMap<String, MenuItem> menuData = new HashMap<>();
+    private static final List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
 
     /**
      * Constructs a new MenuData object and loads the default menu items from the default_menu_items.txt file.
@@ -142,14 +142,15 @@ public class MenuData {
         for (MenuItem menuItem : menuSort) {
             menuItemWidth = Math.max(menuItemWidth, menuItem.getItem().length() + 5);
         }
-
+        int i = 0;
         // Print the menu items grouped by type and formatted in even columns
         for (String category : categories) {
             System.out.println(category + ":");
             for (MenuItem menuItem : menuSort) {
                 if (menuItem.getType().equals(category)) {
                     String price = String.format("$%.2f", menuItem.getPrice());
-                    System.out.printf("  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price);
+                    System.out.printf(i + ":" + "  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price);
+                    i++;
                 }
             }
         }
@@ -160,9 +161,7 @@ public class MenuData {
      * @return string containing menu categories
      */
     public String getTypes(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Types").append(categories.toString());
-        return sb.toString();
+        return "Types" + categories.toString();
     }
 
     /**

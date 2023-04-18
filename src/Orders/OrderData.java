@@ -15,42 +15,39 @@ public class OrderData {
 
     //creates a hash map to take however many food items are in the order from the orderMenu
 
-    private static HashMap<int, Order> orderData = new HashMap<>();
+    private static HashMap<Integer, Order> orderData = new HashMap<>();
 
     ArrayList<String> orderItems = new ArrayList<>();  /// to store food item choices for entry into order object
-                                                    ///need a way to clear this between order entries
+    ///need a way to clear this between order entries
+
     /**
      * Constructs a new MenuData object and loads the default menu items from the default_menu_items.txt file.
      */
     public OrderData() {
     }
 
-    public void addOrderItem(String orderItem){
-        orderItems.add(orderItem);
+    public void addOrder(int orderNumber, String customerName, ArrayList<Integer> itemSel, String orderType) {
+        Order order = new Order(orderNumber, customerName, orderItems, orderType);
+        orderData.put(orderNumber, order);
     }
     // I forgot what I was doing with this public ArrayList<String> getOrderList() {
-        //return orderItems;
-    }
+    //return orderItems;
 
-    }
-    public void addOrder(int orderNum, orderItems orderItems, int orderType) {
-        Order order = new Order(orderNum, orderItems[], orderType);    //is this how you pass an array list?
+    public void addOrder(int orderNum, Order){
+        Order order = new Order;    //is this how you pass an array list?
         orderData.put(orderNum, order);     ///this should pass order items to the array list, which then gets stored
-                                            // in the order item, which then gets put into the hashmap
+        // in the order item, which then gets put into the hashmap
 
 
-}
+    }
 
 //should list all orders from hashmap and print out their info
 
-    public void listOrders {
-             System.out.printf
-        orderData.forEach(orderNum, order) -> {
-            System.out.printf       ////print out data for each hashmap element under headings
-
+    public void listOrders(){
+        for(Map.Entry<Integer, Order> entry : orderData.entrySet()) {
+            Integer key = entry.getKey();
+            Order value = entry.getValue();
+            System.out.println(key + " => " + value);
         }
-
-        }
-        }
-
-        }
+    }
+}
