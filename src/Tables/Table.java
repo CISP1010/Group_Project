@@ -2,14 +2,18 @@ package Tables;
 
 import Menu.MenuData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
- * This class represents a table in a restaurant with a number, seats filled, and dishes
+ * This class represents a table in a restaurant with a number, tableSeats filled, and dishes
  */
 public class Table {
     private final int tableNumber;
-    private final HashMap<Integer, String> seatDishes = new HashMap<>();
+    private HashMap<Integer, String> tableSeats = new HashMap<>();
+    MenuData menuData = new MenuData();
+
     boolean filled;
 
     /**
@@ -19,9 +23,6 @@ public class Table {
      */
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
-        for (int i = 1; i <= 4; i++) {
-            seatDishes.put(i, "");
-        }
     }
 
     /**
@@ -52,29 +53,16 @@ public class Table {
     }
 
     /**
-     * Returns the number of seats taken at the table.
-     *
-     * @return the number of seats taken at the table
-     */
-    public int getSeatsTaken() {
-        int count = 0;
-        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()) {
-            String dish = entry.getValue();
-            if(!dish.isEmpty()){
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
      * Adds a dish to the table at the given seat.
      *
      * @param seat the seat number
-     * @param dish the name of the dish
+     * @param dishNumber the name of the dish
      */
-    public void addDish(int seat, String dish) {
-        seatDishes.put(seat, dish);
+    public void addDish(int seat, int dishNumber) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(tableSeats.get(seat)).append(", ").append(dishNumber).append(", ").append(menuData.getName(dishNumber));
+        tableSeats.remove(seat);
+        tableSeats.put(seat, sb.toString());
     }
 
     /**
@@ -82,17 +70,26 @@ public class Table {
      *
      * @return a string representation of the dishes at the table
      */
-    public String listDishes() {
+    public String getTableDishes() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()) {
-            Integer seat = entry.getKey();
+        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()) {
+            int seat = entry.getKey();
             String dish = entry.getValue();
-            if (!dish.isEmpty()) {
-                sb.append("Seat:").append(seat).append(" | ").append(dish).append("\n");
-            } else sb.append("Seat:").append(seat).append(" | ").append("EMPTY").append("\n");
+            sb.append("Seat ").append(seat).append(": ").append(dish).append("\n");
         }
         return sb.toString();
     }
+
+    public String getSeatDishes(int seat){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Seat ").append(seat).append(": ").append("Dishes: ").append(tableSeats.get(seat)).append("\n");
+        return sb.toString();
+    }
+
+    public int getSeatsFilled(){
+        return tableSeats.size();
+    }
+
 
     /**
      * Returns the total bill due for the table.
@@ -102,9 +99,19 @@ public class Table {
     public double getTotal(){
         MenuData menuData = new MenuData();
         double price = 0;
-        for (Map.Entry<Integer, String> entry : seatDishes.entrySet()){
-            String dish = entry.getValue();
-            price = price + menuData.getPrice(dish);
+        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()){
+            int seat = entry.getKey();
+            String dishes = entry.getValue();
+            String[] myArray = dishes.split(",");  // Split the string by commas
+            List<String> numbersList = new ArrayList<>();
+
+            // Loop through each item in the array and add numbers to the list
+            for (String s : myArray) {
+                String trimmed = s.trim();  // Remove leading/trailing whitespace
+                if (trimmed.matches("\\d+")) {  // Check if the string contains only digits
+                    price = price + menuData.getPrice(Integer.parseInt(s));
+                }
+            }
         }return price;
     }
 

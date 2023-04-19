@@ -1,3 +1,9 @@
+#Appetizers:
+Fried Calamari, 7.99, Appetizers, true
+Spinach Artichoke Dip, 8.99, Appetizers, true
+Chicken Wings (10 pieces), 9.99, Appetizers, true
+Bruschetta, 6.99, Appetizers, true
+Chips and Guacamole, 5.99, Appetizers, true
 #Entrees:
 Grilled Chicken Sandwich, 8.99, Entrees, true
 Classic Caesar Salad, 7.99, Entrees, true
@@ -9,12 +15,6 @@ Beef Stir-Fry with Rice, 14.99, Entrees, true
 Greek Salad with Grilled Chicken, 9.99, Entrees, true
 Spaghetti Bolognese, 12.99, Entrees, true
 Shrimp Tacos, 9.99, Entrees, true
-#Appetizers:
-Fried Calamari, 7.99, Appetizers, true
-Spinach Artichoke Dip, 8.99, Appetizers, true
-Chicken Wings (10 pieces), 9.99, Appetizers, true
-Bruschetta, 6.99, Appetizers, true
-Chips and Guacamole, 5.99, Appetizers, true
 #Sides:
 Garlic Mashed Potatoes, 3.99, Sides, true
 Seasoned Fries, 3.99, Sides, true

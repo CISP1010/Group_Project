@@ -7,6 +7,7 @@ public class MenuItem implements Cloneable{
     
     private String item;
     private String type;
+    private int number;
     private double price;
     private boolean availability; 
     /**
@@ -17,7 +18,8 @@ public class MenuItem implements Cloneable{
      * @param price the numerical value representing the cost of the item
      * @param availability the representation of if the item is available to order
      */   
-    public MenuItem(String item, String type, double price, boolean availability){
+    public MenuItem(int number, String item, String type, double price, boolean availability){
+        this.number = number;
         this.item = item;
         this.type = type;
         this.price = price;
@@ -28,6 +30,10 @@ public class MenuItem implements Cloneable{
      *
      * @return item name
      */
+    public int getItemNum(){
+        return number;
+    }
+
     public String getItem(){
         return item;
     }
@@ -39,6 +45,10 @@ public class MenuItem implements Cloneable{
      */
     public void setItem(String item){
         this.item = item;
+    }
+
+    public void setItemNum(int number){
+        this.number = number;
     }
     
     /**

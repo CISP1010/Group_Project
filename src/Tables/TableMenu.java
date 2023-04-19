@@ -65,9 +65,10 @@ public class TableMenu {
                         out.println("-------------------");
                         out.println(tableData.getTableData(table));  //display current table data
                         for (int i = 1; i <= 4; i++) { //iterate through numbers 1 - 4 and prompt for new dishes for seats 1 - 4
-                            out.println("Enter the dish for seat " + i +  " (or press Enter to skip.)");
+                            out.println("Enter the dish number for seat " + i +  " (or press Enter to skip.)");
                             out.print("Seat " + i + ": "); //print the seat number and new dish
-                            String nd = input.nextLine();
+                            int nd = input.nextInt();
+                            input.nextLine();
                             tableData.addDish(table, i, nd);
                         }
                         Cls.cls();
