@@ -39,13 +39,13 @@ public class DailyOperation {
                         throw new RuntimeException(e);
                     }
                     //fill an arraylist with foodMenu options from default data file
-                    List <String> foodList = new ArrayList<>();
+                    List <Integer> foodList = new ArrayList<>();
                     while (scanner.hasNextLine()) {
                         String line = scanner.nextLine();
                         if (!line.startsWith("#")) { //skip comment lines
                             String[] itemDetails = line.split(","); //split lines at commas and only take first split (food name)
-                            if (itemDetails.length == 4) { //double-check the line is formatted right
-                                foodList.add(itemDetails[0].trim());
+                            if (itemDetails.length == 5) { //double-check the line is formatted right
+                                foodList.add(Integer.parseInt(itemDetails[0].trim()));
                             }else out.println("it broke");
                         }
                     }

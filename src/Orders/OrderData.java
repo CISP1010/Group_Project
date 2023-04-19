@@ -4,9 +4,13 @@
  * as the key and the MenuItem object as the value.
  */
 package Orders;
-import Menu.MenuItem;
 
-import java.util.*;
+import Menu.MenuData;
+import Tables.TableData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderData {
 
@@ -14,6 +18,8 @@ public class OrderData {
     // table and seat assign in orderMenu I guess  - not going to do this unless I have time
 
     //creates a hash map to take however many food items are in the order from the orderMenu
+    MenuData menuData = new MenuData();
+    TableData tableData = new TableData();
 
     private static HashMap<Integer, Order> orderData = new HashMap<>();
 
@@ -26,21 +32,36 @@ public class OrderData {
     public OrderData() {
     }
 
-    public void addOrder(int orderNumber, String customerName, ArrayList<Integer> itemSel, String orderType) {
-        Order order = new Order(orderNumber, customerName, orderItems, orderType);
+    public void addOrder(int orderNumber, Order order) {
         orderData.put(orderNumber, order);
     }
-    // I forgot what I was doing with this public ArrayList<String> getOrderList() {
-    //return orderItems;
 
-    public void addOrder(int orderNum, Order){
-        Order order = new Order;    //is this how you pass an array list?
-        orderData.put(orderNum, order);     ///this should pass order items to the array list, which then gets stored
-        // in the order item, which then gets put into the hashmap
+    public String searchOrder(int orderNumber) {
+        StringBuilder sb = new StringBuilder();
+        if (orderData.containsKey(orderNumber)) {
+            Order order = orderData.get(orderNumber);
+            sb.append("Order Number: ").append(orderNumber).append("\n")
+                    .append("Customer Name: ").append(order.getCustName()).append("\n")
+                    .append("Order Type: ").append(order.getOrderType()).append("\n");
 
+            if (order.getOrderType().equals("Delivery")) {
+                sb.append("Delivery Address: ").append(order.getDeliveryAddress()).append("\n")
+                        .append("Delivery Phone: ").append(order.getPhone()).append("\n")
+                        .append("Delivery Notes: ").append(order.getDeliveryNotes()).append("\n")
+                        .append("Order Items: ").append(order.getOrderItems()).append("\n");
+            }
 
+            if (order.getOrderType().equals("Dine In")) {
+                sb.append("Order Items: \n")
+                        .append("Table Number: ").append(order.getTableNum()).append("\n")
+                        .append("Order Items: ");
+                for (String item : orderItems) { //for each item in the orderItem arraylist
+                    sb.append(tableData.getDishes(order.getTableNum())).append("\n");
+                    sb.append(item).append(", ");
+                }
+            } else return '\n' + "Order " + orderNumber + " not found" + '\n';
+        }return sb.toString();
     }
-
 //should list all orders from hashmap and print out their info
 
     public void listOrders(){

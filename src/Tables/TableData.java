@@ -1,4 +1,5 @@
 package Tables;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,13 +8,14 @@ import java.util.Map;
  * number of seats, number of seats filled, and dishes ordered.
  */
 public class TableData {
-    private static final HashMap<Integer, Table> tableData = new HashMap<>();
+    private static HashMap<Integer, Table> tableData = new HashMap<>();
 
     /**
      * Initializes 20 empty tables to the tableData hashmap.
      */
     public TableData() {
-        for (int i = 1; i <= 20; i++) {
+        int i = 1;
+        for (i = 1; i <= 20; i++) {
             tableData.put(i, new Table(i));
         }
     }
@@ -26,11 +28,11 @@ public class TableData {
      */
     public String getTableData(int tableNumber) {
         StringBuilder sb = new StringBuilder();
-        Table table = tableData.get(tableNumber);
         if (tableData.containsKey(tableNumber)) {
+            Table table = tableData.get(tableNumber);
             sb.append("Table #: ").append(table.getNumber()).append(" | ")
-            .append("Seats Filled: ").append(table.getSeatsTaken()).append(" | ").append("\n")
-            .append("Dishes: ").append("\n").append(table.listDishes()).append("\n");
+                    .append("Seat Filled: ").append(table.getSeatsFilled()).append(" | ").append("\n")
+                    .append(table.getTableDishes()).append("\n");
             return sb.toString();
         } else return "Table not found!";
     }
@@ -45,8 +47,8 @@ public class TableData {
         for (Map.Entry<Integer, Table> entry : tableData.entrySet()) {
             Table table = entry.getValue();
             sb.append("Table #: ").append(table.getNumber()).append(" | ")
-                    .append("Seats Filled: ").append(table.getSeatsTaken()).append("\n")
-                    .append("Dishes:").append("\n").append(table.listDishes()).append("\n");
+                    .append("Seat Filled: ").append(table.getSeatsFilled()).append("\n")
+                    .append(table.getTableDishes()).append("\n");
         }
         return sb.toString();
     }
@@ -59,11 +61,11 @@ public class TableData {
      * @throws RuntimeException if the specified table number is not found in the table data
      */
     public boolean isFilled(int tableNumber) {
-        Table table = tableData.get(tableNumber);
         if (tableData.containsKey(tableNumber)) {
-            return table.getSeatsTaken() >= 4;
-        }else throw new RuntimeException("Table not found.");
-        
+            Table table = tableData.get(tableNumber);
+            return table.getSeatsFilled() >= 4;
+        } else throw new RuntimeException("Table not found.");
+
     }
 
     /**
@@ -76,7 +78,7 @@ public class TableData {
     public int getEmptySeats(int tableNumber) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
-            return 4 - table.getSeatsTaken();
+            return 4 - table.getSeatsFilled();
         } else throw new RuntimeException("Table not found.");
     }
 
@@ -90,7 +92,7 @@ public class TableData {
     public int getFilledSeats(int tableNumber) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
-            return table.getSeatsTaken();
+            return table.getSeatsFilled();
         } else throw new RuntimeException("Table not found!");
     }
 
@@ -103,8 +105,8 @@ public class TableData {
     public String getDishes(int tableNumber) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
-            return table.listDishes();
-        }else return "Table not found!";
+            return table.getTableDishes();
+        } else return "Table not found!";
     }
 
     /**
@@ -114,12 +116,12 @@ public class TableData {
      * @param seatNumber  the number of the seat
      * @param dish        the name of the dish or returns Table not found if Table doesn't exist.
      */
-    public void addDish(int tableNumber, int seatNumber, String dish) {
+    public void addDish(int tableNumber, int seatNumber, int dishNum) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
-            table.addDish(seatNumber, dish);
+            table.addDish(dishNum, seatNumber);
             tableData.put(tableNumber, table);
-        }else System.out.println("Table not found");
+        } else System.out.println("Table not found");
     }
 
     /**
@@ -128,8 +130,18 @@ public class TableData {
      * @param tableNumber the number of the table
      * @return The total bill of the table from the tableData hashmap
      */
-    public double getTotal(int tableNumber){
+    public double getTotal(int tableNumber) {
         Table table = tableData.get(tableNumber);
         return table.getTotal();
+    }
+
+    public String getEmptyTables() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Table> entry : tableData.entrySet()) {
+            Table table = entry.getValue();
+            if (table.getSeatsFilled() == 0) {
+                sb.append("Table #: ").append(table.getNumber()).append(" EMPTY ").append("\n");
+            }
+        }return sb.toString();
     }
 }

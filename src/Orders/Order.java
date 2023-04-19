@@ -1,33 +1,30 @@
 package Orders;
 
+import Menu.MenuData;
+
 import java.util.ArrayList;
 
 //gp through and change orderItem and orderItems
 public class Order {
-    private int orderNum = 0;
+    private String deliveryAddress;
+    private String deliveryPhone;
+    private String deliveryNotes;
+    private int tableNum;
+    private int orderNum = 1111;
     private String custName;
     private ArrayList<Integer> orderItem;
-
     private String orderType;
+    MenuData menuData = new MenuData();
 
-    ///add enum or array for delivery, pick up, dine in... dine in needs to trigger a table/seat assignment
-   // then choice - 1 in the employee menu thing determines the entry and if 3 -> then enter a table and seat assignment else {}
-
-
-    // default constructor
-
-    public Order(){
-
-    }
-
-    // overloaded constructor for order with params for number, customer name, items in order, dine-in/delivery
-
-
-    public Order(int orderNum, String custName, ArrayList orderItems, String orderType) {
+    public Order(int orderNum, String custName, ArrayList<Integer> orderItems, String orderType, int tableNum, String deliveryAddress, String deliveryPhone, String deliveryNotes) {
         this.orderNum = orderNum;;
         this.custName = custName;
         this.orderItem = orderItems;
         this.orderType = orderType;
+        this.tableNum = tableNum;
+        this.deliveryAddress = deliveryAddress;
+        this.deliveryPhone = deliveryPhone;
+        this.deliveryNotes = deliveryNotes;
     }
 
     //setters
@@ -39,8 +36,9 @@ public class Order {
         this.custName = custName;
     }
 
-    public void setOrderItem(String orderItem){
-        this orderItem = orderItem;
+    public void setOrderItem(ArrayList<Integer> orderItems){
+        this.orderItem = orderItems;
+
     }
 
     public void setOrderType(String orderType){
@@ -49,22 +47,42 @@ public class Order {
 
     //getters
 
-    public int getNum(){
+    public int getOrderNumber(){
         return orderNum;
+    }
+
+    public String getDeliveryAddress(){
+        return deliveryAddress;
+    }
+
+    public String getPhone(){
+        return deliveryPhone;
+    }
+
+    public String getDeliveryNotes(){
+        return deliveryNotes;
+    }
+
+    public int getTableNum(){
+        return tableNum;
     }
 
     public String getCustName(){
         return custName;
     }
 
-    public String getOrderItems(){ //change this to spit out the arraylist orderitems...
-        return orderItem;
-    }
+    public String getOrderItems(){ //this is returning the arraylist of order items as a string
+        for (Integer itemNum : orderItem) { //for each item in the orderItem arraylist
+            return menuData.getName(itemNum); //print the item name from the menuData hashmap
+        }return "Item not found"; //if the item is not found in the menuData hashmap
+    }// This is definitely a dirty hack. If the item numbers get changed in the item menu (Like by removing an item from the menu that is not the last item) , this will change every order's value....
+    // need to find a way to make permanent item numbers that are not affected by changes to the menu
+
     public String getOrderType(){
         return orderType;
     }
 
-    public int assignNum(){
+    public int newOrderNum(){
         orderNum++;
         return orderNum;
     }

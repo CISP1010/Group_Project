@@ -64,11 +64,12 @@ public class MenuMenu {
                                     out.println("Is the item available?");
                                     out.print("[(Y)es/(N)o]: ");
                                     boolean availability = YesNo.yesNo(input.nextLine());
-                                    menuData.addMenuItem(item, type, price, availability); //add item to menuData hashmap
+                                    int number = menuData.getSize() + 1;
+                                    menuData.addMenuItem(number, item, type, price, availability); //add item to menuData hashmap
                                     Cls.cls();
                                     System.out.println("New Item");
                                     System.out.println("---------\n");
-                                    System.out.println(menuData.searchItem(item));  //display new menu item
+                                    System.out.println(menuData.searchItem(number));  //display new menu item
                                     out.println("Would you like to create another item?");
                                     out.print("[(Y)es/(N)o]: ");
                                     restart = YesNo.yesNo(input.nextLine());
@@ -80,16 +81,19 @@ public class MenuMenu {
                                     out.println("Enter the Item to remove. (Enter -L to list Item names or -C to cancel.)");
                                     out.print("[Item]: ");
                                     String item = input.nextLine();
-                                    if (menuData.isItem(item)) { //check if menu item exists
+                                    String name = menuData.getName(Integer.parseInt(item));
+                                    input.nextLine();
+                                    if (menuData.isItem(Integer.parseInt(item))) { //check if menu item exists
+                                        int itemNum= Integer.parseInt(item);
                                         Cls.cls();
                                         out.println("Item Info");
                                         out.println("---------\n");
-                                        out.println(menuData.searchItem(item)); //print current info
+                                        out.println(menuData.searchItem(itemNum)); //print current info
                                         out.println("Do you want to delete this item?"); //confirm delete
                                         out.print("[(Y)es/(N)o]: ");
                                         if (YesNo.yesNo(input.nextLine())) { //if yes delete, if no prompt restart
-                                            menuData.remItem(item);
-                                            out.println(item + "successfully deleted");
+                                            menuData.remItem(itemNum);
+                                            out.println(name + "successfully deleted");
                                             out.println("Would you like to delete another item?");
                                             out.print("[(Y)es/(N)o]: ");
                                             restart = YesNo.yesNo(input.nextLine());
@@ -119,29 +123,31 @@ public class MenuMenu {
                             case 3 -> { //Edit menu option
                                 boolean restart;
                                 do {
-                                    out.println("Enter the Item name. (Enter -L to list Item names or -C to cancel.)");
+                                    out.println("Enter the Item number. (Enter -L to list Item names or -C to cancel.)");
                                     out.print("[Item]: ");
                                     String item = input.nextLine();
-                                    if (menuData.isItem(item)) {
-                                        String backupItem = item + "BACKUP"; //failsafe backup of item name
+                                    input.nextLine(); //clear the leftover linebreak from input.nextInt()
+                                    if (menuData.isItem(Integer.parseInt(item))) { //check if menu item exists
+                                        int itemNum = Integer.parseInt(item);
+                                        int backupItem = itemNum + 100; //failsafe backup of item name
                                         Cls.cls();
                                         out.println("Item found!");
                                         out.println("---------------\n");
-                                        out.print(menuData.searchItem(item) + "\n"); //print current data
+                                        out.print(menuData.searchItem(itemNum) + "\n"); //print current data
                                         out.println("Enter the new Item name (Press enter to leave unchanged)");
                                         out.print("[Item Name]: ");
                                         String newItem = input.nextLine();
                                         Cls.cls();
                                         out.println("Item found!"); //keeps item data visible after clearscreen
                                         out.println("---------------\n"); //keeps item data visible after clearscreen
-                                        out.print(menuData.searchItem(item) + "\n"); //keeps item data visible after clearscreen
+                                        out.print(menuData.searchItem(itemNum) + "\n"); //keeps item data visible after clearscreen
                                         out.println("Enter the new type (Press enter to leave unchanged)");
                                         out.print("[type]: ");
                                         String newType = input.nextLine();
                                         Cls.cls();
                                         out.println("Item found!"); //keeps item data visible after clearscreen
                                         out.println("---------------\n"); //keeps item data visible after clearscreen
-                                        out.print(menuData.searchItem(item) + "\n"); //keeps item data visible after clearscreen
+                                        out.print(menuData.searchItem(itemNum) + "\n"); //keeps item data visible after clearscreen
                                         out.println("Enter the new price (Press enter to leave unchanged)");
                                         out.print("[price]: ");
                                         double newPrice;
@@ -151,15 +157,15 @@ public class MenuMenu {
                                                 newPrice = Double.parseDouble(inputString); //set to user input price if exists
                                             } catch (NumberFormatException e) {
                                                 out.println("Number Format Exception.\n Please enter a price in the format 1,000.00");
-                                                newPrice = menuData.getPrice(item); //otherwise set to old price
+                                                newPrice = menuData.getPrice(itemNum); //otherwise set to old price
                                             }
                                         } else {
-                                            newPrice = menuData.getPrice(item); //failsafe sets to old price
+                                            newPrice = menuData.getPrice(itemNum); //failsafe sets to old price
                                         }
                                         Cls.cls();
                                         out.println("Item found!"); //keeps item data visible after clearscreen
                                         out.println("---------------\n"); //keeps item data visible after clearscreen
-                                        out.print(menuData.searchItem(item) + "\n"); //keeps item data visible after clearscreen
+                                        out.print(menuData.searchItem(itemNum) + "\n"); //keeps item data visible after clearscreen
                                         out.println("Is the item available? (Press enter to leave unchanged)");
                                         out.print("[(Y)es/(N)o]: ");
                                         String inputString1 = input.nextLine();
@@ -167,16 +173,16 @@ public class MenuMenu {
                                         if (inputString != null && !inputString.isEmpty()) { //same if loop as price but handles empty boolean exception
                                             newAvailability = YesNo.yesNo(inputString1); //set to user input availability if exists
                                         } else {
-                                            newAvailability = menuData.getAvailability(item); //otherwise get old price and set to that
+                                            newAvailability = menuData.getAvailability(itemNum); //otherwise get old price and set to that
                                         }
-                                        menuData.editItem(item, newItem, newType, newPrice, newAvailability); //edit menu item. This also performs a backup
+                                        menuData.editItem(itemNum, newItem, newType, newPrice, newAvailability); //edit menu item. This also performs a backup
                                         Cls.cls();
                                         if (!newItem.isEmpty()) { //check if the user entered a new name.
                                             out.println("New Information");
                                             out.println("---------------\n");
-                                            out.println(menuData.searchItem(newItem)); //if new name exists, display item with the new name
+                                            out.println(menuData.searchItem(itemNum)); //if new name exists, display item with the new name
                                         } else
-                                            out.println("New Information:\n" + menuData.searchItem(item)); //otherwise display updated item with unchanged name
+                                            out.println("New Information:\n" + menuData.searchItem(itemNum)); //otherwise display updated item with unchanged name
                                         out.println("Is this correct?"); //check if correct
                                         out.print("[(Y)es/(N)o]: ");
                                         String yn = input.nextLine();
@@ -187,10 +193,10 @@ public class MenuMenu {
                                             out.print("[(Y)es/(N)o]: ");
                                             restart = YesNo.yesNo(String.valueOf(input.nextLine()));
                                         } else {
-                                            menuData.itemRestore(backupItem, item, newItem); //restore the item from backup. This also deletes the backup after restoring
+                                            menuData.itemRestore(backupItem, newItem); //restore the item from backup. This also deletes the backup after restoring
                                             Cls.cls();
                                             out.println("Item data restored:");
-                                            out.println(menuData.searchItem(item)); //print restored item data
+                                            out.println(menuData.searchItem(itemNum)); //print restored item data
                                             out.println("| Press enter to try again. |");
                                             input.nextLine();
                                             restart = true; //restart
@@ -212,19 +218,20 @@ public class MenuMenu {
                                 boolean restart = false;
                                 Cls.cls();
                                 do {
-                                    out.println("Enter the Item. (Enter -L to list Item names or -C to cancel.)");
+                                    out.println("Enter the Item number. (Enter -L to list Item names or -C to cancel.)");
                                     out.print("[Item]: ");
                                     String item = input.nextLine();
-                                    if (menuData.isItem(item)) {
+                                    if (menuData.isItem(Integer.parseInt(item))) {
+                                        int itemNum = Integer.parseInt(item);
                                         Cls.cls();
                                         out.println("Item Found");
                                         out.println("----------\n");
-                                        out.println(menuData.searchItem(item));
+                                        out.println(menuData.searchItem(itemNum));
                                         out.println();
                                         out.println("Is this item available?");
                                         out.print("[(Y)es/(N)o]: ");
                                         boolean avail = YesNo.yesNo(input.nextLine());
-                                        menuData.setAvailability(item, avail);
+                                        menuData.setAvailability(itemNum, avail);
                                         Cls.cls();
                                         String display;
                                         if (avail) {
@@ -232,7 +239,7 @@ public class MenuMenu {
                                         } else display = "not available";
                                         out.println("Successfully set " + item + " as " + display);
                                         out.println();
-                                        out.println(menuData.searchItem(item));
+                                        out.println(menuData.searchItem(itemNum));
                                         out.println();
                                         out.println("Would you like to edit another Item?");
                                         out.print("[(Y)es/(N)o]: ");
