@@ -114,12 +114,12 @@ public class TableData {
      *
      * @param tableNumber the number of the table
      * @param seatNumber  the number of the seat
-     * @param dish        the name of the dish or returns Table not found if Table doesn't exist.
+     * @param dishNum        the number of the dish or returns Table not found if Table doesn't exist.
      */
     public void addDish(int tableNumber, int seatNumber, int dishNum) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
-            table.addDish(dishNum, seatNumber);
+            table.addDish(seatNumber, dishNum);
             tableData.put(tableNumber, table);
         } else System.out.println("Table not found");
     }

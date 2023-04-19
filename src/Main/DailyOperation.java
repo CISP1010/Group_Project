@@ -1,11 +1,12 @@
 package Main;
+
 import Employee.EmployeeData;
 import Helpers.Cls;
 import Helpers.YesNo;
+import Orders.OrderMenu;
 import Tables.TableData;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
+
+import java.util.Scanner;
 
 import static java.lang.System.out;
 
@@ -18,7 +19,7 @@ public class DailyOperation {
             Scanner input = new Scanner(System.in);
             out.println("What would you like to do");
             out.println();
-            out.println("1: Orders (Loads Test data)"); //loads test data while order classes are being made
+            out.println("1: New order"); //loads test data while order classes are being made
             out.println("2: Print the bill for a table");
             out.println("3: View employee Assignments");
             out.println("4: Management Menu");
@@ -28,37 +29,7 @@ public class DailyOperation {
             switch (choice){
                 case 1 -> {
                     Cls.cls();
-                    //still working on order classes
-
-                    //Fill all tables with test data
-                    File file = new File("Resources/default_menu_items.txt");
-                    Scanner scanner = null;
-                    try {
-                        scanner = new Scanner(file);
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-                    //fill an arraylist with foodMenu options from default data file
-                    List <Integer> foodList = new ArrayList<>();
-                    while (scanner.hasNextLine()) {
-                        String line = scanner.nextLine();
-                        if (!line.startsWith("#")) { //skip comment lines
-                            String[] itemDetails = line.split(","); //split lines at commas and only take first split (food name)
-                            if (itemDetails.length == 5) { //double-check the line is formatted right
-                                foodList.add(Integer.parseInt(itemDetails[0].trim()));
-                            }else out.println("it broke");
-                        }
-                    }
-                    out.println(foodList);
-                    for (int i = 0; i < 21; i++) {
-                        for (int s = 1; s < 5; s++) {
-                            Collections.shuffle(foodList); //shuffle foodMenu to get a random result at index 0. (Math.random is too annoying to deal with)
-                            tableData.addDish(i, s, foodList.get(0));
-                        }out.println(tableData.getTableData(i));
-                    }
-                    scanner.close();
-                    out.println("Test data loaded \n \n| Press enter to continue |");
-                    input.nextLine();
+                    OrderMenu.main(new String[]{});
                 }
                 case 2 -> {
                     Cls.cls();

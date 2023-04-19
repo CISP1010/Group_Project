@@ -22,6 +22,7 @@ public class OrderData {
     TableData tableData = new TableData();
 
     private static HashMap<Integer, Order> orderData = new HashMap<>();
+    private int orderNumber = 1000;
 
     ArrayList<String> orderItems = new ArrayList<>();  /// to store food item choices for entry into order object
     ///need a way to clear this between order entries
@@ -51,16 +52,17 @@ public class OrderData {
                         .append("Order Items: ").append(order.getOrderItems()).append("\n");
             }
 
-            if (order.getOrderType().equals("Dine In")) {
-                sb.append("Order Items: \n")
-                        .append("Table Number: ").append(order.getTableNum()).append("\n")
-                        .append("Order Items: ");
-                for (String item : orderItems) { //for each item in the orderItem arraylist
-                    sb.append(tableData.getDishes(order.getTableNum())).append("\n");
-                    sb.append(item).append(", ");
+            if (order.getOrderType().equals("Pick up")){
+                sb.append("Delivery Phone: ").append(order.getPhone()).append("\n")
+                    .append("Order Items: ").append(order.getOrderItems()).append("\n");
+            }
+
+            if (order.getOrderType().equals("Dine-in")) {
+                    sb.append("Table Number: ").append(order.getTableNum()).append("\n")
+                        .append("Order Items: ").append(order.getOrderItems()).append("\n");
                 }
             } else return '\n' + "Order " + orderNumber + " not found" + '\n';
-        }return sb.toString();
+        return sb.toString();
     }
 //should list all orders from hashmap and print out their info
 
@@ -70,5 +72,10 @@ public class OrderData {
             Order value = entry.getValue();
             System.out.println(key + " => " + value);
         }
+    }
+
+    public int getNewOrderNum(){
+        orderNumber++;
+        return orderNumber;
     }
 }
