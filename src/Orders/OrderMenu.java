@@ -16,7 +16,6 @@ public class OrderMenu {
             MenuData menuData = new MenuData();    //initialize menuData
             TableData tableData = new TableData(); //initialize tableData
             int choice = 0;
-            int orderNum = 1;
 
             String noSeat = "No seat"; //I might have caused an issue by using 'choice' as a var inside loops..maybe not though
             String noTable = "No table";
@@ -34,7 +33,7 @@ public class OrderMenu {
                 System.out.println("3 - List all orders.");
                 System.out.println("4 - Delete an order."); // maybe mark an order as completed too?
                 System.out.println("5 - Return to the main menu.\n");
-                System.out.println("Enter your selection [1,2,3,4,5]: ");
+                System.out.print("Enter your selection [1,2,3,4,5]: ");
                 //gets the user choice
                 choice = input.nextInt();
                 input.nextLine();
@@ -51,11 +50,12 @@ public class OrderMenu {
                         int partySize = 0;
                         int tableNum = 0;
                         int seatNum = 0;
+                        int orderNum = orderData.getNewOrderNum();
+                        String orderFor;
                         String address = "";
                         String phone = "";
                         String deliveryNotes = "";
                         ArrayList<Integer> itemSel = new ArrayList<Integer>();
-                        do {
                             Cls.cls();
                             out.println("Enter the customer's last name.");
                             out.print("[last name]: ");
@@ -75,16 +75,32 @@ public class OrderMenu {
                                 partySize = input.nextInt();
                                 input.nextLine(); //clears the newline character
                                 Cls.cls();
-                                out.println("Enter the table number where the party will be seated. (-L to list empty tables)");
-                                out.print("[table #]: ");
-                                String tableNumString = input.nextLine();
-                                if (tableNumString.equalsIgnoreCase("-L")) {
-                                    out.println(tableData.getEmptyTables());
-                                    out.println("Enter the table number where the party will be seated.");
+                                boolean tableNumValid = false;
+                                do {
+                                    out.println("Enter the table number where the party will be seated. (-L to list empty tables)");
                                     out.print("[table #]: ");
-                                    tableNumString = input.nextLine();
-                                }
-                                tableNum = Integer.parseInt(tableNumString); //parse to int for tableData
+                                    String tableNumString = input.nextLine();
+                                    try {
+                                        if (!tableData.isFilled(Integer.parseInt(tableNumString))) {
+                                            tableNum = Integer.parseInt(tableNumString);
+                                            tableNumValid = true;
+                                        }
+                                    } catch (NumberFormatException e) {
+                                        if (tableNumString.equalsIgnoreCase("-L")) {
+                                            out.println(tableData.getEmptyTables());
+                                            out.println("Press enter to continue.");
+                                            input.nextLine();
+                                        } else if (tableNumString.equalsIgnoreCase("-C")) { //cancel
+                                            Cls.cls();
+                                            out.println("Order cancelled.");
+                                            out.println("Press enter to continue.");
+                                            input.nextLine();
+                                            break;
+                                        } else {
+                                            tableNum = Integer.parseInt(tableNumString);
+                                        }
+                                    }
+                                } while (!tableNumValid);
                                 Cls.cls();
                                 out.println("Table: " + tableNum);
                                 out.println(tableData.getTableData(tableNum));
@@ -92,7 +108,7 @@ public class OrderMenu {
                                 out.print("[seat #]: ");
                                 seatNum = input.nextInt();
                                 input.nextLine(); //clears the newline character
-                                String orderFor = custName +  " | Table: " + tableNum + " | Seat: " + seatNum;
+                                orderFor = custName +  " | Table: " + tableNum + " | Seat: " + seatNum;
 
                             } else if (orderChoice == 2) {          //delivery
                                 orderType = "Delivery";
@@ -109,73 +125,72 @@ public class OrderMenu {
                                 if(!input.nextLine().isEmpty()){
                                     deliveryNotes = input.nextLine();
                                 }else deliveryNotes = "";
-                                String orderFor = "Delivery: " + custName;
+                                orderFor = "Delivery: " + custName;
 
                             } else {
                                 orderType = "Pick up";                   //pick up
                                 out.println("Enter the phone number.");
                                 out.print("[phone]: ");
                                 phone = input.nextLine();
-                                String orderFor = "Pick up: " + custName;
+                                orderFor = "Pick up: " + custName;
                             }
 
                             //Build orders
                             do {
-                                menuData.printMenu();
-                                out.println("Enter the number of the item you would like to add to the order.");
-                                out.print("[menu item(#)]: ");
-                                itemNum = input.nextInt();
-                                input.nextLine(); //clears the newline character
+                                do {
+                                    menuData.printMenu();
+                                    out.println("Ordering for: " + orderFor);
+                                    out.println("Enter the number of the item you would like to add to the order.");
+                                    out.print("[menu item(#)]: ");
+                                    itemNum = input.nextInt();
+                                    input.nextLine(); //clears the newline character
+                                    Cls.cls();
+                                    out.println("Ordering for: " + orderFor);
+                                    out.println("You chose: " + menuData.getName(itemNum));
+                                    out.println("Is this correct?");
+                                    out.print("[(Y)es/(N)o]: ");
+                                    yn = YesNo.yesNo(input.nextLine());
+                                } while (!yn);
+                                itemSel.add(itemNum);
                                 Cls.cls();
-                                out.println("You chose: " + menuData.getName(itemNum));
-                                out.println("Is this correct?");
-                                out.println("[(Y)es/(N)o]: ");
+                                out.println("Ordering for: " + orderFor);
+                                StringBuilder sb = new StringBuilder();
+                                for(int i : itemSel){
+                                    sb.append(menuData.getName(i)).append(", ");
+                                }
+                                out.println(sb.toString());
+                                out.println("Would you like add another item?");
+                                out.print("[(Y)es/(N)o]: ");
                                 yn = YesNo.yesNo(input.nextLine());
-                            }while(!yn);
-                            itemSel.add(itemNum);
-                            input.nextLine();
-                            Cls.cls();
-                            if(orderChoice == 1){
-                                tableData.addDish(tableNum, seatNum, dishNum);
-                                out.println("Dish added to Table: \n" + tableData.getTableData(tableNum));
-                            }else {
-                                out.println("Item added to order: \n" + "Items: " + itemSel);
-                            }
-                            out.println("Would you like add another item?");
-                            out.print("[(Y)es/(N)o]: ");
-                            restart = YesNo.yesNo(input.nextLine());
-                        }while (restart);
+                            }while (yn);
 
                         //submit orders
                         if (orderChoice == 1) {
                             //dine in
-                            Order order = new Order(orderNum, custName, itemSel, orderType, tableNum, "", "","" );
+                            for (int i : itemSel) {
+                                tableData.addDish(tableNum, seatNum, i);
+                            }
+                            out.println("Dishes added to Table: \n" + tableData.getTableData(tableNum));
+                            Order order = new Order(orderNum, custName, itemSel, orderType, tableNum, "", "", "");
                             orderData.addOrder(orderNum, order);
                             out.println("Order submitted.");
-                            out.println("Order number: " + orderNum);
-                            out.println("Order: " + order.toString() + "\n");
+                            out.println(orderData.searchOrder(orderNum) + "\n");
 
                         } else if (orderChoice == 2) {
                             //delivery
                             Order order = new Order(orderNum,custName,itemSel,orderType,-1, address, phone, deliveryNotes);
                             orderData.addOrder(orderNum, order);
                             out.println("Order submitted.");
-                            out.println("Order number: " + orderNum);
-                            out.println("Order: " + order.toString() + "\n");
+                            out.println(orderData.searchOrder(orderNum) + "\n");
                         } else {
                             //pick up
                             Order order = new Order(orderNum, custName, itemSel, orderType, -1, "", phone, "");
                             orderData.addOrder(orderNum, order);
                             out.println("Order submitted.");
-                            out.println("Order number: " + orderNum);
-                            out.println("Order: " + order.toString() + "\n");
+                            out.println(orderData.searchOrder(orderNum) + "\n");
                         }
-                            Cls.cls();
-                        ///wait I got confused here...need to use function to pass all order items to orderItem list or hashmap
-                        // then create object, then pass it to the hashmap
-                        //this *should* add order object to the existing order hashmap
-                        //augments the menu entry item that precedes [menu item(#)
-                        orderNum++; //advances orderNum - this variable is outside the loop and should keep advancing
+                        out.println("Would you like to return to the order menu?");
+                        out.print("[(Y)es/(N)o]: ");
                         restart = YesNo.yesNo(input.nextLine());
 
                     }
@@ -206,7 +221,7 @@ public class OrderMenu {
                     default -> throw new IllegalStateException("Unexpected value: " + choice);
 
                 }
-            }while (restart);
+            }while (choice != 5);
         }
 }
 

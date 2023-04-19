@@ -19,8 +19,8 @@ public class Order {
     public Order(int orderNum, String custName, ArrayList<Integer> orderItems, String orderType, int tableNum, String deliveryAddress, String deliveryPhone, String deliveryNotes) {
         this.orderNum = orderNum;;
         this.custName = custName;
-        this.orderItem = orderItems;
         this.orderType = orderType;
+        this.orderItem = orderItems;
         this.tableNum = tableNum;
         this.deliveryAddress = deliveryAddress;
         this.deliveryPhone = deliveryPhone;
@@ -72,11 +72,12 @@ public class Order {
     }
 
     public String getOrderItems(){ //this is returning the arraylist of order items as a string
+        StringBuilder sb = new StringBuilder();
         for (Integer itemNum : orderItem) { //for each item in the orderItem arraylist
-            return menuData.getName(itemNum); //print the item name from the menuData hashmap
-        }return "Item not found"; //if the item is not found in the menuData hashmap
-    }// This is definitely a dirty hack. If the item numbers get changed in the item menu (Like by removing an item from the menu that is not the last item) , this will change every order's value....
-    // need to find a way to make permanent item numbers that are not affected by changes to the menu
+            sb.append(menuData.getName(itemNum)).append(", "); //print the item name from the menuData hashmap
+        }
+        return sb.toString();
+    }
 
     public String getOrderType(){
         return orderType;

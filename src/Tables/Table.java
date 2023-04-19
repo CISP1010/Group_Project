@@ -60,7 +60,10 @@ public class Table {
      */
     public void addDish(int seat, int dishNumber) {
         StringBuilder sb = new StringBuilder();
-        sb.append(tableSeats.get(seat)).append(", ").append(dishNumber).append(", ").append(menuData.getName(dishNumber));
+        if(tableSeats.get(seat) != null){
+            sb.append(tableSeats.get(seat)).append(", ");
+        }
+        sb.append(menuData.getName(dishNumber));
         tableSeats.remove(seat);
         tableSeats.put(seat, sb.toString());
     }
