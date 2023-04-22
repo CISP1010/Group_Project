@@ -1,5 +1,5 @@
 package Main;
-
+import Helpers.Round;
 import Employee.EmployeeData;
 import Helpers.Cls;
 import Helpers.YesNo;
@@ -22,7 +22,7 @@ public class DailyOperation {
             out.println("1: New order"); //loads test data while order classes are being made
             out.println("2: Print the bill for a table");
             out.println("3: View employee Assignments");
-            out.println("4: Management Menu");
+            out.println("4: Go back to Management Menu");
             out.print("[1,2,3,4]: ");
             choice = input.nextInt();
             input.nextLine(); //clear the leftover linebreak from input.nextInt()
@@ -39,21 +39,23 @@ public class DailyOperation {
                     input.nextLine();
                     double total = tableData.getTotal(tableNumber);
                     out.println(tableData.getTableData(tableNumber)); //get table data
-                    out.println("TOTAL: " + total);
+                    out.println("TOTAL: $" + Round.round(total, 2));
                     out.println("Ask the customer to enter a tip percentage.");
                     out.print("[15%, 18%, 20%...]: ");
-                    String tipPercent = input.next().replaceAll("[^\\d.]", "");    //get tip percentage and remove all non-numeric characters
-                    double tip = Math.round(Double.parseDouble(tipPercent));
-                    double tipTotal = (total * (tip / 100)); //calculate tip total
+                    String tipString = input.next().replaceAll("[^\\d.]", "");    //get tip percentage and remove all non-numeric characters
+                    double tipPercent = Round.round(Double.parseDouble(tipString), 0); //round tip to two decimals));
+                    double tipAmount = Round.round(total * (tipPercent / 100), 2); //calculate tip amount
                     out.println();
                     Cls.cls();
                     out.println();
                     out.println(tableData.getTableData(tableNumber)); //keeps table data visible after clear screen
                     out.println();
-                    out.println("Tip: " + "($" + total * (tip / 100) + ") : " + tip + " of $" + total );
-                    out.println("TOTAL: " + tipTotal);
+                    out.println("Tip: %" + tipPercent + " of $" + total +" = $" + tipAmount);
+                    double totalWithTip = Round.round((total + tipAmount), 2);
+                    out.println("Total with Tip: $" + totalWithTip);
                     out.println("Would you like to split the bill?");
                     out.print("[(Y)es/(N)o]: ");
+                    String yn = input.nextLine();
                     double splitTotal;
                     if(YesNo.yesNo(input.nextLine())){
                         Cls.cls();
@@ -62,13 +64,13 @@ public class DailyOperation {
                         out.println("How many people are splitting the bill?");
                         out.print("[1,2,3,4]: ");
                         double split = input.nextDouble();
-                        splitTotal = (total / split); //divide the total by the number of people
+                        splitTotal = Round.round((total / split), 2); //divide the total by the number of people and round to two decimals
                         input.nextLine(); //clear the leftover linebreak from input.nextDouble()
                         out.println();
                         Cls.cls();
                         out.println(tableData.getTableData(tableNumber)); //keeps table data visible after clear screen
-                        out.print("Total split " + Math.round(split) + " ways: "); //round to whole integer to remove decimal from double datatype
-                        out.println((Math.round(splitTotal * 100.0) / 100.0)); //round to 2 decimal places
+                        out.println("TOTAL: $" + total);
+                        out.print("Total split " + Math.round(split) + " ways: $" + splitTotal); //round to whole integer to remove decimal from double data type and print split total
                     }
                     out.println();
                     out.println("| Press enter to return to the menu. |");
@@ -101,6 +103,13 @@ public class DailyOperation {
                     }
                     out.println();
                     out.println("| Press Enter to Continue |");
+                    input.nextLine();
+                }
+                case 4 -> {
+                    Cls.cls();
+                    out.println("Returning to Management Menu...");
+                    out.println();
+                    out.println("| Press enter to continue |");
                     input.nextLine();
                 }
             }

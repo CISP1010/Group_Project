@@ -176,7 +176,7 @@ public class EmployeeMenu {
                             out.println("Is this correct?"); //check if info is correct
                             out.print("[(Y)es/(N)o]: ");
                             String yn = input.nextLine();
-                            if (YesNo.yesNo(String.valueOf(yn))) {  //if user enterd yes, Yes, Y, or y
+                            if (YesNo.yesNo(String.valueOf(yn))) {  //if user entered yes, Yes, Y, or y
                                 employeeData.remEmployee(backupName); //delete the backup
                                 out.println("Employee successfully updated!");
                                 out.println("Would you like to edit another employee?");
@@ -214,7 +214,7 @@ public class EmployeeMenu {
                     out.println("3: Names, positions, sections, and schedules");
                     out.print("[1,2,3]: ");
                     int data = input.nextInt();
-                    input.nextLine(); //clear leftoever linebreak from input.nextInt()
+                    input.nextLine(); //clear leftover linebreak from input.nextInt()
                     out.println(employeeData.listEmployee(data)); //listEmployee will return a formatted matching the data parameter
                     out.println("| Press enter to continue |");
                     input.nextLine();

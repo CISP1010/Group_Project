@@ -1,10 +1,9 @@
 package Tables;
 
+import Helpers.Round;
 import Menu.MenuData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 /**
  * This class represents a table in a restaurant with a number, tableSeats filled, and dishes
@@ -68,6 +67,15 @@ public class Table {
         tableSeats.put(seat, sb.toString());
     }
 
+    public void clearSeat(int seat) {
+        StringBuilder sb = new StringBuilder();
+        if (tableSeats.get(seat) != null) {
+            sb.append(" ");
+            tableSeats.remove(seat);
+            tableSeats.put(seat, sb.toString());
+        }
+    }
+
     /**
      * Returns a string representation of the dishes at the table.
      *
@@ -104,18 +112,10 @@ public class Table {
         double price = 0;
         for (Map.Entry<Integer, String> entry : tableSeats.entrySet()){
             int seat = entry.getKey();
-            String dishes = entry.getValue();
-            String[] myArray = dishes.split(",");  // Split the string by commas
-            List<String> numbersList = new ArrayList<>();
-
-            // Loop through each item in the array and add numbers to the list
-            for (String s : myArray) {
-                String trimmed = s.trim();  // Remove leading/trailing whitespace
-                if (trimmed.matches("\\d+")) {  // Check if the string contains only digits
-                    price = price + menuData.getPrice(Integer.parseInt(s));
-                }
+            for(String dish : entry.getValue().split(", ")){
+                int itemNum = menuData.getItemNum(dish);
+                price = price + menuData.getPrice(itemNum);
             }
-        }return price;
+        }return Round.round(price,2);
     }
-
 }
