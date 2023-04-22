@@ -33,7 +33,7 @@ public class MenuData {
         menuData.put(number, menuItem);
     }
 
-    public int getSize(){
+    public int getSize() {
         return menuData.size();
     }
 
@@ -43,10 +43,10 @@ public class MenuData {
      */
     private void loadDefaultMenuItems() {
         File file = new File("Resources/default_menu_items.txt"); //initialize .txt source
-        Scanner input = null; //initialize scanner outside of try-catch and while loop
+        Scanner input = null; //initialize scanner outside the try-catch and while loop
         try {
             input = new Scanner(file); //initialize file-source scanner
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) { //catch exception if file not found
             throw new RuntimeException(e); //throw exception if file not found
         }
         int i = 1;
@@ -167,25 +167,27 @@ public class MenuData {
         }
     }
 
-    public String getName(int itemNum){
+    public String getName(int itemNum) {
         MenuItem menuItem = menuData.get(itemNum);
         return menuItem.getItem();
     }
 
     /**
      * returns a list of menu categories
+     *
      * @return string containing menu categories
      */
-    public String getTypes(){
+    public String getTypes() {
         return "Types" + categories.toString();
     }
 
     /**
      * Edits an item in the menuData hashmap
-     * @param itemNum The item to edit
-     * @param newItem The new item name
-     * @param type the new item type
-     * @param price the new item price
+     *
+     * @param itemNum      The item to edit
+     * @param newItem      The new item name
+     * @param type         the new item type
+     * @param price        the new item price
      * @param availability the new item availability
      */
     public void editItem(int itemNum, String newItem, String type, double price, boolean availability) {
@@ -213,7 +215,8 @@ public class MenuData {
 
     /**
      * Removes an item from the menuData HashMap.
-     * @param itemNum  The item to remove
+     *
+     * @param itemNum The item to remove
      */
     public void remItem(int itemNum) {
         menuData.remove(itemNum);
@@ -221,11 +224,12 @@ public class MenuData {
 
     /**
      * Restores an item from backup into the menuData HashMap.
+     *
      * @param itemNum The item number to restore
      * @param newItem The edited item to remove
      */
     public void itemRestore(int itemNum, String newItem) {
-        if (menuData.containsKey(itemNum + 100)){
+        if (menuData.containsKey(itemNum + 100)) {
             int backupItem = itemNum + 100;
             MenuItem restore = menuData.get(backupItem);
             restore.setItem(newItem);
@@ -233,6 +237,19 @@ public class MenuData {
             menuData.put(itemNum, restore);
             menuData.remove(backupItem);
         }
+    }
+
+    public int getItemNum(String item) {
+        int num = -1;
+        for (int i : menuData.keySet()) {
+            if (menuData.containsKey(i)) {
+                MenuItem menuItem = menuData.get(i);
+                if (menuItem.getItem().equals(item)) {
+                    num = i;
+                }
+            }
+        }
+        return num;
     }
 }
 

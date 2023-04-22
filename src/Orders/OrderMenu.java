@@ -143,13 +143,18 @@ public class OrderMenu {
                                     out.println("Enter the number of the item you would like to add to the order.");
                                     out.print("[menu item(#)]: ");
                                     itemNum = input.nextInt();
-                                    input.nextLine(); //clears the newline character
-                                    Cls.cls();
-                                    out.println("Ordering for: " + orderFor);
-                                    out.println("You chose: " + menuData.getName(itemNum));
-                                    out.println("Is this correct?");
-                                    out.print("[(Y)es/(N)o]: ");
-                                    yn = YesNo.yesNo(input.nextLine());
+                                    if(menuData.isItem(itemNum)) {
+                                        input.nextLine(); //clears the newline character
+                                        Cls.cls();
+                                        out.println("Ordering for: " + orderFor);
+                                        out.println("You chose: " + menuData.getName(itemNum));
+                                        out.println("Is this correct?");
+                                        out.print("[(Y)es/(N)o]: ");
+                                        yn = YesNo.yesNo(input.nextLine());
+                                    }else{
+                                        out.println("Invalid item number. Please try again.");
+                                        yn = false;
+                                    }
                                 } while (!yn);
                                 itemSel.add(itemNum);
                                 Cls.cls();

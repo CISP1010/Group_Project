@@ -124,6 +124,14 @@ public class TableData {
         } else System.out.println("Table not found");
     }
 
+    public void clearSeat(int tableNumber, int seatNumber) {
+        if (tableData.containsKey(tableNumber)) {
+            Table table = tableData.get(tableNumber);
+            table.clearSeat(seatNumber);
+            tableData.put(tableNumber, table);
+        } else System.out.println("Table not found");
+    }
+
     /**
      * Returns the table bill from the tableData hashmap
      *

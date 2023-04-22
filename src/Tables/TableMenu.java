@@ -1,6 +1,7 @@
 package Tables;
 import Helpers.Cls;
 import Helpers.YesNo;
+import Menu.MenuData;
 import java.util.Scanner;
 import static java.lang.System.in;
 import static java.lang.System.out;
@@ -65,11 +66,39 @@ public class TableMenu {
                         out.println("-------------------");
                         out.println(tableData.getTableData(table));  //display current table data
                         for (int i = 1; i <= 4; i++) { //iterate through numbers 1 - 4 and prompt for new dishes for seats 1 - 4
-                            out.println("Enter the dish number for seat " + i +  " (or press Enter to skip.)");
+                            out.println("Enter the dish number for seat " + i +  " (Press Enter to skip, -L to list dishes, -C to clear seat)");
                             out.print("Seat " + i + ": "); //print the seat number and new dish
-                            int nd = input.nextInt();
-                            input.nextLine();
-                            tableData.addDish(table, i, nd);
+                            String dishString = input.nextLine();
+                            int nd = 0;
+                            if (dishString.equals("")) { //if the user presses enter, skip the seat
+                                continue;
+                            }else if (dishString.equals("-L")) { //if the user enters -L, list the dishes
+                                Cls.cls();
+                                MenuData menuData = new MenuData();
+                                out.println("DISH LIST");
+                                out.println("---------");
+                                menuData.printMenu();
+                                out.println();
+                                out.println("Enter the dish number for seat " + i +  " (Press Enter to skip, -C to clear seat)");
+                                out.print("[Dish #]: ");
+                                if(input.hasNextInt()) {
+                                    nd = input.nextInt();
+                                    input.nextLine(); //clear the leftover newline character
+                                }else if (input.nextLine().equals("-C")){
+                                    tableData.clearSeat(table, i);
+                                }
+                            }else if (dishString.equals("-C")) { //if the user enters -C, clear the seat
+                                tableData.clearSeat(table, i);
+                            }else {
+                                try {
+                                    nd = Integer.parseInt(dishString);
+                                    tableData.addDish(table, i, nd); //add the dish to the table
+                                } catch (NumberFormatException e) {
+                                    out.println("Invalid dish number.");
+                                    out.println("Press Enter to continue.");
+                                    input.nextLine();
+                                }
+                            }
                         }
                         Cls.cls();
                         out.println("New Table Data:");
