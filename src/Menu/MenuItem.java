@@ -1,18 +1,10 @@
 package Menu;
 
-
-
-
 /**
  * The MenuItem class represents the menu and contains the MenuItem constructor used to add items to the MenuData hashMap.
  */
-
-/**
-* @todo MenuItem.java javadoc
-* @body proofread javadoc info and add missing entries
-*/
 public class MenuItem implements Cloneable{
-
+    
     private String item;
     private String type;
     private int number;

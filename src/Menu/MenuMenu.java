@@ -4,10 +4,6 @@ import Helpers.YesNo;
 import java.util.Scanner;
 import static java.lang.System.*;
 
-/**
- * @todo proofread MenuMenu.java code comments
- * @body check code comments for accuracy and ensure they are in the correct locations
- */
 public class MenuMenu {
     static MenuData menuData = new MenuData();
 

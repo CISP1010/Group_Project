@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import static java.lang.System.out;
 
+
 /**
  * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
  * section assignments, and schedules.
- */
-/**
- * @todo proofread EmployeeData.java javadoc info
- * @body proofread javadoc info
  */
 public class EmployeeData {
 
