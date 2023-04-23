@@ -5,8 +5,15 @@ import Menu.MenuData;
 
 import java.util.HashMap;
 import java.util.Map;
+
+
+
 /**
  * This class represents a table in a restaurant with a number, tableSeats filled, and dishes
+ */
+/**
+ * @todo Table.java javadoc info
+ * @body proofread javadoc info and add missing entries
  */
 public class Table {
     private final int tableNumber;

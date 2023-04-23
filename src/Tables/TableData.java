@@ -3,9 +3,15 @@ package Tables;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 /**
  * TableData class represents the data for restaurant tables, including table number,
  * number of seats, number of seats filled, and dishes ordered.
+ */
+/**
+ * @todo TableData.java javadoc info
+ * @body proofread javadoc info and add missing entries
  */
 public class TableData {
     private static HashMap<Integer, Table> tableData = new HashMap<>();

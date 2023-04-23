@@ -1,10 +1,14 @@
 package Employee;
 
+
 /**
  * The Employee.Employee class represents an individual employee and contains the Employee.Employee constructor used to add employees to the employeeData hashMap.
  */
+    /**
+    * @todo proofread Employee.java javadoc info
+    * @body proofread javadoc info
+    */
 public class Employee implements Cloneable {
-    // other fields and methods...
 
     private String name;
     private String position;
