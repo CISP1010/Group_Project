@@ -8,10 +8,6 @@ import java.util.*;
  * and print the menu in a formatted way. The class uses a HashMap to store MenuItem objects, with the name of the menu item
  * as the key and the MenuItem object as the value.
  */
-/**
- * @todo MenuData.java javadoc
- * @body proofread javadoc info and add missing entries
- */
 public class MenuData {
     private static HashMap<Integer, MenuItem> menuData = new HashMap<>();
     private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");

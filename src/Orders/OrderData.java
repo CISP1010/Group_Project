@@ -12,10 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @todo Clean up comments and javadoc
- * @body Remove unneccesarry code comments and proofread/add javadoc info
- */
 public class OrderData {
 
     // enum for 3 order options delivery, dine out, or dine in, which needs

@@ -10,11 +10,6 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
-
-/**
- * @todo DailyOperation.java Proofread comments
- * @body Proofread the code comments and ensure they are still in the correct locations
- */
 public class DailyOperation {
     public static void main(String[] args) {
         int choice;

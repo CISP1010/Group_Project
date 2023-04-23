@@ -7,13 +7,8 @@ import Tables.TableMenu;
 import java.util.Scanner;
 import static java.lang.System.out;
 
-
 /**
  * The main class for the restaurant management system program.
- */
-/**
- * @todo Main.java add comments explaining code
- * @body Add inline comments to explain code
  */
 public class Main {
     static Scanner input = new Scanner(System.in);
