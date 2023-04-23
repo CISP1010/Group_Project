@@ -15,12 +15,10 @@ public class OrderMenu {
             OrderData orderData = new OrderData();  //initialize orderData
             MenuData menuData = new MenuData();    //initialize menuData
             TableData tableData = new TableData(); //initialize tableData
-            int choice = 0;
+            int choice;
 
-            String noSeat = "No seat"; //I might have caused an issue by using 'choice' as a var inside loops..maybe not though
-            String noTable = "No table";
+            //I might have caused an issue by using 'choice' as a var inside loops..maybe not though
 
-            Boolean continueEntry = true;
             boolean restart = false;
             do {
                 //clears screen
@@ -45,7 +43,7 @@ public class OrderMenu {
                         String custName;
                         String orderType;
                         int orderChoice;
-                        boolean yn = false;
+                        boolean yn;
                         int itemNum;
                         int partySize = 0;
                         int tableNum = 0;
@@ -55,18 +53,17 @@ public class OrderMenu {
                         String address = "";
                         String phone = "";
                         String deliveryNotes = "";
-                        ArrayList<Integer> itemSel = new ArrayList<Integer>();
+                        ArrayList<Integer> itemSel = new ArrayList<>();
                             Cls.cls();
                             out.println("Enter the customer's last name.");
                             out.print("[last name]: ");
                             custName = input.nextLine();
                             Cls.cls();
-                            out.println("Is this order for (1) Dine-in, (2) Delivery, or (3) Pick up?");
+                            out.println("Is this order for \n 1: Dine-in \n 2: Delivery \n 3: Pick up?");
                             out.print("[order type]: ");
                             // orderChoice takes the number to avoid confusion on my part...
                             orderChoice = input.nextInt();
-                            int dishNum = -1;
-                            if (orderChoice == 1) {
+                        if (orderChoice == 1) {
                                 //dine in
                                 Cls.cls();
                                 orderType = "Dine-in";
@@ -163,7 +160,7 @@ public class OrderMenu {
                                 for(int i : itemSel){
                                     sb.append(menuData.getName(i)).append(", ");
                                 }
-                                out.println(sb.toString());
+                                out.println(sb);
                                 out.println("Would you like add another item?");
                                 out.print("[(Y)es/(N)o]: ");
                                 yn = YesNo.yesNo(input.nextLine());
@@ -203,34 +200,263 @@ public class OrderMenu {
                     case 2 -> {
 
                         Cls.cls();
-                        out.println("Enter the number of the order to modify: ");
-                        //need option to list orders so they can see order numbers - listAll() method in order data
-                        choice = input.nextInt();
-                        //print the getters for the info for this order
-                        //what would you like to change?  choice will delete entry....\
-                        //delete that entry with 'set' if it's an array list or something else if hash'
-                        // menu to select
-                        //boolean as above for modification finished?
-                    }
-
-                    case 3 -> { // this one is list all orders...iterate through hash or arraylist - just listAll from orderData
+                        out.println("Enter the number of the order to modify: (-L to list all open orders)");
+                        out.println("[order #]: ");
+                        String orderNumString = input.nextLine();
+                        String custName;
+                        String orderType;
+                        int orderChoice;
+                        boolean yn;
+                        boolean retry = false;
+                        int itemNum;
+                        int partySize = 0;
+                        int tableNum = 0;
+                        int seatNum = 0;
+                        int orderNum = orderData.getNewOrderNum();
+                        String orderFor;
+                        String address = "";
+                        String phone = "";
+                        String deliveryNotes = "";
+                        out.println("Enter the customer's last name or press enter to skip.");
+                        out.print("[last name]: ");
+                        custName = input.nextLine();
                         Cls.cls();
-                        //goes iterates through hashmap get and printing info for each item
+                        ArrayList<Integer> itemSel = new ArrayList<>();
+                        do {
+                            try {
+                                if (orderData.isOrder(Integer.parseInt(orderNumString))) {
+                                    orderNum = Integer.parseInt(orderNumString);
+                                    Cls.cls();
+                                    out.println("Order found!");
+                                    out.println();
+                                    out.println(orderData.searchOrder(orderNum));
+                                    out.println("Is this order for \n 1: Dine-in \n 2: Delivery \n 3: Pick up?");
+                                    out.print("[order type]: ");
+                                    // orderChoice takes the number to avoid confusion on my part...
+                                    orderChoice = input.nextInt();
+                                    int dishNum = -1;
+                                    Cls.cls();
+                                    Cls.cls();
+                                    if (orderChoice == 1) {
+                                        //dine in
+                                        Cls.cls();
+                                        orderType = "Dine-in";
+                                        out.println("How big is the party?");
+                                        out.print("[party size]: ");
+                                        partySize = input.nextInt();
+                                        input.nextLine(); //clears the newline character
+                                        Cls.cls();
+                                        boolean tableNumValid = false;
+                                        do {
+                                            out.println("Enter the table number where the party will be seated. (-L to list empty tables)");
+                                            out.print("[table #]: ");
+                                            String tableNumString = input.nextLine();
+                                            try {
+                                                if (!tableData.isFilled(Integer.parseInt(tableNumString))) {
+                                                    tableNum = Integer.parseInt(tableNumString);
+                                                    tableNumValid = true;
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                if (tableNumString.equalsIgnoreCase("-L")) {
+                                                    out.println(tableData.getEmptyTables());
+                                                    out.println("Press enter to continue.");
+                                                    input.nextLine();
+                                                } else if (tableNumString.equalsIgnoreCase("-C")) { //cancel
+                                                    Cls.cls();
+                                                    out.println("Order cancelled.");
+                                                    out.println("Press enter to continue.");
+                                                    input.nextLine();
+                                                    break;
+                                                } else {
+                                                    tableNum = Integer.parseInt(tableNumString);
+                                                }
+                                            }
+                                        } while (!tableNumValid);
+                                        Cls.cls();
+                                        out.println("Table: " + tableNum);
+                                        out.println(tableData.getTableData(tableNum));
+                                        out.println("Enter the seat number where this dish should be served.");
+                                        out.print("[seat #]: ");
+                                        seatNum = input.nextInt();
+                                        input.nextLine(); //clears the newline character
+                                        orderFor = custName + " | Table: " + tableNum + " | Seat: " + seatNum;
+                                    }
+                                    if (orderChoice == 1) {
+                                        //dine in
+                                        Cls.cls();
+                                        orderType = "Dine-in";
+                                        out.println("How big is the party?");
+                                        out.print("[party size]: ");
+                                        partySize = input.nextInt();
+                                        input.nextLine(); //clears the newline character
+                                        Cls.cls();
+                                        boolean tableNumValid = false;
+                                        do {
+                                            out.println("Enter the table number where the party will be seated. (-L to list empty tables)");
+                                            out.print("[table #]: ");
+                                            String tableNumString = input.nextLine();
+                                            try {
+                                                if (!tableData.isFilled(Integer.parseInt(tableNumString))) {
+                                                    tableNum = Integer.parseInt(tableNumString);
+                                                    tableNumValid = true;
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                if (tableNumString.equalsIgnoreCase("-L")) {
+                                                    out.println(tableData.getEmptyTables());
+                                                    out.println("Press enter to continue.");
+                                                    input.nextLine();
+                                                } else if (tableNumString.equalsIgnoreCase("-C")) { //cancel
+                                                    Cls.cls();
+                                                    out.println("Order cancelled.");
+                                                    out.println("Press enter to continue.");
+                                                    input.nextLine();
+                                                    break;
+                                                } else {
+                                                    tableNum = Integer.parseInt(tableNumString);
+                                                }
+                                            }
+                                        } while (!tableNumValid);
+                                        Cls.cls();
+                                        out.println("Table: " + tableNum);
+                                        out.println(tableData.getTableData(tableNum));
+                                        out.println("Enter the seat number where this dish should be served.");
+                                        out.print("[seat #]: ");
+                                        seatNum = input.nextInt();
+                                        input.nextLine(); //clears the newline character
+                                        orderFor = custName + " | Table: " + tableNum + " | Seat: " + seatNum;
 
+                                    } else if (orderChoice == 2) {          //delivery
+                                        orderType = "Delivery";
+                                        out.println("Enter the address.");
+                                        out.print("[address]: ");
+                                        address = input.nextLine();
+                                        Cls.cls();
+                                        out.println("Enter the phone number.");
+                                        out.print("[phone]: ");
+                                        phone = input.nextLine();
+                                        Cls.cls();
+                                        out.println("Enter the order notes. (optional)");
+                                        out.print("[notes]: ");
+                                        if (!input.nextLine().isEmpty()) {
+                                            deliveryNotes = input.nextLine();
+                                        } else deliveryNotes = "";
+                                        orderFor = "Delivery: " + custName;
 
+                                    } else {
+                                        orderType = "Pick up";                   //pick up
+                                        out.println("Enter the phone number.");
+                                        out.print("[phone]: ");
+                                        phone = input.nextLine();
+                                        orderFor = "Pick up: " + custName;
+                                    }
+                                    //Build orders
+                                    do {
+                                        do {
+                                            menuData.printMenu();
+                                            out.println("Ordering for: " + orderFor);
+                                            out.println("Enter the number of the item you would like to add to the order.");
+                                            out.print("[menu item(#)]: ");
+                                            itemNum = input.nextInt();
+                                            if (menuData.isItem(itemNum)) {
+                                                input.nextLine(); //clears the newline character
+                                                Cls.cls();
+                                                out.println("Ordering for: " + orderFor);
+                                                out.println("You chose: " + menuData.getName(itemNum));
+                                                out.println("Is this correct?");
+                                                out.print("[(Y)es/(N)o]: ");
+                                                yn = YesNo.yesNo(input.nextLine());
+                                            } else {
+                                                out.println("Invalid item number. Please try again.");
+                                                yn = false;
+                                            }
+                                        } while (!yn);
+                                        itemSel.add(itemNum);
+                                        Cls.cls();
+                                        out.println("Ordering for: " + orderFor);
+                                        StringBuilder sb = new StringBuilder();
+                                        for (int i : itemSel) {
+                                            sb.append(menuData.getName(i)).append(", ");
+                                        }
+                                        out.println(sb);
+                                        out.println("Would you like add another item?");
+                                        out.print("[(Y)es/(N)o]: ");
+                                        yn = YesNo.yesNo(input.nextLine());
+                                    } while (yn);
+
+                                    //submit orders
+                                    if (orderChoice == 1) {
+                                        //dine in
+                                        for (int i : itemSel) {
+                                            tableData.addDish(tableNum, seatNum, i);
+                                        }
+                                        out.println("Dishes added to Table: \n" + tableData.getTableData(tableNum));
+                                        Order order = new Order(orderNum, custName, itemSel, orderType, tableNum, "", "", "");
+                                        orderData.remOrder(orderNum);
+                                        orderData.addOrder(orderNum, order);
+                                        out.println("Order edited.");
+                                        out.println(orderData.searchOrder(orderNum) + "\n");
+
+                                    } else if (orderChoice == 2) {
+                                        //delivery
+                                        Order order = new Order(orderNum, custName, itemSel, orderType, -1, address, phone, deliveryNotes);
+                                        orderData.remOrder(orderNum);
+                                        orderData.addOrder(orderNum, order);
+                                        out.println("Order edited.");
+                                        out.println(orderData.searchOrder(orderNum) + "\n");
+                                    } else {
+                                        //pick up
+                                        Order order = new Order(orderNum, custName, itemSel, orderType, -1, "", phone, "");
+                                        orderData.remOrder(orderNum);
+                                        orderData.addOrder(orderNum, order);
+                                        out.println("Order edited.");
+                                        out.println(orderData.searchOrder(orderNum) + "\n");
+                                    }
+                                }
+                            } catch (NumberFormatException e) {
+                                if (orderNumString.equalsIgnoreCase("-L")) {
+                                    orderData.listOrders();
+                                    out.println("Press enter to continue.");
+                                    input.nextLine();
+                                    retry = true;
+                                } else
+                                    out.println("Invalid input. Please try again.");
+                                retry = true;
+                            }
+                        }while (retry);
                     }
-                    case 4 -> { // this one is delete order - listAll(), then orderData.remove<orderNum, order>
+
+                    case 3 -> {
+                        orderData.listOrders();
+                        out.println("| Press enter to continue. |");
+                        input.nextLine();
+                        Cls.cls();
                     }
-                    case 5 -> { // this one is return to main menu
+                    case 4 -> {
+                        Cls.cls();
+                        boolean loop = false;
+                        do {
+                            orderData.listOrders();
+                            out.println("Enter the order number you would like to remove.");
+                            int orderNum = input.nextInt();
+                            if (orderData.isOrder(orderNum)) {
+                                Cls.cls();
+                                out.println("Order Found!");
+                                orderData.searchOrder(orderNum);
+                                out.println("Would you like to delete it?");
+                                boolean yn = YesNo.yesNo(input.nextLine());
+                                if (yn) {
+                                    orderData.remOrder(orderNum);
+                                    out.println("Order removed");
+                                    out.println("| Press enter to return to the menu. |");
+                                    input.nextLine();
+                                } else loop = true;
+                            }
+                        }while (loop);
                     }
+                    case 5 -> out.println("Returning to the menu");
                     default -> throw new IllegalStateException("Unexpected value: " + choice);
 
                 }
             }while (choice != 5);
         }
 }
-
-
-                    //default -> out.println("Invalid choice.");
-
-                        //remember to put the assignNum() method in the constructor at the end of 'create ordery/n'

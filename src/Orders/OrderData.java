@@ -74,6 +74,23 @@ public class OrderData {
         }
     }
 
+    public boolean isOrder(int orderNum) {
+        boolean loop = true;
+        return orderData.containsKey(orderNum);
+    }
+
+    public Order getOrder(int orderNum){
+        if (isOrder(orderNum)){
+            return orderData.get(orderNumber);
+        }else return null;
+    }
+
+    public void remOrder(int orderNumber) {
+        if (isOrder(orderNumber)) {
+            orderData.remove(orderNumber);
+        }
+    }
+
     public int getNewOrderNum(){
         orderNumber++;
         return orderNumber;
