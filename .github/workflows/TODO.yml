@@ -27,6 +27,10 @@ jobs:
       - name: Run Issue Bot
         uses: derjuulsn/todo-issue@main
         with:
+          keywords: " todo, TODO, @todo, @TODO"
+          bodyKeywords: " @body, @BODy, body, BODY" 
+          blobLines: 5
+          caseSensitive: false
           excludePattern: '^(node_modules/)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
