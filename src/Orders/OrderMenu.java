@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.out;
+
+/**
+ * @todo Add missing code comments and cleanup
+ * @body cleanup messy code and cleanup code comments
+ */
 public class OrderMenu {
         public static void main(String[] args){
             Scanner input = new Scanner(System.in);
@@ -198,7 +203,11 @@ public class OrderMenu {
                     }
 
                     case 2 -> {
-
+                        
+                        /**
+                        * @todo Debug order editing and cleanup code
+                        * @body Debug order editing and cleanup code
+                        */
                         Cls.cls();
                         out.println("Enter the number of the order to modify: (-L to list all open orders)");
                         out.println("[order #]: ");
@@ -251,6 +260,10 @@ public class OrderMenu {
                                             out.println("Enter the table number where the party will be seated. (-L to list empty tables)");
                                             out.print("[table #]: ");
                                             String tableNumString = input.nextLine();
+                                            /**
+                                            * @todo This try catch block is not functioning correctly
+                                            * @body I think it has something to do with the first if block
+                                            */
                                             try {
                                                 if (!tableData.isFilled(Integer.parseInt(tableNumString))) {
                                                     tableNum = Integer.parseInt(tableNumString);

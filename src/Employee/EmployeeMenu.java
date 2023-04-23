@@ -9,6 +9,10 @@ import static java.lang.System.out;
  * This class provides a command-line interface for managing the Employee management system.
  * Users can View, Add, and Edit all employee data.
  */
+/**
+ * @todo proofread EmployeeMenu.java javadoc info
+ * @body proofread javadoc info
+ */
 public class EmployeeMenu {
     public static void main(String[] args) {
         Scanner input = new Scanner(in);
@@ -75,6 +79,12 @@ public class EmployeeMenu {
                         System.out.println("New Employee");
                         System.out.println("------------\n");
                         System.out.println(employeeData.searchEmployee(name)); //print new employee info
+
+                        /**
+                        * @todo Fix bug with adding employee
+                        * @body Employee info not showing after being added.
+                        */
+                        System.out.println(employeeData.searchEmployee(name));
                         out.println("Would you like to create another employee?");
                         out.print("[(Y)es/(N)o]: ");
                         restart = YesNo.yesNo(input.nextLine());
