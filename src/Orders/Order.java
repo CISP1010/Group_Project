@@ -4,7 +4,10 @@ import Menu.MenuData;
 
 import java.util.ArrayList;
 
-//gp through and change orderItem and orderItems
+/**
+ * @todo Order.java needs all javadoc info added
+ * @body add all java doc info (Chat gpt)
+ */
 public class Order {
     private String deliveryAddress;
     private String deliveryPhone;

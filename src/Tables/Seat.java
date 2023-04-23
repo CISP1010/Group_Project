@@ -2,6 +2,10 @@ package Tables;
 
 import java.util.ArrayList;
 
+/**
+ * @todo Seats.java add javadoc info
+ * @body add javadoc info
+ */
 public class Seat {
     private int tableNumber;
     private int seatNumber;

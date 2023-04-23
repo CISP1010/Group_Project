@@ -6,10 +6,13 @@ import java.util.Scanner;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
+
+
 /**
  * This class provides a command-line interface for managing restaurant tables.
  * Users can view all tables' status, view specific tables' status, or manually edit tables' data.
  */
+
 public class TableMenu {
 
     /**
