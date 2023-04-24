@@ -10,5 +10,5 @@ https://github.com/CISP1010/Group_Project/blob/Development/Resources/Updated_Uml
 Things left to do (WOW ITS EMPTY!!)
 https://github.com/CISP1010/Group_Project/issues
 
-18 Java files, 2094 lines of Java, 656 comment lines. All for a useless terminal based Restaurant manager....
+18 Java files, 2200 lines of Java, 616 comment lines. All for a useless terminal based Restaurant manager....
 
