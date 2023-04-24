@@ -17,11 +17,11 @@ public class MenuData {
     /**
      * creates a hashmap that maps menu items to an integer key list
      */
-    private static HashMap<Integer, MenuItem> menuData = new HashMap<>();
+    private static final HashMap<Integer, MenuItem> menuData = new HashMap<>();
     /**
      * creates a list to contain categories of dishes
      */
-    private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
+    private static final List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
 
 
     /**
@@ -58,7 +58,7 @@ public class MenuData {
      */
     private void loadDefaultMenuItems() {
         File file = new File("Resources/default_menu_items.txt"); //initialize .txt source
-        Scanner input = null; //initialize scanner outside the try-catch and while loop
+        Scanner input; //initialize scanner outside the try-catch and while loop
         try {
             input = new Scanner(file); //initialize file-source scanner
         } catch (FileNotFoundException e) { //catch exception if file not found
@@ -142,7 +142,7 @@ public class MenuData {
      */
     /**
      * @todo Add code to remove old menu item and add new menu item to the menuData HashMap
-     * @body IDK how i missed this
+     * @body IDK how I missed this
      */
     public void setAvailability(int item, boolean availability) {
         MenuItem menuItem = menuData.get(item);//get the MenuItem object from the menuData HashMap
@@ -169,7 +169,6 @@ public class MenuData {
         for (MenuItem menuItem : menuSort) { //loop through each menu item
             menuItemWidth = Math.max(menuItemWidth, menuItem.getItem().length() + 5); //set the width to the longest menu item name
         }
-        int i = 1;
         // Print the menu items grouped by type and sorted by item number and formatted in even columns
         for (String category : categories) { //loop through each category
             System.out.println(category + ":"); //print the category
@@ -179,7 +178,7 @@ public class MenuData {
                     itemsInCategory.add(menuItem); //add the menu item to the ArrayList if it is in the category
                 }
             }
-            Collections.sort(itemsInCategory, Comparator.comparing(MenuItem::getItemNum)); //sort the menu items in the category by item number
+            itemsInCategory.sort(Comparator.comparing(MenuItem::getItemNum)); //sort the menu items in the category by item number
             for (MenuItem menuItem : itemsInCategory) { //loop through each menu item in the category
                 String price = String.format("$%.2f", menuItem.getPrice()); //format the price to two decimal places
                 System.out.printf(menuItem.getItemNum() + ":" + "  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price); //print the menu item and price in even columns
@@ -205,7 +204,7 @@ public class MenuData {
      * @return string containing menu categories
      */
     public String getTypes() {
-        return "Types" + categories.toString();
+        return "Types" + categories;
     }
 
     /**

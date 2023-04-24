@@ -10,6 +10,7 @@ import java.util.Map;
  * This class represents a table in a restaurant with information
  * about the table's number, seats, dishes, and bill.
 */
+@SuppressWarnings("FieldMayBeFinal")
 public class Table {
 
     /**
@@ -20,7 +21,6 @@ public class Table {
      * creates a hash map to hold existing menu items
      */
     private final int tableNumber; //This integer holds the table number
-    private boolean filled; //This boolean holds the filled status of the table
     private MenuData menuData = new MenuData(); //Creates a new Menu.MenuData object
 
     /**
@@ -39,24 +39,6 @@ public class Table {
      */
     public int getNumber() {
         return tableNumber; //returns the table number
-    }
-
-    /**
-     * Sets the table's filled status to the given boolean value.
-     *
-     * @param filled the filled status of the table
-     */
-    public void setFilled(boolean filled) {
-        this.filled = filled; //Sets the filled status of the table
-    }
-
-    /**
-     * Returns whether the table is currently filled.
-     *
-     * @return true if the table is filled, false otherwise
-     */
-    public boolean isFilled() {
-        return filled; //returns the filled status of the table
     }
 
     /**
@@ -89,6 +71,15 @@ public class Table {
     }
 
     /**
+     * Boolean method to check if a seat is empty
+     * @param seat the seat number
+     * @return returns true if the seat is empty
+     */
+    public boolean isSeatEmpty(int seat){
+        return tableSeats.get(seat) == null;
+    }
+
+    /**
      * Returns a string representation of the dishes at the table.
      *
      * @return returns a list of dishes ordered at the table
@@ -104,14 +95,12 @@ public class Table {
     }
 
     /**
-     * Gets a list of dishes ordered to a given seat
+     * Returns a string representation of the dishes at a seat.
      * @param seat the seat number
-     * @return string of dishes
+     * @return returns a list of dishes ordered at the seat
      */
     public String getSeatDishes(int seat){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Seat ").append(seat).append(": ").append("Dishes: ").append(tableSeats.get(seat)).append("\n"); //appends the seat number and dish to the string builder
-        return sb.toString(); //returns the string builder as a string
+        return tableSeats.get(seat);
     }
 
     /**

@@ -16,6 +16,7 @@ public class MenuItem implements Cloneable{
 
     private String item; //This string stores the name of the item
     private String type; //This string stores the type of the item
+    @SuppressWarnings("FieldMayBeFinal")
     private int number; //This int stores the number of the item
     private double price; //This double stores the price of the item
     private boolean availability; //This boolean stores the availability of the item

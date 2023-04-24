@@ -1,7 +1,9 @@
 package Employee;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import static java.lang.System.out;
 
 /**
@@ -54,15 +56,6 @@ public class EmployeeData {
     public void addScheduleOptions(String newSchedule) {
         scheduleOptions.add(newSchedule); //adds the schedule to the arraylist
         out.println("Added schedule | Number: " + (scheduleOptions.size() - 1) + " | Schedule:  " + newSchedule); //prints the schedule that was added
-    }
-
-    /**
-     * Removes a schedule from the scheduleOptions ArrayList.
-     *
-     * @param schedule The numerical representation of the schedule to be removed.
-     */
-    public void remScheduleOptions(int schedule) {
-        scheduleOptions.remove(schedule); //removes the schedule from the arraylist
     }
 
     /**
@@ -128,14 +121,14 @@ public class EmployeeData {
             }
             /**
              * @todo possible bug.
-             * @body The if block considers int 0 as empty, but i believe 0 is a valid schedule option. Need to make schedule options start at 1.
+             * @body The if block considers int 0 as empty, but I believe 0 is a valid schedule option. Need to make schedule options start at 1.
              */
             if (newSchedule != 0) { //if the new schedule is not empty
                 employee.setSchedule(newSchedule); //sets the employee's schedule to the new schedule
             }
             /**
              * @todo possible bug.
-             * @body The if block considers int 0 as empty, but i believe 0 is a valid section option. Need to make sections options start at 1.
+             * @body The if block considers int 0 as empty, but I believe 0 is a valid section option. Need to make sections options start at 1.
              */
             if (newSection != 0) { //if the new section is not empty
                 employee.setSection(newSection); //sets the employee's section to the new section
@@ -194,21 +187,7 @@ public class EmployeeData {
     }
 
     /**
-     * Returns an employee's section from the HashMap as a formatted string.
-     *
-     * @param name the employee's first and last name to search for
-     * @return the employee's section in a formatted string if found.
-     */
-    public String sectionString(String name) {
-        StringBuilder sb = new StringBuilder();
-        if (employeeData.containsKey(name)) { //if the hashmap contains the employee
-            Employee employee = employeeData.get(name); //gets the employee object from the hashmap
-            sb.append("Section: ").append(employee.getSection()).append(" ").append(sections.get(employee.getSection())).append("\n");//appends the employee's section to the string builder
-        }return sb.toString(); //returns the string builder
-    }
-
-    /**
-     * Returns an employee's section from the HashMap as a Integer array containing table numbers.
+     * Returns an employee's section from the HashMap as an Integer array containing table numbers.
      *
      * @param name the employee's first and last name to search for
      * @return the employee's tables in an integer array.
@@ -217,7 +196,7 @@ public class EmployeeData {
         if (employeeData.containsKey(name)) { //if the hashmap contains the employee
             Employee employee = employeeData.get(name); //gets the employee object from the hashmap
             String str = sections.get(employee.getSection()); //gets the section string from the hashmap
-            String numStr = str.replaceAll("\\D+", " "); //WOW i HATE regular expressions. This method took WAYYY too long
+            String numStr = str.replaceAll("\\D+", " "); //WOW! I HATE regular expressions. This method took WAYYY too long
             String[] numArr = numStr.trim().split("\\s+");          //to figure out. Basically it removes all non-numeric characters and splits the string into an array
             int[] numIntArr = new int[numArr.length];                     //of strings containing only the numbers. Then it converts the string array into an integer array
             for (int i = 0; i < numArr.length; i++) { //loops through the string array

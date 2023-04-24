@@ -10,6 +10,7 @@ import java.util.Map;
  * number of seats, number of seats filled, and dishes ordered.
  */
 
+@SuppressWarnings("FieldMayBeFinal")
 public class TableData {
     /**
      * A hash map that maps table objects to table numbers
@@ -20,7 +21,7 @@ public class TableData {
      * Initializes 20 empty tables to the tableData hashmap.
      */
     public TableData() {
-        int i = 1; //This integer increments to create 20 tables
+        int i; //This integer increments to create 20 tables
         for (i = 1; i <= 20; i++) { //increments i to create 20 tables
             tableData.put(i, new Table(i)); //Adds a new table to the tableData hashmap
         }
@@ -44,6 +45,16 @@ public class TableData {
     }
 
     /**
+     * Returns the table object for a specified table.
+     *
+     * @param tableNumber the number of the table to get data for
+     * @return a table object
+     */
+    public Table getTable(int tableNumber){
+        return tableData.get(tableNumber);
+    }
+
+    /**
      * Returns a formatted string with data for all tables in the table data.
      *
      * @return a string with the table number, seats filled, and dishes ordered for all tables
@@ -60,6 +71,16 @@ public class TableData {
     }
 
     /**
+     * Returns true if the specified table exists, false otherwise.
+     *
+     * @param tableNumber the number of the table to check for existence
+     * @return true if the specified table exists, false otherwise
+     */
+    public boolean isTable(int tableNumber){
+        return tableData.containsKey(tableNumber);
+    }
+
+    /**
      * Returns true if the specified table has 4 or more seats filled, false otherwise.
      *
      * @param tableNumber the number of the table to check for filling
@@ -72,47 +93,6 @@ public class TableData {
             return table.getSeatsFilled() >= 4; //returns true if the table has 4 or more seats filled
         } else throw new RuntimeException("Table not found."); //throws an exception if the table doesn't exist
 
-    }
-
-    /**
-     * Returns the number of empty seats at the specified table.
-     *
-     * @param tableNumber the number of the table
-     * @return the number of empty seats
-     * @throws RuntimeException if the table does not exist
-     */
-    public int getEmptySeats(int tableNumber) {
-        if (tableData.containsKey(tableNumber)) { //checks if the table exists
-            Table table = tableData.get(tableNumber); //gets the table
-            return 4 - table.getSeatsFilled(); //returns 4 minus the number of seats filled
-        } else throw new RuntimeException("Table not found."); //throws an exception if the table doesn't exist
-    }
-
-    /**
-     * Returns the number of filled seats at the specified table.
-     *
-     * @param tableNumber the number of the table
-     * @return the number of filled seats
-     * @throws RuntimeException if the table does not exist
-     */
-    public int getFilledSeats(int tableNumber) {
-        if (tableData.containsKey(tableNumber)) { //checks if the table exists
-            Table table = tableData.get(tableNumber); //gets the table
-            return table.getSeatsFilled(); //returns the number of seats filled
-        } else throw new RuntimeException("Table not found!"); //throws an exception if the table doesn't exist
-    }
-
-    /**
-     * Returns a string containing the dishes ordered at the specified table.
-     *
-     * @param tableNumber the number of the table
-     * @return a string containing the dishes ordered or returns Table not found if Table doesn't exist.
-     */
-    public String getDishes(int tableNumber) {
-        if (tableData.containsKey(tableNumber)) { //checks if the table exists
-            Table table = tableData.get(tableNumber); //gets the table
-            return table.getTableDishes(); //returns the dishes ordered at the table
-        } else return "Table not found!"; //returns Table not found if the table doesn't exist
     }
 
     /**
@@ -137,7 +117,7 @@ public class TableData {
      */
 
     /**
-     * @todo Check if table object needs removed priot to adding to hashmap
+     * @todo Check if table object needs removed prior to adding to hashmap
      * @body
      */
     public void clearSeat(int tableNumber, int seatNumber) {
@@ -146,6 +126,21 @@ public class TableData {
             table.clearSeat(seatNumber); //clears the seat at the specified table
             tableData.put(tableNumber, table); //adds the table object to the tableData hashmap
         } else System.out.println("Table not found");
+    }
+
+    /**
+     * Returns true if the specified seat at the specified table is empty, false otherwise.
+     *
+     * @param tableNumber the number of the table
+     * @param seatNumber  the number of the seat
+     * @return true if the specified seat at the specified table is empty, false otherwise
+     * @throws RuntimeException if the specified table number is not found in the table data
+     */
+    public boolean isSeatEmpty(int tableNumber, int seatNumber){
+        if (tableData.containsKey(tableNumber)) { //checks if the table exists
+            Table table = tableData.get(tableNumber); //gets the table
+            return table.isSeatEmpty(seatNumber); //returns true if the seat is empty
+        } else throw new RuntimeException("Table not found."); //throws an exception if the table doesn't exist
     }
 
     /**
