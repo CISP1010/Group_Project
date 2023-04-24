@@ -5,7 +5,7 @@ Javadoc
 https://cisp1010.github.io/Group_Project/Javadoc/index.html
 
 UML
-https://github.com/CISP1010/Group_Project/blob/Development/Javadoc/resources/Updated_UML.svg
+https://github.com/CISP1010/Group_Project/blob/Development/Resources/Updated_Uml.svg
 
 Things lift to do
 https://github.com/CISP1010/Group_Project/issues
