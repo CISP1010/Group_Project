@@ -83,6 +83,7 @@ public class MenuMenu {
                                     out.println("Would you like to create another item?");
                                     out.print("[(Y)es/(N)o]: ");
                                     restart = YesNo.yesNo(input.nextLine()); //get user input to restart loop
+                                    Cls.cls();
                                 } while (restart); //restart loop if user wants to add another item
                             }
                             case 2 -> { //remove menu item

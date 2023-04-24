@@ -115,11 +115,6 @@ public class TableData {
      * @param tableNumber the specified table number
      * @param seatNumber the seat number at that table
      */
-
-    /**
-     * @todo Check if table object needs removed prior to adding to hashmap
-     * @body
-     */
     public void clearSeat(int tableNumber, int seatNumber) {
         if (tableData.containsKey(tableNumber)) { //checks if the table exists
             Table table = tableData.get(tableNumber); //gets the table

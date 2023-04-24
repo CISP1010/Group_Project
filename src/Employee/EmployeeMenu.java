@@ -83,12 +83,6 @@ public class EmployeeMenu {
                         System.out.println("New Employee");
                         System.out.println("------------\n");
                         System.out.println(employeeData.searchEmployee(name)); //print new employee info
-
-                        /**
-                        * @todo Fix bug with adding employee
-                        * @body Employee info not showing after being added.
-                        */
-                        System.out.println(employeeData.searchEmployee(name));
                         out.println("Would you like to create another employee?");
                         out.print("[(Y)es/(N)o]: ");
                         restart = YesNo.yesNo(input.nextLine()); //calls the YesNo.yesno method from the helpers package to check what the user input
