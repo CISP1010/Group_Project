@@ -9,21 +9,31 @@ import java.util.Map;
 
 
 /**
- * This class represents a table in a restaurant with a number, tableSeats filled, and dishes
- */
-/**
- * @todo Table.java javadoc info
- * @body proofread javadoc info and add missing entries
- */
-public class Table {
-    private final int tableNumber;
-    private HashMap<Integer, String> tableSeats = new HashMap<>();
-    MenuData menuData = new MenuData();
+ * This class represents a table in a restaurant with information
+ * about the table's number, seats, dishes, and bill.
+*/
 
+public class Table {
+    /**
+     * instance variable for table number
+     */
+    private final int tableNumber;
+
+    /**
+     * creates a new hashmap for table seats and the dishes ordered at those seats
+     */
+    private HashMap<Integer, String> tableSeats = new HashMap<>();
+    /**
+     * creates a hash map to hold existing menu items
+     */
+    MenuData menuData = new MenuData();
+    /**
+     * instance variable to indicate if table is filled
+     */
     boolean filled;
 
     /**
-     * Constructs a new Tables.Table object with the given table number and initializes the dishes HashMap with empty strings.
+     * Constructs a new table object with a table number
      *
      * @param tableNumber the table number
      */
@@ -74,6 +84,11 @@ public class Table {
         tableSeats.put(seat, sb.toString());
     }
 
+    /**
+     * clears the dishes at a given seat
+     * @param seat the seat number
+     */
+
     public void clearSeat(int seat) {
         StringBuilder sb = new StringBuilder();
         if (tableSeats.get(seat) != null) {
@@ -86,7 +101,7 @@ public class Table {
     /**
      * Returns a string representation of the dishes at the table.
      *
-     * @return a string representation of the dishes at the table
+     * @return returns a list of dishes ordered at the table
      */
     public String getTableDishes() {
         StringBuilder sb = new StringBuilder();
@@ -98,12 +113,21 @@ public class Table {
         return sb.toString();
     }
 
+    /**
+     * Gets a list of dishes ordered to a given seat
+     * @param seat the seat number
+     * @return string of dishes
+     */
     public String getSeatDishes(int seat){
         StringBuilder sb = new StringBuilder();
         sb.append("Seat ").append(seat).append(": ").append("Dishes: ").append(tableSeats.get(seat)).append("\n");
         return sb.toString();
     }
 
+    /**
+     *Returned the number of seats filled at a table
+     * @return the number of seats filled
+     */
     public int getSeatsFilled(){
         return tableSeats.size();
     }

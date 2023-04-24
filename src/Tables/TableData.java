@@ -9,11 +9,11 @@ import java.util.Map;
  * TableData class represents the data for restaurant tables, including table number,
  * number of seats, number of seats filled, and dishes ordered.
  */
-/**
- * @todo TableData.java javadoc info
- * @body proofread javadoc info and add missing entries
- */
+
 public class TableData {
+    /**
+     * A hash map that maps table objects to table numbers
+     */
     private static HashMap<Integer, Table> tableData = new HashMap<>();
 
     /**
@@ -130,6 +130,11 @@ public class TableData {
         } else System.out.println("Table not found");
     }
 
+    /**
+     *Clears the dishes at a specified seat at a specified table
+     * @param tableNumber the specified table number
+     * @param seatNumber the seat number at that table
+     */
     public void clearSeat(int tableNumber, int seatNumber) {
         if (tableData.containsKey(tableNumber)) {
             Table table = tableData.get(tableNumber);
@@ -149,6 +154,10 @@ public class TableData {
         return table.getTotal();
     }
 
+    /**
+     * Returns a formatted string with the numbers of all empty tables
+     * @return a string listing the numbers of all empty tables
+     */
     public String getEmptyTables() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Table> entry : tableData.entrySet()) {

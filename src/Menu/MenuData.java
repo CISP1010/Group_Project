@@ -14,7 +14,13 @@ import java.util.*;
  * Comments are complete
  */
 public class MenuData {
+    /**
+     * creates a hashmap that maps menu items to an integer key list
+     */
     private static HashMap<Integer, MenuItem> menuData = new HashMap<>();
+    /**
+     * creates a list to contain categories of dishes
+     */
     private static List<String> categories = Arrays.asList("Appetizers", "Entrees", "Sides", "Desserts");
 
 
@@ -37,7 +43,11 @@ public class MenuData {
         MenuItem menuItem = new MenuItem(number, item, type, price, availability); //create new menu item with the passed parameters
         menuData.put(number, menuItem); //add the new menu item to the menuData HashMap
     }
+
     /**
+     * Gets the current size of the menuData hash map
+     * @return the size of the menuData hashmap
+     /**
      * @todo needs javadoc info
      * @body
      */
@@ -129,9 +139,9 @@ public class MenuData {
     }
 
     /**
-     * Sets the item's availability.
-     *
-     * @param item the item to set the availability of.
+     * Sets the availability of an item
+     * @param item the item's number
+     * @param availability the item's status as available or not
      */
     /**
      * @todo Add code to remove old menu item and add new menu item to the menuData HashMap
@@ -179,10 +189,16 @@ public class MenuData {
             }
         }
     }
+
     /**
+     * get the name of an item from menu data
+     * @param itemNum the item number
+     * @return the name of the item
+     */
+     
+     /**
      * @todo needs javadoc info
      * @body
-     */
     public String getName(int itemNum) {
         MenuItem menuItem = menuData.get(itemNum); //get the MenuItem object from the menuData HashMap
         return menuItem.getItem(); //return the item's name
@@ -259,6 +275,11 @@ public class MenuData {
         }
     }
 
+    /**
+     * gets the key number of an item
+     * @param item the item's name
+     * @return the integer place of the item in the menuData hashmap
+     */
     public int getItemNum(String item) {
         int num = -1; //set the item number to -1
         for (int i : menuData.keySet()) { //loop through each item number in the menuData HashMap
