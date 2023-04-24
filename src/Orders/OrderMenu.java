@@ -13,6 +13,7 @@ import static java.lang.System.out;
 /**
  * @todo Add missing code comments and cleanup
  * @body cleanup messy code and cleanup code comments
+ * Comments are complete
  */
 public class OrderMenu {
         public static void main(String[] args){

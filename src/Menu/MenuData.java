@@ -47,9 +47,6 @@ public class MenuData {
     /**
      * Gets the current size of the menuData hash map
      * @return the size of the menuData hashmap
-     /**
-     * @todo needs javadoc info
-     * @body
      */
     public int getSize() {
         return menuData.size(); //return the size of the menuData HashMap
@@ -195,10 +192,8 @@ public class MenuData {
      * @param itemNum the item number
      * @return the name of the item
      */
-     
-     /**
-     * @todo needs javadoc info
-     * @body
+
+
     public String getName(int itemNum) {
         MenuItem menuItem = menuData.get(itemNum); //get the MenuItem object from the menuData HashMap
         return menuItem.getItem(); //return the item's name

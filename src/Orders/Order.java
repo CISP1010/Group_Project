@@ -8,8 +8,6 @@ import java.util.ArrayList;
  *  The Order class creates an object that represents a food order with parameters for information
  *   about the customer, the order itself, and the delivery details.
  */
-
-
 public class Order {
     /**
      * These are private instance variable for the delivery address, phone #, notes, table #
@@ -42,14 +40,14 @@ public class Order {
      * @param deliveryNotes takes any miscellaneous notes any notes for the delivery (e.g. gate code, special instructions)
      */
     public Order(int orderNum, String custName, ArrayList<Integer> orderItems, String orderType, int tableNum, String deliveryAddress, String deliveryPhone, String deliveryNotes) {
-        this.orderNum = orderNum;;
-        this.custName = custName;
-        this.orderType = orderType;
-        this.orderItem = orderItems;
-        this.tableNum = tableNum;
-        this.deliveryAddress = deliveryAddress;
-        this.deliveryPhone = deliveryPhone;
-        this.deliveryNotes = deliveryNotes;
+        this.orderNum = orderNum; //Stores the passed order number
+        this.custName = custName; //Stores the passed customer name
+        this.orderType = orderType; //Stores the passed order type
+        this.orderItem = orderItems; //Stores the passed order items
+        this.tableNum = tableNum; //Stores the passed table number
+        this.deliveryAddress = deliveryAddress; //Stores the passed delivery address
+        this.deliveryPhone = deliveryPhone; //Stores the passed delivery phone number
+        this.deliveryNotes = deliveryNotes; //Stores the passed delivery notes
     }
 
     /**
@@ -57,7 +55,7 @@ public class Order {
      * @param orderNum takes the order number
      */
     public void setNum(int orderNum) {
-        this.orderNum = orderNum;
+        this.orderNum = orderNum; //Sets the order number to the passed value
     }
 
     /**
@@ -65,7 +63,7 @@ public class Order {
      * @param custName takes the customer name
      */
     public void setCustName(String custName) {
-        this.custName = custName;
+        this.custName = custName; //Sets the customer name to the passed value
     }
 
     /**
@@ -73,7 +71,7 @@ public class Order {
      * @param orderItems this is an array list that takes ordered items
      */
     public void setOrderItem(ArrayList<Integer> orderItems){
-        this.orderItem = orderItems;
+        this.orderItem = orderItems; //Sets the order items to the passed value
 
     }
 
@@ -82,7 +80,7 @@ public class Order {
      * @param orderType contains information about whether the meal is to be eaten in, delivered, or picked up
      */
     public void setOrderType(String orderType){
-        this.orderType = orderType;
+        this.orderType = orderType; //Sets the order type to the passed value
     }
 
     /**
@@ -91,7 +89,7 @@ public class Order {
      */
 
     public int getOrderNumber(){
-        return orderNum;
+        return orderNum; //Returns the order number
     }
 
     /**
@@ -99,7 +97,7 @@ public class Order {
      * @return it returns the delivery address
      */
     public String getDeliveryAddress(){
-        return deliveryAddress;
+        return deliveryAddress; //Returns the delivery address
     }
 
     /**
@@ -107,7 +105,7 @@ public class Order {
      * @return returns the customer phone number
      */
     public String getPhone(){
-        return deliveryPhone;
+        return deliveryPhone; //Returns the delivery phone number
     }
 
     /**
@@ -115,7 +113,7 @@ public class Order {
      * @return returns the deliver notes
      */
     public String getDeliveryNotes(){
-        return deliveryNotes;
+        return deliveryNotes; //Returns the delivery notes
     }
 
     /**
@@ -123,7 +121,7 @@ public class Order {
      * @return returns the table number
      */
     public int getTableNum(){
-        return tableNum;
+        return tableNum; //Returns the table number
     }
 
     /**
@@ -131,7 +129,7 @@ public class Order {
      * @return returns the customer name
      */
     public String getCustName(){
-        return custName;
+        return custName; //Returns the customer name
     }
 
     /**
@@ -140,18 +138,18 @@ public class Order {
      */
     public String getOrderItems(){
         StringBuilder sb = new StringBuilder();
-        for (Integer itemNum : orderItem) {
-            sb.append(menuData.getName(itemNum)).append(", ");
+        for (Integer itemNum : orderItem) { //Iterates through the order items
+            sb.append(menuData.getName(itemNum)).append(", "); //Adds the item name to the string builder
         }
-        return sb.toString();
+        return sb.toString(); //Returns the string builder as a string
     }
 
     /**
-     * this gets the ordertype
-     * @return returns the ordertype
+     * this gets the order-type
+     * @return returns the order-type
      */
     public String getOrderType(){
-        return orderType;
+        return orderType; //Returns the order type
     }
 
     /**
@@ -159,8 +157,8 @@ public class Order {
      * @return returns the order number
      */
     public int newOrderNum(){
-        orderNum++;
-        return orderNum;
+        orderNum++; //Increments the order number
+        return orderNum; //Returns the new order number
     }
 
 }

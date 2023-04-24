@@ -6,18 +6,12 @@ import Menu.MenuData;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 /**
  * This class represents a table in a restaurant with information
  * about the table's number, seats, dishes, and bill.
 */
 
 public class Table {
-    /**
-     * instance variable for table number
-     */
-    private final int tableNumber;
 
     /**
      * creates a new hashmap for table seats and the dishes ordered at those seats
@@ -26,11 +20,9 @@ public class Table {
     /**
      * creates a hash map to hold existing menu items
      */
-    MenuData menuData = new MenuData();
-    /**
-     * instance variable to indicate if table is filled
-     */
-    boolean filled;
+    private final int tableNumber; //This integer holds the table number
+    private boolean filled; //This boolean holds the filled status of the table
+    private MenuData menuData = new MenuData(); //Creates a new Menu.MenuData object
 
     /**
      * Constructs a new table object with a table number
@@ -38,7 +30,7 @@ public class Table {
      * @param tableNumber the table number
      */
     public Table(int tableNumber) {
-        this.tableNumber = tableNumber;
+        this.tableNumber = tableNumber; //Sets the table number to the given table number
     }
 
     /**
