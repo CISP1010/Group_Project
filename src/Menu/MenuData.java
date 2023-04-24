@@ -8,7 +8,11 @@ import java.util.*;
  * and print the menu in a formatted way. The class uses a HashMap to store MenuItem objects, with the name of the menu item
  * as the key and the MenuItem object as the value.
  */
-
+/**
+ * @todo MenuData.java javadoc
+ * @body proofread javadoc info and add missing entries
+ * Comments are complete
+ */
 public class MenuData {
     /**
      * creates a hashmap that maps menu items to an integer key list
@@ -24,7 +28,7 @@ public class MenuData {
      * Constructs a new MenuData object and loads the default menu items from the default_menu_items.txt file.
      */
     public MenuData() {
-        loadDefaultMenuItems();
+        loadDefaultMenuItems(); //call method to load default menu items
     }
 
     /**
@@ -36,16 +40,19 @@ public class MenuData {
      * @param availability the availability of the menu item (true if available, false if not available)
      */
     public void addMenuItem(int number, String item, String type, double price, boolean availability) {
-        MenuItem menuItem = new MenuItem(number, item, type, price, availability);
-        menuData.put(number, menuItem);
+        MenuItem menuItem = new MenuItem(number, item, type, price, availability); //create new menu item with the passed parameters
+        menuData.put(number, menuItem); //add the new menu item to the menuData HashMap
     }
 
     /**
      * Gets the current size of the menuData hash map
      * @return the size of the menuData hashmap
+     /**
+     * @todo needs javadoc info
+     * @body
      */
     public int getSize() {
-        return menuData.size();
+        return menuData.size(); //return the size of the menuData HashMap
     }
 
     /**
@@ -64,15 +71,15 @@ public class MenuData {
         while (input.hasNextLine()) { //iterate through each line in file. loops until there are no more lines.
             String line = input.nextLine();
             if (!line.startsWith("#")) { //ignore comment lines
-                String[] itemDetails = line.split(","); //split line at commas and load into a String array
-                if (itemDetails.length == 4) { //check that the line is formatted correctly
+                String[] itemDetails = line.split(","); //split string at commas and load into a String array
+                if (itemDetails.length == 4) { //check that the line was formatted correctly
                     String name = itemDetails[0].trim(); //trim any hanging spaces and save name to String name
                     double price = Double.parseDouble(itemDetails[1].trim()); //trim space and parse price to double
                     String type = itemDetails[2].trim(); //trim spaces and save category to String type
                     boolean available = Boolean.parseBoolean(itemDetails[3].trim()); //trim spaces and parse availability to boolean available
                     MenuItem menuItem = new MenuItem(i, name, type, price, available); //create new menu item from extracted data
                     menuData.put(i, menuItem); //add the new item to the menuData hashmap
-                    i++;
+                    i++; //increment i to keep track of the item number
                 }
             }
 
@@ -86,7 +93,7 @@ public class MenuData {
      * @return true if the menuData map contains an entry with the specified item, false otherwise
      */
     public boolean isItem(int itemNum) {
-        return menuData.containsKey(itemNum);
+        return menuData.containsKey(itemNum); //return true if the menuData map contains an entry with the specified item, false otherwise
     }
 
     /**
@@ -96,16 +103,16 @@ public class MenuData {
      * @return the item's data if found, otherwise a message that the item was not found
      */
     public String searchItem(int item) {
-        if (menuData.containsKey(item)) {
+        if (menuData.containsKey(item)) { //check if the menuData HashMap contains the item
             StringBuilder sb = new StringBuilder();
-            MenuItem menuItem = menuData.get(item);
-            sb.append("Item: ").append(item).append("\n")
+            MenuItem menuItem = menuData.get(item); //get the MenuItem object from the menuData HashMap
+            sb.append("Item: ").append(item).append("\n") //append the item's data to the StringBuilder
                     .append("Type: ").append(menuItem.getType()).append("\n")
                     .append("Price: $").append(menuItem.getPrice()).append("\n")
                     .append("Availability: ").append(menuItem.getAvailability()).append("\n");
-            return sb.toString();
+            return sb.toString(); //return the String Builder
         } else {
-            return "Item not found.";
+            return "Item not found."; //return message that the item was not found
         }
     }
 
@@ -116,8 +123,8 @@ public class MenuData {
      * @return The item's price.
      */
     public double getPrice(int item) {
-        MenuItem menuItem = menuData.get(item);
-        return menuItem.getPrice();
+        MenuItem menuItem = menuData.get(item); //get the MenuItem object from the menuData HashMap
+        return menuItem.getPrice(); //return the item's price
     }
 
     /**
@@ -127,8 +134,8 @@ public class MenuData {
      * @return The item's availability.
      */
     public boolean getAvailability(int item) {
-        MenuItem menuItem = menuData.get(item);
-        return menuItem.getAvailability();
+        MenuItem menuItem = menuData.get(item); //get the MenuItem object from the menuData HashMap
+        return menuItem.getAvailability(); //return the item's availability
     }
 
     /**
@@ -136,9 +143,14 @@ public class MenuData {
      * @param item the item's number
      * @param availability the item's status as available or not
      */
+    /**
+     * @todo Add code to remove old menu item and add new menu item to the menuData HashMap
+     * @body IDK how i missed this
+     */
     public void setAvailability(int item, boolean availability) {
-        MenuItem menuItem = menuData.get(item);
-        menuItem.setAvailability(availability);
+        MenuItem menuItem = menuData.get(item);//get the MenuItem object from the menuData HashMap
+        menuItem.setAvailability(availability); //set the item's availability
+
     }
 
     /**
@@ -146,34 +158,34 @@ public class MenuData {
      */
     public void printMenu() {
         // Sort the menu items by type
-        List<MenuItem> menuSort = new ArrayList<>(menuData.values());
-        menuSort.sort(Comparator.comparing(MenuItem::getType).thenComparing(MenuItem::getItem));
+        List<MenuItem> menuSort = new ArrayList<>(menuData.values()); //ArrayList to store the menu items
+        menuSort.sort(Comparator.comparing(MenuItem::getType).thenComparing(MenuItem::getItem)); //sort the menu items by type and then by item number
 
         // Determine the width of the price column based on the longest price
         int priceWidth = 0;
-        for (MenuItem menuItem : menuSort) {
-            priceWidth = Math.max(priceWidth, String.format("%.2f", menuItem.getPrice()).length() + 1);
+        for (MenuItem menuItem : menuSort) { //loop through each menu item
+            priceWidth = Math.max(priceWidth, String.format("%.2f", menuItem.getPrice()).length() + 1); //set the width to the longest price
         }
 
         // Determine the width of the menu item column based on the longest menu item name
         int menuItemWidth = 0;
-        for (MenuItem menuItem : menuSort) {
-            menuItemWidth = Math.max(menuItemWidth, menuItem.getItem().length() + 5);
+        for (MenuItem menuItem : menuSort) { //loop through each menu item
+            menuItemWidth = Math.max(menuItemWidth, menuItem.getItem().length() + 5); //set the width to the longest menu item name
         }
         int i = 1;
         // Print the menu items grouped by type and sorted by item number and formatted in even columns
-        for (String category : categories) {
-            System.out.println(category + ":");
-            List<MenuItem> itemsInCategory = new ArrayList<>();
-            for (MenuItem menuItem : menuSort) {
-                if (menuItem.getType().equals(category)) {
-                    itemsInCategory.add(menuItem);
+        for (String category : categories) { //loop through each category
+            System.out.println(category + ":"); //print the category
+            List<MenuItem> itemsInCategory = new ArrayList<>(); //ArrayList to store the menu items in the category
+            for (MenuItem menuItem : menuSort) { //loop through each menu item
+                if (menuItem.getType().equals(category)) { //check if the menu item is in the category
+                    itemsInCategory.add(menuItem); //add the menu item to the ArrayList if it is in the category
                 }
             }
-            Collections.sort(itemsInCategory, Comparator.comparing(MenuItem::getItemNum));
-            for (MenuItem menuItem : itemsInCategory) {
-                String price = String.format("$%.2f", menuItem.getPrice());
-                System.out.printf(menuItem.getItemNum() + ":" + "  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price);
+            Collections.sort(itemsInCategory, Comparator.comparing(MenuItem::getItemNum)); //sort the menu items in the category by item number
+            for (MenuItem menuItem : itemsInCategory) { //loop through each menu item in the category
+                String price = String.format("$%.2f", menuItem.getPrice()); //format the price to two decimal places
+                System.out.printf(menuItem.getItemNum() + ":" + "  %-" + menuItemWidth + "s  %-" + priceWidth + "s\n", menuItem.getItem(), price); //print the menu item and price in even columns
             }
         }
     }
@@ -183,9 +195,13 @@ public class MenuData {
      * @param itemNum the item number
      * @return the name of the item
      */
+     
+     /**
+     * @todo needs javadoc info
+     * @body
     public String getName(int itemNum) {
-        MenuItem menuItem = menuData.get(itemNum);
-        return menuItem.getItem();
+        MenuItem menuItem = menuData.get(itemNum); //get the MenuItem object from the menuData HashMap
+        return menuItem.getItem(); //return the item's name
     }
 
     /**
@@ -207,25 +223,29 @@ public class MenuData {
      * @param availability the new item availability
      */
     public void editItem(int itemNum, String newItem, String type, double price, boolean availability) {
-        if (menuData.containsKey(itemNum)) {
-            MenuItem menuItem = menuData.get(itemNum);
-            MenuItem backup = (MenuItem) menuItem.clone();
-            menuData.put(itemNum + 100, backup);
+        if (menuData.containsKey(itemNum)) { //check if the menuData HashMap contains the item
+            MenuItem menuItem = menuData.get(itemNum); //get the MenuItem object from the menuData HashMap
+            MenuItem backup = (MenuItem) menuItem.clone(); //create a backup of the MenuItem object
+            menuData.put(itemNum + 100, backup); //add the backup to the menuData HashMap
 
-            if (!newItem.equals("")) {
+            /**
+             * @todo I believe new item needs to be migrated to an integer data type?
+             * @body Not sure though. Need to double-check
+             */
+            if (!newItem.equals("")) { //Set the new item
                 menuItem.setItem(newItem);
             }
-            if (!type.equals("")) {
+            if (!type.equals("")) { //set the new item type
                 menuItem.setType(type);
             }
-            if (price != 0) {
+            if (price != 0) { //set the new item price
                 menuItem.setPrice(price);
             }
-            menuItem.setAvailability(availability);
-            menuData.remove(itemNum);
-            menuData.put(menuItem.getItemNum(), menuItem);
+            menuItem.setAvailability(availability); //set the new item availability
+            menuData.remove(itemNum); //remove the old menu item
+            menuData.put(menuItem.getItemNum(), menuItem); //add the new menu item
         } else {
-            System.out.println("Item not found");
+            System.out.println("Item not found"); //print an error message if the item is not found
         }
     }
 
@@ -235,7 +255,7 @@ public class MenuData {
      * @param itemNum The item to remove
      */
     public void remItem(int itemNum) {
-        menuData.remove(itemNum);
+        menuData.remove(itemNum); //remove the item from the menuData HashMap
     }
 
     /**
@@ -245,13 +265,13 @@ public class MenuData {
      * @param newItem The edited item to remove
      */
     public void itemRestore(int itemNum, String newItem) {
-        if (menuData.containsKey(itemNum + 100)) {
-            int backupItem = itemNum + 100;
-            MenuItem restore = menuData.get(backupItem);
-            restore.setItem(newItem);
-            menuData.remove(itemNum);
-            menuData.put(itemNum, restore);
-            menuData.remove(backupItem);
+        if (menuData.containsKey(itemNum + 100)) { //check if the menuData HashMap contains the backup item
+            int backupItem = itemNum + 100; //set the backup item number
+            MenuItem restore = menuData.get(backupItem); //get the backup MenuItem object from the menuData HashMap
+            restore.setItem(newItem); //set the name to the old item name
+            menuData.remove(itemNum); //remove the new item
+            menuData.put(itemNum, restore); //add the old item
+            menuData.remove(backupItem); //remove the backup item
         }
     }
 
@@ -261,16 +281,16 @@ public class MenuData {
      * @return the integer place of the item in the menuData hashmap
      */
     public int getItemNum(String item) {
-        int num = -1;
-        for (int i : menuData.keySet()) {
-            if (menuData.containsKey(i)) {
-                MenuItem menuItem = menuData.get(i);
-                if (menuItem.getItem().equals(item)) {
-                    num = i;
+        int num = -1; //set the item number to -1
+        for (int i : menuData.keySet()) { //loop through each item number in the menuData HashMap
+            if (menuData.containsKey(i)) { //check if the menuData HashMap contains the number of the current iteration
+                MenuItem menuItem = menuData.get(i); //get the MenuItem object from the menuData HashMap if it exists
+                if (menuItem.getItem().equals(item)) { //check if the menu item name matches the passed item name
+                    num = i; //set the item number to the counter number if the item name matches
                 }
             }
         }
-        return num;
+        return num; //return the item number
     }
 }
 

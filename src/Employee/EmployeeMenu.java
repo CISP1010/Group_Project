@@ -1,7 +1,10 @@
 package Employee;
+
 import Helpers.Cls;
 import Helpers.YesNo;
+
 import java.util.Scanner;
+
 import static java.lang.System.in;
 import static java.lang.System.out;
 
@@ -12,6 +15,7 @@ import static java.lang.System.out;
 /**
  * @todo proofread EmployeeMenu.java javadoc info
  * @body proofread javadoc info
+ * comments are completed
  */
 public class EmployeeMenu {
     public static void main(String[] args) {
@@ -27,33 +31,33 @@ public class EmployeeMenu {
             out.println("4: List data from all Employees");
             out.println("5: Exit\n");
             out.print("[1,2,3,4,5]: ");
-            choice = input.nextInt();
+            choice = input.nextInt(); //get the user's choice
             input.nextLine(); //clear the leftover linebreak from input.nextInt()
             switch (choice) {
                 case 1 -> { //Add employee
                     Cls.cls();
-                    boolean restart;
+                    boolean restart; //boolean to for the do-while loop
                     do {
                         Cls.cls();
                         out.println("Enter the employee name.");
                         out.print("[name]: ");
-                        String name = input.nextLine();
+                        String name = input.nextLine(); //get the name
                         Cls.cls();
                         out.println("Enter their position.");
                         out.print("[position]: ");
-                        String position = input.nextLine();
+                        String position = input.nextLine(); //get the position
                         Cls.cls();
                         out.println("Sections");
                         out.println("--------\n");
-                        out.println(employeeData.listSection());
+                        out.println(employeeData.listSection()); //displays the section options
                         out.println("Enter their section.");
                         out.print("[section]: ");
-                        int sections = input.nextInt();
+                        int sections = input.nextInt(); //get the section number
                         input.nextLine(); //clear the leftover linebreak from input.nextInt()
                         Cls.cls();
                         out.println("Schedules");
                         out.println("---------\n");
-                        out.println(employeeData.getScheduleOptions());
+                        out.println(employeeData.getScheduleOptions()); //displays the schedule options
                         out.println("Would you like to create a new schedule?");
                         out.print("[(Y)es/(N)o]: ");
                         if (YesNo.yesNo(input.nextLine())) { //calls the YesNo.yesno method from the helpers package to check what the user input
@@ -69,7 +73,7 @@ public class EmployeeMenu {
                         Cls.cls();
                         out.println("Schedules");
                         out.println("---------\n");
-                        out.println(employeeData.getScheduleOptions());
+                        out.println(employeeData.getScheduleOptions()); //print all schedule options
                         out.println("Enter the number for their schedule.");
                         out.print("[0,1,2...]: ");
                         int scheduleOption = input.nextInt();
@@ -87,11 +91,11 @@ public class EmployeeMenu {
                         System.out.println(employeeData.searchEmployee(name));
                         out.println("Would you like to create another employee?");
                         out.print("[(Y)es/(N)o]: ");
-                        restart = YesNo.yesNo(input.nextLine());
-                    } while (restart);
+                        restart = YesNo.yesNo(input.nextLine()); //calls the YesNo.yesno method from the helpers package to check what the user input
+                    } while (restart); //restarts the do-while loop if the user wants to create another employee
                 }
                 case 2 -> { //search employee
-                    boolean restart;
+                    boolean restart; //boolean to restart the do-while loop
                     Cls.cls();
                     do {
                         out.println("Enter the Employee name.");
@@ -111,10 +115,10 @@ public class EmployeeMenu {
                         out.print("[(Y)es/(N)o]: ");
                         restart = YesNo.yesNo(input.nextLine());
                         Cls.cls();
-                    } while (restart);
+                    } while (restart); //restarts the do-while loop if the user wants to search again
                 }
                 case 3 -> { //Edit employee
-                    boolean restart = false;
+                    boolean restart = false; //boolean to restart the do-while loop
                     do {
                         Cls.cls();
                         out.println("Enter the Employee name. (Enter -L to list Employee names or -C to cancel.)");
@@ -186,33 +190,33 @@ public class EmployeeMenu {
                             out.println("Is this correct?"); //check if info is correct
                             out.print("[(Y)es/(N)o]: ");
                             String yn = input.nextLine();
-                            if (YesNo.yesNo(String.valueOf(yn))) {  //if user entered yes, Yes, Y, or y
+                            if (YesNo.yesNo(String.valueOf(yn))) {  //if user entered yes
                                 employeeData.remEmployee(backupName); //delete the backup
                                 out.println("Employee successfully updated!");
                                 out.println("Would you like to edit another employee?");
                                 out.print("[(Y)es/(N)o]: ");
-                                restart = YesNo.yesNo(String.valueOf(input.nextLine()));
+                                restart = YesNo.yesNo(String.valueOf(input.nextLine())); //restart the loop if user entered yes
                             } else {
                                 employeeData.employeeRestore(backupName, name, newName); //restore the backup
                                 out.println("Employee data restored:");
                                 out.println(employeeData.searchEmployee(name)); //print restored employee data. This also deletes the backup after it is restored
                                 out.println("Press enter to try again.");
                                 input.nextLine();
-                                restart = true;
+                                restart = true; //restart the loop
                             }
                         } else if (name.equalsIgnoreCase("-L")) { //List employee names
                             Cls.cls();
                             out.println("Employees");
                             out.println("---------\n");
-                            out.println(employeeData.listEmployee(1));
+                            out.println(employeeData.listEmployee(1)); //print employee names
                             out.println("| Press enter to continue |");
                             input.nextLine();
-                            restart = true;
+                            restart = true; //restart the loop
                         } else if (name.equalsIgnoreCase("-C")) { //return to menu
                             choice = 5;
                         } else {
                             out.println("Employee not found!");
-                            restart = true;
+                            restart = true; //restart the loop
                         }
                     } while (restart);
                 }
