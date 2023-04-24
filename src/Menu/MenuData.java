@@ -140,10 +140,6 @@ public class MenuData {
      * @param item the item's number
      * @param availability the item's status as available or not
      */
-    /**
-     * @todo Add code to remove old menu item and add new menu item to the menuData HashMap
-     * @body IDK how I missed this
-     */
     public void setAvailability(int item, boolean availability) {
         MenuItem menuItem = menuData.get(item);//get the MenuItem object from the menuData HashMap
         menuItem.setAvailability(availability); //set the item's availability
