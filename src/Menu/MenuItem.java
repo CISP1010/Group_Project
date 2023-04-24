@@ -10,14 +10,15 @@ package Menu;
 /**
 * @todo MenuItem.java javadoc
 * @body proofread javadoc info and add missing entries
+ * Comments are complete
 */
 public class MenuItem implements Cloneable{
 
-    private String item;
-    private String type;
-    private int number;
-    private double price;
-    private boolean availability; 
+    private String item; //This string stores the name of the item
+    private String type; //This string stores the type of the item
+    private int number; //This int stores the number of the item
+    private double price; //This double stores the price of the item
+    private boolean availability; //This boolean stores the availability of the item
     /**
      * Constructs a new MenuItem object with the specified item, type, price, and availability.
      *
@@ -27,11 +28,11 @@ public class MenuItem implements Cloneable{
      * @param availability the representation of if the item is available to order
      */   
     public MenuItem(int number, String item, String type, double price, boolean availability){
-        this.number = number;
-        this.item = item;
-        this.type = type;
-        this.price = price;
-        this.availability = availability;
+        this.number = number; //Stores the passed number of the item
+        this.item = item; //Stores the passed name of the item
+        this.type = type; //Stores the passed type of the item
+        this.price = price; //Stores the passed price of the item
+        this.availability = availability; //Stores the passed availability of the item
     }
      /**
      * Returns the name of the item.
@@ -39,11 +40,15 @@ public class MenuItem implements Cloneable{
      * @return item name
      */
     public int getItemNum(){
-        return number;
+        return number; //Returns the number of the item
     }
 
+    /**
+     * @todo Needs javadoc info
+     * @body
+     */
     public String getItem(){
-        return item;
+        return item; //Returns the name of the item
     }
     
     /**
@@ -52,11 +57,15 @@ public class MenuItem implements Cloneable{
      * @param item the new name of the item
      */
     public void setItem(String item){
-        this.item = item;
+        this.item = item; //Sets the name of the item to the passed value
     }
 
+    /**
+     * @todo Needs javadoc info
+     * @body
+     */
     public void setItemNum(int number){
-        this.number = number;
+        this.number = number; //Sets the number of the item to the passed value
     }
     
     /**
@@ -65,7 +74,7 @@ public class MenuItem implements Cloneable{
      * @return type of item
      */
     public String getType(){
-        return type;
+        return type; //Returns the type of the item
     }
      /**
      * Sets the type of menu item to the specified value.
@@ -73,7 +82,7 @@ public class MenuItem implements Cloneable{
      * @param type the new type of item
      */
     public void setType(String type){
-        this.type = type;
+        this.type = type; //Sets the type of the item to the passed value
     }
     
     /**
@@ -82,7 +91,7 @@ public class MenuItem implements Cloneable{
      * @return the price of the menu item
      */
     public double getPrice(){
-        return price;
+        return price; //Returns the price of the item
     }
     
     /**
@@ -91,7 +100,7 @@ public class MenuItem implements Cloneable{
      * @param price the numerical value entered by the user that represents the cost of the item to customer
      */
     public void setPrice(double price){
-        this.price = price;
+        this.price = price; //Sets the price of the item to the passed value
     }
     /**
      * Returns the availability that was input by the user.
@@ -99,14 +108,14 @@ public class MenuItem implements Cloneable{
      * @return true if the item is available, false if it is not
      */
     public boolean getAvailability(){
-        return availability;
+        return availability; //Returns the availability of the item
     }
     /**
      * Sets the availability of the menu item to the specified value.
      *
      */
     public void setAvailability(boolean availability){
-        this.availability = availability;
+        this.availability = availability; //Sets the availability of the item to the passed value
     }
 
     /**
@@ -116,9 +125,9 @@ public class MenuItem implements Cloneable{
      */
     public Object clone() {
         try {
-            return super.clone();
+            return super.clone(); //Returns a clone of the menuItem
         } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
+            throw new AssertionError(); //Throws an error if the menuItem cannot be cloned
         }
     }
 
@@ -130,7 +139,7 @@ public class MenuItem implements Cloneable{
      */
     @Override
     public String toString(){
-        return "item: " + item + ", type: " + type + ", price: " + price + ", availability: " + availability;
+        return "item: " + item + ", type: " + type + ", price: " + price + ", availability: " + availability; //Returns a string representation of the menu
     }
     
 }

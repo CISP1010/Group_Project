@@ -19,7 +19,7 @@ public class Order {
     private String deliveryPhone;
     private String deliveryNotes;
     private int tableNum;
-    private int orderNum = 1111;
+    private int orderNum;
     private String custName;
     private ArrayList<Integer> orderItem;
     private String orderType;
@@ -30,7 +30,7 @@ public class Order {
 
     /**
      * creates an order object with parameters for the order number, customer name, items in the order
-     * the type of arder, the table number - if dining in - , the delivery address and phone # -
+     * the type of order, the table number - if dining in - , the delivery address and phone # -
      * if for delivery, and any notes.
      * @param orderNum contains the order number
      * @param custName contains the customer name

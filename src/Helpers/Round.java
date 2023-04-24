@@ -9,10 +9,10 @@ public class Round {
      * @return The rounded value.
      */
     public static double round(double value, int decimal) {
-        if (decimal <= 0)
-            return value;
-        double p = Math.pow(10, decimal);
-        value = value * p;
-        return Math.round(value) / p;
+        if (decimal <= 0) //If decimal is less than or equal to 0
+            return value; //return the value
+        double p = Math.pow(10, decimal); //p is 10 to the power of decimal
+        value = value * p; //value is value times p
+        return Math.round(value) / p; //return the rounded value divided by p
     }
 }
