@@ -100,6 +100,14 @@ public class Order {
         return sb.toString(); //Returns the string builder as a string
     }
 
+    public Integer[] getOrderItemNums(){
+        Integer[] itemNums = new Integer[orderItem.size()];
+        for (int i = 0; i < orderItem.size(); i++) {
+            itemNums[i] = orderItem.get(i);
+        }
+        return itemNums;
+    }
+
     /**
      * this gets the order-type
      * @return returns the order-type

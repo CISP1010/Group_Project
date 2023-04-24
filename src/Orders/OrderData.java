@@ -97,8 +97,19 @@ public class OrderData {
         for(Map.Entry<Integer, Order> entry : orderData.entrySet()) { //For each order in the hashmap
             Integer key = entry.getKey();     //Get the order number
             Order value = entry.getValue();   //Get the order object
-            sb.append(key).append(" => ").append(value.getOrderItems()).append("\n"); //Build the string of order information
 
+            String tableNum;
+            if (value.getTableNum() <= 0) { //If the order is not a dine-in order
+                sb.append(key).append(" => ").append(value.getCustName())
+                        .append(", ") .append(value.getOrderType()).append(", ")
+                        .append(value.getOrderItems()).append("\n"); //Build the string of order information
+            } else {
+                tableNum = "Table: " + value.getTableNum(); //If the order is a dine-in order
+                sb.append(key).append(" => ").append(value.getCustName())
+                        .append(", ").append(value.getOrderType()).append(", ")
+                        .append(tableNum).append(", ")
+                        .append(value.getOrderItems()).append("\n"); //Build the string of order information
+            }
         }return sb.toString();
     }
 
