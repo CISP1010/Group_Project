@@ -329,7 +329,9 @@ public class OrderMenu {
                                                 for (String seatDish : seatDishes) { //loops through the seat dishes
                                                     itemSel.add(menuData.getItemNum(seatDish.trim())); //adds the existing seat dishes to the itemSel ArrayList
                                                 }
-                                                out.println("Including existing dishes. - " + Arrays.toString(seatDishes)); //tells the user that the existing dishes are being added
+                                            out.println();
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
                                             } else if (seatChoice == 3) { //cancels the order
                                                 Cls.cls();
                                                 out.println("Order cancelled.");
@@ -337,6 +339,40 @@ public class OrderMenu {
                                                 input.nextLine();
                                                 break; //breaks out of the do while loop
                                             } else {
+                                                out.println("Invalid choice. Cancelling order.");
+                                                out.println("| Press enter to continue. |");
+                                                input.nextLine();
+                                                break; //breaks out of the do while loop
+                                            }
+                                        }
+                                        if (!(orderData.getOrder(orderNum).getOrderItems().isEmpty())){
+                                            Cls.cls();
+                                            out.println("Order is not empty. What would you like to do? \n 1: Clear the order \n 2: Add to the order \n 3: Cancel");
+                                            out.print("[choice]: ");
+                                            int sel = input.nextInt(); //gets the choice
+                                            input.nextLine(); //clears the newline character
+                                            if (sel == 1) { //clears the order
+                                                orderData.remOrder(orderNum); //clears the order
+                                                out.println("Order cleared.");
+                                            } else if (sel == 2) { //adds to the order
+                                                Order order = orderData.getOrder(orderNum); //gets the order
+                                                Integer[] orderItems = order.getOrderItemNums(); //gets the order items
+                                                itemSel.addAll(Arrays.asList(orderItems)); //adds the existing order items to the itemSel ArrayList
+                                                out.println("Including existing order. - "); //tells the user that the existing order is being added
+                                                for (int orderItemNum : itemSel){
+                                                    out.print(menuData.getName(orderItemNum) + ", ");
+                                                }
+                                                out.println();
+                                                out.println("| Press enter to continue. |");
+                                                input.nextLine();
+                                            } else if (sel == 3) { //cancels the order
+                                                Cls.cls();
+                                                out.println("Order cancelled.");
+                                                out.println("| Press enter to continue. |");
+                                                input.nextLine();
+                                                break; //breaks out of the do while loop
+                                            } else {
+                                                Cls.cls();
                                                 out.println("Invalid choice. Cancelling order.");
                                                 out.println("| Press enter to continue. |");
                                                 input.nextLine();
@@ -354,6 +390,12 @@ public class OrderMenu {
                                         if (address.isEmpty()) { //checks if the address is empty
                                             address = orderData.getOrder(orderNum).getDeliveryAddress(); //sets the address to the old address
                                             out.println("Using existing address. - " + address); //tells the user that the old address is being used
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
+                                        }else {
+                                            out.println("Delivery address set to: " + address); //tells the user that the address is being set
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
                                         }
                                         Cls.cls();
                                         out.println("Enter the phone number or press enter to skip.");
@@ -362,24 +404,30 @@ public class OrderMenu {
                                         if (phone.isEmpty()) { //checks if the phone number is empty
                                             phone = orderData.getOrder(orderNum).getPhone(); //sets the phone number to the old phone number
                                             out.println("Using existing phone number. - " + phone); //tells the user that the old phone number is being used
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
+                                        }else {
+                                            out.println("Phone number set to: " + phone); //tells the user that the phone number is being set
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
                                         }
                                         Cls.cls();
                                         out.println("Enter the order notes. (optional)");
                                         out.print("[notes]: ");
                                         deliveryNotes = input.nextLine(); //gets the delivery notes
-                                        if (!input.nextLine().isEmpty()) {
-                                            deliveryNotes = input.nextLine(); //gets the delivery notes if not empty
-                                        } else {
+                                        if (deliveryNotes.isEmpty()) {
                                             deliveryNotes = orderData.getOrder(orderNum).getDeliveryNotes(); //sets the delivery notes to the old delivery notes
                                             out.println("Using existing notes. - " + deliveryNotes); //tells the user that the old delivery notes are being used
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
+                                        } else {
+                                            out.println("Delivery Notes changed to - " + deliveryNotes); //tells the user that the delivery notes have been changed
+                                            out.println("| Press enter to continue. |");
+                                            input.nextLine();
                                         }
                                         if (!(orderData.getOrder(orderNum).getOrderItems().isEmpty())){
                                             Cls.cls();
-                                            /**
-                                             * @todo Crashes when selecting to keep existing order
-                                             * @body
-                                             */
-                                            out.println("Order is not empty. What would you like to do? \n 1: Clear the order \n 2: Keep the order \n 3: Cancel");
+                                            out.println("Order is not empty. What would you like to do? \n 1: Clear the order \n 2: Add to the order \n 3: Cancel");
                                             out.print("[choice]: ");
                                             int sel = input.nextInt(); //gets the choice
                                             input.nextLine(); //clears the newline character
@@ -388,11 +436,15 @@ public class OrderMenu {
                                                 out.println("Order cleared.");
                                             } else if (sel == 2) { //adds to the order
                                                 Order order = orderData.getOrder(orderNum); //gets the order
-                                                String[] orderItems = order.getOrderItems().split(","); //gets the order items
-                                                for (String orderItem : orderItems) { //loops through the order items
-                                                    itemSel.add(menuData.getItemNum(orderItem.trim())); //adds the existing order items to the itemSel ArrayList
+                                                Integer[] orderItems = order.getOrderItemNums(); //gets the order items
+                                                itemSel.addAll(Arrays.asList(orderItems)); //adds the existing order items to the itemSel ArrayList
+                                                out.println("Including existing order. - "); //tells the user that the existing order is being added
+                                                for (int orderItemNum : itemSel){
+                                                    out.print(menuData.getName(orderItemNum) + ", ");
                                                 }
-                                                out.println("Including existing order. - " + Arrays.toString(orderItems)); //tells the user that the existing order is being added
+                                                out.println();
+                                                out.println("| Press enter to continue. |");
+                                                input.nextLine();
                                             } else if (sel == 3) { //cancels the order
                                                 Cls.cls();
                                                 out.println("Order cancelled.");
@@ -420,24 +472,26 @@ public class OrderMenu {
                                             out.println("Using existing phone number. - " + phone); //tells the user that the old phone number is being used
                                         }
                                         Cls.cls();
-                                        /**
-                                         * @todo Crashes when selecting to keep existing order
-                                         * @body
-                                         */
                                         if (!(orderData.getOrder(orderNum).getOrderItems().isEmpty())) { //checks if the order is empty
-                                            out.println("Order is not empty. What would you like to do? \n 1: Clear the order \n 2: Keep the order \n 3: Cancel");
+                                            Cls.cls();
+                                            out.println("Order is not empty. What would you like to do? \n 1: Clear the order \n 2: Add to the order \n 3: Cancel");
                                             out.print("[choice]: ");
                                             int sel = input.nextInt(); //gets the choice
                                             input.nextLine(); //clears the newline character
                                             if (sel == 1) { //clears the order
                                                 orderData.remOrder(orderNum); //clears the order
                                                 out.println("Order cleared.");
-                                            } else if (sel == 2) { //adds to the order; //gets the order items
-                                                String[] orderItems = orderData.getOrder(orderNum).getOrderItems().split(","); //gets the order items
-                                                for (String orderItem : orderItems) { //loops through the order items
-                                                    itemSel.add(menuData.getItemNum(orderItem.trim())); //adds the existing order items to the itemSel ArrayList
+                                            } else if (sel == 2) { //adds to the order
+                                                Order order = orderData.getOrder(orderNum); //gets the order
+                                                Integer[] orderItems = order.getOrderItemNums(); //gets the order items
+                                                itemSel.addAll(Arrays.asList(orderItems)); //adds the existing order items to the itemSel ArrayList
+                                                out.println("Including existing order. - "); //tells the user that the existing order is being added
+                                                for (int orderItemNum : itemSel){
+                                                    out.print(menuData.getName(orderItemNum) + ", ");
                                                 }
-                                                out.println("Including existing dishes. - " + Arrays.toString(orderItems)); //tells the user that the existing dishes are being added
+                                                out.println();
+                                                out.println("| Press enter to continue. |");
+                                                input.nextLine();
                                             } else if (sel == 3) { //cancels the order
                                                 Cls.cls();
                                                 out.println("Order cancelled.");
