@@ -8,10 +8,7 @@ import static java.lang.System.out;
  * The EmployeeData class represents a collection of employees' data, including their first and last names, positions,
  * section assignments, and schedules.
  */
-/**
- * @todo proofread EmployeeData.java javadoc info
- * @body proofread javadoc info
- */
+
 public class EmployeeData {
 
     /**
@@ -146,7 +143,8 @@ public class EmployeeData {
      * @return the employee's data in a formatted string if found, otherwise a message that the employee was not found
      */
     public String searchEmployee(String name) {
-        if (employeeData.containsKey(name)) {
+        if (employeeData.containsKey(name)) {1
+
             StringBuilder sb = new StringBuilder();
             Employee employee = employeeData.get(name);
             sb.append("Name: ").append(name).append("\n")
