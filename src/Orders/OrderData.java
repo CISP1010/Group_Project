@@ -24,6 +24,7 @@ public class OrderData {
     /**
      * This creates a hashmap to contain the orders
      */
+    @SuppressWarnings("FieldMayBeFinal")
     private static HashMap<Integer, Order> orderData = new HashMap<>();
     /**
      * This is a private instance variable initialized to start the order numbers at 1000
@@ -43,6 +44,15 @@ public class OrderData {
      */
     public void addOrder(int orderNumber, Order order) {
         orderData.put(orderNumber, order); //adds the order to the hashmap
+    }
+
+    /**
+     * This method returns an order object from the orderData hashmap
+     * @param orderNumber the order number to search for
+     * @return returns the order object
+     */
+    public Order getOrder(int orderNumber) {
+        return orderData.get(orderNumber);
     }
 
     /**
@@ -82,17 +92,14 @@ public class OrderData {
     /**
      * This method prints out all the information for all the orders in the orderData hashmap
      */
-
-    /**
-     * @todo I believe this method is what is causes order objects to print instead of the string info
-     * @body But I think I also used this method to get the order object when it's actually needed. Need a method to list orders as strings. Maybe I already wrote that?
-     */
-    public void listOrders(){
+    public String listOrders(){
+        StringBuilder sb = new StringBuilder();
         for(Map.Entry<Integer, Order> entry : orderData.entrySet()) { //For each order in the hashmap
             Integer key = entry.getKey();     //Get the order number
             Order value = entry.getValue();   //Get the order object
-            System.out.println(key + " => " + value);  //Print the order number and order object
-        }
+            sb.append(key).append(" => ").append(value.getOrderItems()).append("\n"); //Build the string of order information
+
+        }return sb.toString();
     }
 
     /**
@@ -102,18 +109,6 @@ public class OrderData {
      */
     public boolean isOrder(int orderNum) { //Checks if an order number exists
         return orderData.containsKey(orderNum); //Returns true if the order number is found
-    }
-
-    /**
-     * This method returns the order object with this order number if it exists
-     * @param orderNum The order number of the order object searched for
-     * @return returns the order object if found, null if not
-     */
-    public Order getOrder(int orderNum){
-        if (isOrder(orderNum)){ //If the order number exists
-            return orderData.get(orderNumber); //Return the order object
-        }else System.out.println("Order " + orderNumber + "not found!"); //If the order number does not exist
-        return null;
     }
 
     /**

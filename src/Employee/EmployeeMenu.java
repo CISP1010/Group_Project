@@ -155,7 +155,7 @@ public class EmployeeMenu {
                                 try {
                                     newSection = Integer.parseInt(inputString.trim()); //This if block is for handling blank input,
                                 } catch (NumberFormatException e) {                    //when the user does not update the value.
-                                    newSection = employeeData.getSection(name);        //int datatypes can't be empty, this assigns the old section value if input was left blank.
+                                    newSection = employeeData.getSection(name);        //int datatype can't be empty, this assigns the old section value if input was left blank.
                                 }
                             } else {
                                 newSection = employeeData.getSection(name);            //Just in case something goes wrong in the if block, this falls back on the old section.
@@ -185,7 +185,7 @@ public class EmployeeMenu {
                             if (!newName.isEmpty()) { //check if a new name was specified, searches the old name if the name was not edited
                                 out.println("New Information");
                                 out.println("---------------\n");
-                                out.println(employeeData.searchEmployee(newName)); //search for newname if exists
+                                out.println(employeeData.searchEmployee(newName)); //search for new name if exists
                             } else out.println("New Information:\n" + employeeData.searchEmployee(name)); //otherwise search for old name
                             out.println("Is this correct?"); //check if info is correct
                             out.print("[(Y)es/(N)o]: ");
@@ -233,9 +233,7 @@ public class EmployeeMenu {
                     out.println("| Press enter to continue |");
                     input.nextLine();
                 }
-                case 5 -> {
-                    Cls.cls();
-                }
+                case 5 -> Cls.cls();
                 default -> out.println("Invalid choice \"" + choice + "\" please enter a valid option."); //catch invalid input and prompt to try again
             }
         } while (choice != 5); //end thread if  5 is entered

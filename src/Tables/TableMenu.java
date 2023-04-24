@@ -20,7 +20,7 @@ public class TableMenu {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(in);
-        TableData tableData = new TableData(); //Create new TableData object to intialize table data hashmap
+        TableData tableData = new TableData(); //Create new TableData object to initialize table data hashmap
         int choice; //initialize choice variable for switch statement
         do {
             Cls.cls();
@@ -69,50 +69,42 @@ public class TableMenu {
                         out.println("-------------------");
                         out.println(tableData.getTableData(table));  //display current table data
                         for (int i = 1; i <= 4; i++) { //iterate through numbers 1 - 4 and prompt for new dishes for seats 1 - 4
-                            out.println("Enter the dish number for seat " + i +  " (Press Enter to skip, -L to list dishes, -C to clear seat)");
-                            out.print("Seat " + i + ": "); //print the seat number and new dish
-                            String dishString = input.nextLine(); //get the dish number
-                            int nd = 0; //initialize dish number variable
-
-                            /**
-                             * @todo This should be a do while loop
-                             * @body I guess it works as is, but it forces user input after listing the dishes
-                             *
-                             */
-                            if (dishString.equals("")) { //if the user presses enter, skip the seat
-                                continue;
-                            }else if (dishString.equals("-L")) { //if the user enters -L
-                                Cls.cls();
-                                MenuData menuData = new MenuData(); //create new MenuData object to print the menu
-                                out.println("DISH LIST");
-                                out.println("---------");
-                                menuData.printMenu(); //print the menu
-                                out.println();
-                                out.println("Enter the dish number for seat " + i +  " (Press Enter to skip, -C to clear seat)");
-                                out.print("[Dish #]: ");
-                                /**
-                                 * @todo This probably make the user press enter twice
-                                 * @body if so, Need to set input.nextInt() to a variable and then use that variable in the if statement
-                                 * Also the else if is repeated twice do to lack of do while loop
-                                 */
-                                if(input.hasNextInt()) { //if the user enters a dish number, add the dish to the table
-                                    nd = input.nextInt(); //get the dish number
-                                    input.nextLine(); //clear the leftover newline character
-                                }else if (input.nextLine().equals("-C")){ //if the user enters -C, clear the seat
-                                    tableData.clearSeat(table, i); //clear the seat
+                            boolean restart1 = false; //initialize restart variable for do-while loop
+                            do {
+                                out.println("Enter the dish number for seat " + i + " (Press Enter to skip, -L to list dishes, -C to clear seat)");
+                                out.print("Seat " + i + ": "); //print the seat number and new dish
+                                String dishString = input.nextLine(); //get the dish number
+                                int nd; //initialize dish number variable
+                                switch (dishString) {
+                                    case "" -> {  //if the user presses enter, skip the seat
+                                    }
+                                    case "-L" -> {  //if the user enters -L
+                                        Cls.cls();
+                                        MenuData menuData = new MenuData(); //create new MenuData object to print the menu
+                                        out.println("DISH LIST");
+                                        out.println("---------");
+                                        menuData.printMenu(); //print the menu
+                                        out.println();
+                                        restart1 = true;
+                                    }
+                                    case "-C" -> {
+                                        tableData.clearSeat(table, i); //clear the seat
+                                        restart1 = false;
+                                    }
+                                    default -> {
+                                        try {
+                                            nd = Integer.parseInt(dishString); //Try to parse the dish number to an integer
+                                            tableData.addDish(table, i, nd); //add the dish to the table if successful
+                                            restart1 = false;
+                                        } catch (NumberFormatException e) { //catch invalid dish number
+                                            out.println("Invalid dish number."); //print error message
+                                            out.println("Press Enter to continue.");
+                                            input.nextLine();
+                                            restart1 = true;
+                                        }
+                                    }
                                 }
-                            }else if (dishString.equals("-C")) { //if the user enters -C, clear the seat
-                                tableData.clearSeat(table, i); //clear the seat
-                            }else {
-                                try {
-                                    nd = Integer.parseInt(dishString); //Try to parse the dish number to an integer
-                                    tableData.addDish(table, i, nd); //add the dish to the table if successful
-                                } catch (NumberFormatException e) { //catch invalid dish number
-                                    out.println("Invalid dish number."); //print error message
-                                    out.println("Press Enter to continue.");
-                                    input.nextLine();
-                                }
-                            }
+                            }while (restart1); //loop until valid dish number is entered
                         }
                         Cls.cls();
                         out.println("New Table Data:");

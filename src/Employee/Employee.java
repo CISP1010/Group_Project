@@ -32,15 +32,6 @@ public class Employee implements Cloneable {
     }
 
     /**
-     * Returns the first and last name of the employee.
-     *
-     * @return the name of the employee
-     */
-    public String getName() {
-        return name; //returns the name of the employee
-    }
-
-    /**
      * Sets the first and last name of the employee.
      *
      * @param name the new name of the employee

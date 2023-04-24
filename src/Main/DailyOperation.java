@@ -68,7 +68,7 @@ public class DailyOperation {
                     out.print("[(Y)es/(N)o]: ");
                     String yn = input.nextLine(); //Triggers if block if user enters yes
                     double splitTotal;
-                    if(YesNo.yesNo(input.nextLine())){ //if user enters yes
+                    if(YesNo.yesNo(yn)){ //if user enters yes
                         Cls.cls();
                         out.println(tableData.getTableData(tableNumber)); //keeps table data visible after clear screen
                         out.println("TOTAL: " + total);
@@ -90,7 +90,7 @@ public class DailyOperation {
                     EmployeeData employeeData = new EmployeeData(); //Create new employeeData object
                     /**
                      * @todo Add option to list all employees
-                     * @body Theres definitely a method for this already
+                     * @body There's definitely a method for this already
                      */
                     out.println("Enter the employee's name."); //add -L option to list all employees
                     out.print("[name]: ");

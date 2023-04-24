@@ -1,10 +1,13 @@
 package Main;
+
 import Employee.EmployeeMenu;
 import Helpers.Cls;
 import Menu.MenuMenu;
 import Orders.OrderMenu;
 import Tables.TableMenu;
+
 import java.util.Scanner;
+
 import static java.lang.System.out;
 
 
@@ -101,9 +104,8 @@ public class Main {
                         }
                     } while (!login); //loops until the user inputs the correct password
                 }
-                case 2 -> { // Daily normal user menu
-                    DailyOperation.main(new String[]{}); //calls the DailyOperation class
-                }
+                case 2 -> // Daily normal user menu
+                        DailyOperation.main(new String[]{}); //calls the DailyOperation class
                 case 3 -> { // Exit
                     out.println("Goodbye!");
                     out.print(".");

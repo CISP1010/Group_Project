@@ -8,16 +8,16 @@ import java.util.ArrayList;
  *  The Order class creates an object that represents a food order with parameters for information
  *   about the customer, the order itself, and the delivery details.
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class Order {
     /**
      * These are private instance variable for the delivery address, phone #, notes, table #
-     * customer name, order item, and the order type (dine in, delivery, or take away.
+     * customer name, order item, and the order type (dine in, delivery, or take away.)
      */
     private String deliveryAddress;
     private String deliveryPhone;
     private String deliveryNotes;
     private int tableNum;
-    private int orderNum;
     private String custName;
     private ArrayList<Integer> orderItem;
     private String orderType;
@@ -30,17 +30,15 @@ public class Order {
      * creates an order object with parameters for the order number, customer name, items in the order
      * the type of order, the table number - if dining in - , the delivery address and phone # -
      * if for delivery, and any notes.
-     * @param orderNum contains the order number
      * @param custName contains the customer name
      * @param orderItems contains the order's items
      * @param orderType indicates whether the order is to be served in-house
      * @param tableNum takes the table number, if applicable
-     * @param deliveryAddress takes the deliver address if applicable
-     * @param deliveryPhone takes the deliver phone number if applicable
+     * @param deliveryAddress takes the delivery address if applicable
+     * @param deliveryPhone takes the delivery phone number if applicable
      * @param deliveryNotes takes any miscellaneous notes any notes for the delivery (e.g. gate code, special instructions)
      */
-    public Order(int orderNum, String custName, ArrayList<Integer> orderItems, String orderType, int tableNum, String deliveryAddress, String deliveryPhone, String deliveryNotes) {
-        this.orderNum = orderNum; //Stores the passed order number
+    public Order(String custName, ArrayList<Integer> orderItems, String orderType, int tableNum, String deliveryAddress, String deliveryPhone, String deliveryNotes) {
         this.custName = custName; //Stores the passed customer name
         this.orderType = orderType; //Stores the passed order type
         this.orderItem = orderItems; //Stores the passed order items
@@ -48,48 +46,6 @@ public class Order {
         this.deliveryAddress = deliveryAddress; //Stores the passed delivery address
         this.deliveryPhone = deliveryPhone; //Stores the passed delivery phone number
         this.deliveryNotes = deliveryNotes; //Stores the passed delivery notes
-    }
-
-    /**
-     * this is a setter for the order number
-     * @param orderNum takes the order number
-     */
-    public void setNum(int orderNum) {
-        this.orderNum = orderNum; //Sets the order number to the passed value
-    }
-
-    /**
-     * this is a setter for the customer name
-     * @param custName takes the customer name
-     */
-    public void setCustName(String custName) {
-        this.custName = custName; //Sets the customer name to the passed value
-    }
-
-    /**
-     * this is a setter for the order items arraylist
-     * @param orderItems this is an array list that takes ordered items
-     */
-    public void setOrderItem(ArrayList<Integer> orderItems){
-        this.orderItem = orderItems; //Sets the order items to the passed value
-
-    }
-
-    /**
-     * this is a setter for the order type
-     * @param orderType contains information about whether the meal is to be eaten in, delivered, or picked up
-     */
-    public void setOrderType(String orderType){
-        this.orderType = orderType; //Sets the order type to the passed value
-    }
-
-    /**
-     * this is a getter for the order number
-     * @return it returns the order number
-     */
-
-    public int getOrderNumber(){
-        return orderNum; //Returns the order number
     }
 
     /**
@@ -110,7 +66,7 @@ public class Order {
 
     /**
      * gets the delivery notes
-     * @return returns the deliver notes
+     * @return returns the delivery notes
      */
     public String getDeliveryNotes(){
         return deliveryNotes; //Returns the delivery notes
@@ -150,15 +106,6 @@ public class Order {
      */
     public String getOrderType(){
         return orderType; //Returns the order type
-    }
-
-    /**
-     * this is a utility function to automatically increment the order number
-     * @return returns the order number
-     */
-    public int newOrderNum(){
-        orderNum++; //Increments the order number
-        return orderNum; //Returns the new order number
     }
 
 }
