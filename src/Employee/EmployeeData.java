@@ -119,18 +119,10 @@ public class EmployeeData {
             if (!newPosition.equals("")) { //if the new position is not empty
                 employee.setPosition(newPosition); //sets the employee's position to the new position
             }
-            /**
-             * @todo possible bug.
-             * @body The if block considers int 0 as empty, but I believe 0 is a valid schedule option. Need to make schedule options start at 1.
-             */
-            if (newSchedule != 0) { //if the new schedule is not empty
+            if (!(newSchedule < 0)) { //if the new schedule is not empty
                 employee.setSchedule(newSchedule); //sets the employee's schedule to the new schedule
             }
-            /**
-             * @todo possible bug.
-             * @body The if block considers int 0 as empty, but I believe 0 is a valid section option. Need to make sections options start at 1.
-             */
-            if (newSection != 0) { //if the new section is not empty
+            if (!(newSection < 0)) { //if the new section is not empty
                 employee.setSection(newSection); //sets the employee's section to the new section
             }
             employeeData.remove(name); //removes the old employee object from the hashmap

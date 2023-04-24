@@ -222,10 +222,6 @@ public class MenuData {
             MenuItem backup = (MenuItem) menuItem.clone(); //create a backup of the MenuItem object
             menuData.put(itemNum + 100, backup); //add the backup to the menuData HashMap
 
-            /**
-             * @todo I believe new item needs to be migrated to an integer data type?
-             * @body Not sure though. Need to double-check
-             */
             if (!newItem.equals("")) { //Set the new item
                 menuItem.setItem(newItem);
             }
