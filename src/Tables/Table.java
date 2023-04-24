@@ -10,7 +10,6 @@ import java.util.Map;
  * This class represents a table in a restaurant with information
  * about the table's number, seats, dishes, and bill.
 */
-
 public class Table {
 
     /**
@@ -39,7 +38,7 @@ public class Table {
      * @return the table number
      */
     public int getNumber() {
-        return tableNumber;
+        return tableNumber; //returns the table number
     }
 
     /**
@@ -48,7 +47,7 @@ public class Table {
      * @param filled the filled status of the table
      */
     public void setFilled(boolean filled) {
-        this.filled = filled;
+        this.filled = filled; //Sets the filled status of the table
     }
 
     /**
@@ -57,7 +56,7 @@ public class Table {
      * @return true if the table is filled, false otherwise
      */
     public boolean isFilled() {
-        return filled;
+        return filled; //returns the filled status of the table
     }
 
     /**
@@ -68,25 +67,24 @@ public class Table {
      */
     public void addDish(int seat, int dishNumber) {
         StringBuilder sb = new StringBuilder();
-        if(tableSeats.get(seat) != null){
-            sb.append(tableSeats.get(seat)).append(", ");
+        if(tableSeats.get(seat) != null){ //if the seat is not empty
+            sb.append(tableSeats.get(seat)).append(", "); //append the dishes already ordered at the seat
         }
-        sb.append(menuData.getName(dishNumber));
-        tableSeats.remove(seat);
-        tableSeats.put(seat, sb.toString());
+        sb.append(menuData.getName(dishNumber)); //append the new dish
+        tableSeats.remove(seat); //remove the old dish object
+        tableSeats.put(seat, sb.toString()); //add the new dish object
     }
 
     /**
      * clears the dishes at a given seat
      * @param seat the seat number
      */
-
     public void clearSeat(int seat) {
         StringBuilder sb = new StringBuilder();
-        if (tableSeats.get(seat) != null) {
-            sb.append(" ");
-            tableSeats.remove(seat);
-            tableSeats.put(seat, sb.toString());
+        if (tableSeats.get(seat) != null) { //if the seat is not empty
+            sb.append(" "); //set the dish to empty
+            tableSeats.remove(seat); //remove the old dish object
+            tableSeats.put(seat, sb.toString()); //add the new dish object
         }
     }
 
@@ -97,12 +95,12 @@ public class Table {
      */
     public String getTableDishes() {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()) {
-            int seat = entry.getKey();
-            String dish = entry.getValue();
-            sb.append("Seat ").append(seat).append(": ").append(dish).append("\n");
+        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()) { //loops through the table seats
+            int seat = entry.getKey(); //gets the seat number
+            String dish = entry.getValue(); //gets the dish ordered at the seat
+            sb.append("Seat ").append(seat).append(": ").append(dish).append("\n"); //appends the seat number and dish to the string builder
         }
-        return sb.toString();
+        return sb.toString(); //returns the string builder as a string
     }
 
     /**
@@ -112,8 +110,8 @@ public class Table {
      */
     public String getSeatDishes(int seat){
         StringBuilder sb = new StringBuilder();
-        sb.append("Seat ").append(seat).append(": ").append("Dishes: ").append(tableSeats.get(seat)).append("\n");
-        return sb.toString();
+        sb.append("Seat ").append(seat).append(": ").append("Dishes: ").append(tableSeats.get(seat)).append("\n"); //appends the seat number and dish to the string builder
+        return sb.toString(); //returns the string builder as a string
     }
 
     /**
@@ -121,7 +119,7 @@ public class Table {
      * @return the number of seats filled
      */
     public int getSeatsFilled(){
-        return tableSeats.size();
+        return tableSeats.size(); //returns the number of seats filled
     }
 
 
@@ -131,14 +129,13 @@ public class Table {
      * @return the total bill for the table
      */
     public double getTotal(){
-        MenuData menuData = new MenuData();
-        double price = 0;
-        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()){
-            int seat = entry.getKey();
-            for(String dish : entry.getValue().split(", ")){
-                int itemNum = menuData.getItemNum(dish);
-                price = price + menuData.getPrice(itemNum);
+        MenuData menuData = new MenuData(); //Creates a new Menu.MenuData object
+        double price = 0; //This double holds the total price of the bill
+        for (Map.Entry<Integer, String> entry : tableSeats.entrySet()){ //loops through the table seats
+            for(String dish : entry.getValue().split(", ")){ //loops through the dishes ordered at the seat
+                int itemNum = menuData.getItemNum(dish); //gets the item number of the dish
+                price = price + menuData.getPrice(itemNum); //adds the price of the dish to the total price
             }
-        }return Round.round(price,2);
+        }return Round.round(price,2); //returns the total price rounded to 2 decimal places
     }
 }

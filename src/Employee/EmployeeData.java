@@ -9,11 +9,7 @@ import static java.lang.System.out;
  * section assignments, and schedules.
  */
 
-/**
- * @todo proofread EmployeeData.java javadoc info
- * @body proofread javadoc info
- * comments are completed
- */
+
 public class EmployeeData {
 
     /**
